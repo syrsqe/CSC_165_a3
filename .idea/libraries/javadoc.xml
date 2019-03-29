@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="javadoc">
+    <CLASSES />
+    <JAVADOC>
+      <root url="file://C:/javagaming/javagaming/graphicslib3D/javadoc" />
+      <root url="file://C:/javagaming/javagaming/jbullet/javadoc" />
+      <root url="file://C:/javagaming/javagaming/jinput/javadoc" />
+      <root url="file://C:/javagaming/javagaming/jogl/javadoc" />
+      <root url="file://C:/javagaming/javagaming/rage165/javadoc" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
