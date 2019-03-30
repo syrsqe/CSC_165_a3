@@ -150,7 +150,7 @@ public class ProtocolClient extends GameConnectionClient {
 
     public void sendMoveMessage(Vector3f pos) {
         try {
-            System.out.println("sending details for me message to server");
+            System.out.println("sending move message to server");
             String message = new String("move," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
             sendPacket(message);

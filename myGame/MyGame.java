@@ -320,11 +320,11 @@ public class MyGame extends VariableFrameRateGame {
         sm.addController(rc);
         BounceController bc = new BounceController(); // user-defined node controller
         sm.addController(bc);
-
+        setupNetworking(); //setup network
         setupInputs();
         setupOrbitCamera(eng, sm);
 
-        setupNetworking(); //setup network
+
     }
 
 
@@ -415,6 +415,7 @@ public class MyGame extends VariableFrameRateGame {
         // set up for Player 1
         if (networkType.compareTo("c") == 0){
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient);
+            System.out.println("client movement setup");
         }else{
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed);
         }
