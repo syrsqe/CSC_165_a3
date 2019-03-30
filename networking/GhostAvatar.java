@@ -32,8 +32,9 @@ public class GhostAvatar {
         return node;
     }
 
-    public void setGhostPosition(Vector3f ghostPosition) {
-        this.ghostPosition = ghostPosition;
+    public void setGhostPosition(Vector3f newGhostPosition) {
+        node.setLocalPosition(newGhostPosition);
+        ghostPosition = newGhostPosition;
     }
 
     public Vector3f getGhostPosition() {

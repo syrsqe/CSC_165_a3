@@ -413,10 +413,18 @@ public class MyGame extends VariableFrameRateGame {
         //System.out.println("gamepad name: " + gpName);
 
         // set up for Player 1
-        playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed);
+        if (networkType.compareTo("c") == 0){
+            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient);
+        }else{
+            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed);
+        }
+
 
         if (gpName != null) // only do if there is a gamepad connected
         {
+            if(networkType.compareTo("c") == 0) {
+                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient);
+            }
             playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed);
         }
 
@@ -610,7 +618,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public Vector3 getPlayerPosition() {
-        SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("myDolphinNode");
+        SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldPosition();
     }
 
@@ -624,8 +632,15 @@ public class MyGame extends VariableFrameRateGame {
             avatar.setNode(ghostN);
             avatar.setEntity(ghostE);
             // avatar.setPosition(node’s position...maybe redundant);
+
+
         }
     }
+//    public void updateGhostAvatarPosition(GhostAvatar avatar, Vector3f newPosition){
+//        if(avatar!= null){
+//            avatar.setLocalPosition(newPosition);
+//        }
+//    }
 
     public void removeGhostAvatarFromGameWorld(GhostAvatar avatar) {
         if (avatar != null) gameObjectsToRemove.add(avatar.getId());

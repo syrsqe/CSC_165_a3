@@ -72,6 +72,9 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
 // case where server receives a MOVE message
 
             if (msgTokens[0].compareTo("move") == 0) {
+                UUID clientID = UUID.fromString(msgTokens[1]);
+                String[] pos = {msgTokens[2], msgTokens[3], msgTokens[4]};
+                sendMoveMessages(clientID, pos);
             } // etc�..
         }
     }
@@ -153,6 +156,28 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
     }// etc�..
 
     public void sendMoveMessages(UUID clientID, String[] position) {
+        String message = new String("move," + clientID.toString());
+        message += "," + position[0];
+        message += "," + position[1];
+        message += "," + position[2];
+        System.out.println("Movemessage recieved at server");
+        clientList = getClients();
+        clientEnum = clientList.keys();
+        while (clientEnum.hasMoreElements()) {
+            System.out.println("current Client UUID in server move message: " + clientID);
+            UUID nextClientID = (UUID) clientEnum.nextElement();
+
+            if (nextClientID.compareTo(clientID) != 0) {
+                try {
+                    System.out.println("sending move message to: " + nextClientID);
+                    sendPacket(message, nextClientID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //forward to new client
+        }
     }// etc�..
 
     public void sendByeMessages(UUID clientID) {

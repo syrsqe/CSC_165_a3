@@ -91,6 +91,19 @@ public class ProtocolClient extends GameConnectionClient {
             }// etc�..
             if (messageTokens[0].compareTo("move") == 0) // rec. �move...�
             {
+                UUID ghostID = UUID.fromString(messageTokens[1]);
+                Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(
+                        Float.parseFloat(messageTokens[2]),
+                        Float.parseFloat(messageTokens[3]),
+                        Float.parseFloat(messageTokens[4]));
+                for(GhostAvatar ghost: ghostAvatars){
+                    if(ghost.getId().compareTo(ghostID) == 0){
+                        ghost.setGhostPosition(ghostPosition);
+
+                    }
+                }
+
+                //find proper ghost avatar
             }// etc�..
         }
     }
@@ -136,6 +149,14 @@ public class ProtocolClient extends GameConnectionClient {
     }
 
     public void sendMoveMessage(Vector3f pos) {
+        try {
+            System.out.println("sending details for me message to server");
+            String message = new String("move," + id.toString());
+            message += "," + pos.x() + "," + pos.y() + "," + pos.z();
+            sendPacket(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }// etc�..
 
     public void createGhostAvatar(UUID ghostID, Vector3f ghostPosition) throws IOException{
