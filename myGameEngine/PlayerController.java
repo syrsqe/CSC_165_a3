@@ -77,7 +77,9 @@ public class PlayerController {
         public void performAction(float time, Event e) {
             player.moveLeft(-movementSpeed);
             if (protClient != null) {
-                protClient.sendMoveMessage((Vector3f) player.getWorldPosition());
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
             }
         }
     }
@@ -87,7 +89,9 @@ public class PlayerController {
             player.moveRight(-movementSpeed);
 
             if (protClient != null) {
-                protClient.sendMoveMessage((Vector3f) player.getWorldPosition());
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
             }
         }
     }
@@ -97,7 +101,13 @@ public class PlayerController {
             player.moveForward(movementSpeed);
 
             if (protClient != null) {
-                protClient.sendMoveMessage((Vector3f) player.getWorldPosition());
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+
+                System.out.println("Player Rotation: " + playerRotation);
+                System.out.println("x :" + playerRotation.x() + " y :" +playerRotation.y() + " z :" +playerRotation.z()+ " w :" +playerRotation.w());
+
             }
         }
 
@@ -109,7 +119,9 @@ public class PlayerController {
             player.moveForward(-movementSpeed);
 
             if (protClient != null) {
-                protClient.sendMoveMessage((Vector3f) player.getWorldPosition());
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
             }
         }
     }

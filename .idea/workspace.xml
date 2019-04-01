@@ -3,10 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networking/ProtocolClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/networking/ProtocolClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveBackwardAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveBackwardAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveForwardAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveForwardAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveLeftAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveRightAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateLeftAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateRightAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/GameServerUDP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/GhostAvatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/GhostAvatar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/ProtocolClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,8 +32,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="408">
-                    <caret line="384" column="38" selection-start-line="384" selection-start-column="38" selection-end-line="384" selection-end-column="38" />
+                  <state relative-caret-position="832">
+                    <caret line="179" column="41" selection-start-line="179" selection-start-column="41" selection-end-line="179" selection-end-column="41" />
                     <folding>
                       <element signature="imports" expanded="true" />
                     </folding>
@@ -40,11 +48,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="341">
-              <caret line="322" column="42" selection-start-line="322" selection-start-column="42" selection-end-line="322" selection-end-column="42" />
+              <caret line="322" column="36" selection-start-line="322" selection-start-column="36" selection-end-line="322" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,19 +61,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myGameEngine/Camera3Pcontroller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="161" column="32" selection-start-line="161" selection-start-column="32" selection-end-line="161" selection-end-column="32" />
+            <state relative-caret-position="869">
+              <caret line="160" column="36" selection-start-line="160" selection-start-column="36" selection-end-line="160" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,8 +75,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking/GhostAvatar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="32" />
+            <state relative-caret-position="697">
+              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="838">
+              <caret line="161" column="79" selection-start-line="161" selection-start-column="79" selection-end-line="161" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,13 +99,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
+        <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="139" column="34" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -100,13 +110,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="68" column="66" selection-start-line="68" selection-start-column="66" selection-end-line="68" selection-end-column="66" />
+            <state relative-caret-position="884">
+              <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/Games/Star.Wars.Episode.I.Racer.GOG/Star.Wars.Episode.I.Racer.GOG/README.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -139,6 +154,7 @@
       <find>update</find>
       <find>setupin</find>
       <find>protclient</find>
+      <find>setupnet</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,11 +164,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java" />
-        <option value="$PROJECT_DIR$/myGameEngine/PlayerController.java" />
+        <option value="$PROJECT_DIR$/myGame/MyGame.java" />
         <option value="$PROJECT_DIR$/networking/GameServerUDP.java" />
         <option value="$PROJECT_DIR$/networking/GhostAvatar.java" />
+        <option value="$PROJECT_DIR$/myGameEngine/PlayerController.java" />
         <option value="$PROJECT_DIR$/networking/ProtocolClient.java" />
-        <option value="$PROJECT_DIR$/myGame/MyGame.java" />
       </list>
     </option>
   </component>
@@ -252,57 +268,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="384" column="38" selection-start-line="384" selection-start-column="38" selection-end-line="384" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="161" column="32" selection-start-line="161" selection-start-column="32" selection-end-line="161" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="139" column="34" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/networking/GhostAvatar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myGameEngine/Camera3Pcontroller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
+        <state relative-caret-position="-1236">
           <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
+    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/myGameEngine/Controllers/PlayerMotionStateController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="68" column="66" selection-start-line="68" selection-start-column="66" selection-end-line="68" selection-end-column="66" />
+        <state relative-caret-position="374">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Games/Star.Wars.Episode.I.Racer.GOG/Star.Wars.Episode.I.Racer.GOG/README.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="160" column="36" selection-start-line="160" selection-start-column="36" selection-end-line="160" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="832">
+          <caret line="179" column="41" selection-start-line="179" selection-start-column="41" selection-end-line="179" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -312,7 +315,39 @@
     <entry file="file://$PROJECT_DIR$/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
-          <caret line="322" column="42" selection-start-line="322" selection-start-column="42" selection-end-line="322" selection-end-column="42" />
+          <caret line="322" column="36" selection-start-line="322" selection-start-column="36" selection-end-line="322" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/GhostAvatar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="838">
+          <caret line="161" column="79" selection-start-line="161" selection-start-column="79" selection-end-line="161" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -3,6 +3,7 @@ package networking;
 import java.util.UUID;
 import ray.rage.scene.*;
 import ray.rml.Vector3f;
+import ray.rml.*;
 
 public class GhostAvatar {
     private UUID id;
@@ -49,4 +50,8 @@ public class GhostAvatar {
         return entity;
     }
     // accessors and setters for id, node, entity, and position
+
+    public void setGhostRotation(Matrix3 ghostRotation){
+        node.setLocalRotation(ghostRotation);
+    }
 }

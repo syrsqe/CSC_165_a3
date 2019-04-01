@@ -96,9 +96,15 @@ public class ProtocolClient extends GameConnectionClient {
                         Float.parseFloat(messageTokens[2]),
                         Float.parseFloat(messageTokens[3]),
                         Float.parseFloat(messageTokens[4]));
+                        Quaternion ghostRotation = Quaternionf.createFrom(
+                        Float.parseFloat(messageTokens[5]),
+                        Float.parseFloat(messageTokens[6]),
+                        Float.parseFloat(messageTokens[7]),
+                                Float.parseFloat(messageTokens[8]));
                 for(GhostAvatar ghost: ghostAvatars){
                     if(ghost.getId().compareTo(ghostID) == 0){
                         ghost.setGhostPosition(ghostPosition);
+                        ghost.setGhostRotation(ghostRotation.toMatrix3());
 
                     }
                 }
@@ -148,11 +154,12 @@ public class ProtocolClient extends GameConnectionClient {
         }
     }
 
-    public void sendMoveMessage(Vector3f pos) {
+    public void sendMoveMessage(Vector3f pos, Quaternion rot) {
         try {
             System.out.println("sending move message to server");
             String message = new String("move," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
+            message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();
