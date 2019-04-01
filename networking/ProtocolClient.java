@@ -91,6 +91,7 @@ public class ProtocolClient extends GameConnectionClient {
             }// etc�..
             if (messageTokens[0].compareTo("move") == 0) // rec. �move...�
             {
+                System.out.println("client recieved move message");
                 UUID ghostID = UUID.fromString(messageTokens[1]);
                 Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(
                         Float.parseFloat(messageTokens[2]),
@@ -99,8 +100,7 @@ public class ProtocolClient extends GameConnectionClient {
                         Quaternion ghostRotation = Quaternionf.createFrom(
                         Float.parseFloat(messageTokens[5]),
                         Float.parseFloat(messageTokens[6]),
-                        Float.parseFloat(messageTokens[7]),
-                                Float.parseFloat(messageTokens[8]));
+                        Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
                 for(GhostAvatar ghost: ghostAvatars){
                     if(ghost.getId().compareTo(ghostID) == 0){
                         ghost.setGhostPosition(ghostPosition);
