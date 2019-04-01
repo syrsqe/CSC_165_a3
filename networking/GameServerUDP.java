@@ -49,7 +49,8 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             if (msgTokens[0].compareTo("create") == 0) {
                 UUID clientID = UUID.fromString(msgTokens[1]);
                 String[] pos = {msgTokens[2], msgTokens[3], msgTokens[4]};
-                sendCreateMessages(clientID, pos);
+                String[] rot = {msgTokens[5], msgTokens[6], msgTokens[7], msgTokens[8]};
+                sendCreateMessages(clientID, pos, rot);
                 sendWantsDetailsForNewClientMessages(clientID);
             }
 // case where server receives a BYE message
@@ -65,7 +66,8 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
                 UUID destinationClientID = UUID.fromString(msgTokens[1]);
                 UUID detailsClientID = UUID.fromString(msgTokens[2]);
                 String[] remGhostPosition = {msgTokens[3], msgTokens[4], msgTokens[5]};
-                sendDetailsMessasge(detailsClientID, destinationClientID, remGhostPosition);
+                String[] remGhostRotation = {msgTokens[6], msgTokens[7], msgTokens[8], msgTokens[9]};
+                sendDetailsMessasge(detailsClientID, destinationClientID, remGhostPosition, remGhostRotation);
 
 
             } // etc�..
@@ -91,12 +93,13 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
         }
     }
 
-    public void sendCreateMessages(UUID clientID, String[] position) { // format: create, remoteId, x, y, z
+    public void sendCreateMessages(UUID clientID, String[] position, String[] rotation) { // format: create, remoteId, x, y, z
 
         String message = new String("create," + clientID.toString());
         message += "," + position[0];
         message += "," + position[1];
         message += "," + position[2];
+        message += "," + rotation[0] + "," + rotation[1] + "," + rotation[2] + "," + rotation[3];
         System.out.println("Create message recieved at server");
         clientList = getClients();
         clientEnum = clientList.keys();
@@ -117,11 +120,12 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
         }
     }
 
-    public void sendDetailsMessasge(UUID clientID, UUID remoteID, String[] position) { //details for new client //remote is destination address
+    public void sendDetailsMessasge(UUID clientID, UUID remoteID, String[] position, String[] rotation) { //details for new client //remote is destination address
         String message = new String("dm," + clientID.toString()); //details for messege
         message += "," + position[0];
         message += "," + position[1];
         message += "," + position[2];
+        message += "," + rotation[0] + "," + rotation[1] + "," + rotation[2] + "," + rotation[3];
         System.out.println("sending details message to client:" + clientID);
         try {
             sendPacket(message, remoteID);

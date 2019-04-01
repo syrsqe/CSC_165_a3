@@ -32,7 +32,7 @@ public class ProtocolClient extends GameConnectionClient {
                 if (messageTokens[1].compareTo("success") == 0) {
                    // game.setIsConnected(true);
                     System.out.println("successfully joined game");
-                    sendCreateMessage((Vector3f) game.getPlayerPosition());
+                    sendCreateMessage((Vector3f) game.getPlayerPosition(), game.getPlayerRotation());
                 }
                 if (messageTokens[1].compareTo("failure") == 0) {
                     //game.setIsConnected(false);
@@ -43,15 +43,13 @@ public class ProtocolClient extends GameConnectionClient {
             if ((messageTokens[0].compareTo("dm") == 0) // receive �dsfr�
                     || (messageTokens[0].compareTo("create") == 0)) { // format: create, remoteId, x,y,z or dsfr, remoteId, x,y,z
                 UUID ghostID = UUID.fromString(messageTokens[1]);
-                Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(
-                        Float.parseFloat(messageTokens[2]),
-                        Float.parseFloat(messageTokens[3]),
-                        Float.parseFloat(messageTokens[4]));
+                Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(Float.parseFloat(messageTokens[2]), Float.parseFloat(messageTokens[3]), Float.parseFloat(messageTokens[4]));
+                Quaternion ghostRotation = Quaternionf.createFrom(Float.parseFloat(messageTokens[5]), Float.parseFloat(messageTokens[6]), Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
                         System.out.println("create revieved by client");
 
 
                 try {
-                   createGhostAvatar(ghostID, ghostPosition);
+                   createGhostAvatar(ghostID, ghostPosition, ghostRotation.toMatrix3());
                 } catch (IOException e) {
                     System.out.println("error creating ghost avatar");
                 }
@@ -60,7 +58,7 @@ public class ProtocolClient extends GameConnectionClient {
                 UUID ClientNeedsInfo = UUID.fromString(messageTokens[1]);
                 System.out.println("client reveived wants details for message: " + this.id);
 
-                sendDetailsForMeMessage(ClientNeedsInfo,(Vector3f) game.getPlayerPosition()); // (sedDetailsfor)respond with game position and orientation
+                sendDetailsForMeMessage(ClientNeedsInfo,(Vector3f) game.getPlayerPosition(), game.getPlayerRotation()); // (sedDetailsfor)respond with game position and orientation
 
             }
             if (messageTokens[0].compareTo("bye") == 0) //on receieve by message, remove ghost avatar from local list and tell game to remove it also
@@ -83,24 +81,12 @@ public class ProtocolClient extends GameConnectionClient {
 
 
             }
-            if (messageTokens[0].compareTo("wsds") == 0) // rec. �create��
-            {
-            }// etc�..
-            if (messageTokens[0].compareTo("wsds") == 0) // rec. �wants��
-            {
-            }// etc�..
             if (messageTokens[0].compareTo("move") == 0) // rec. �move...�
             {
                 System.out.println("client recieved move message");
                 UUID ghostID = UUID.fromString(messageTokens[1]);
-                Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(
-                        Float.parseFloat(messageTokens[2]),
-                        Float.parseFloat(messageTokens[3]),
-                        Float.parseFloat(messageTokens[4]));
-                        Quaternion ghostRotation = Quaternionf.createFrom(
-                        Float.parseFloat(messageTokens[5]),
-                        Float.parseFloat(messageTokens[6]),
-                        Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
+                Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(Float.parseFloat(messageTokens[2]), Float.parseFloat(messageTokens[3]), Float.parseFloat(messageTokens[4]));
+                Quaternion ghostRotation = Quaternionf.createFrom(Float.parseFloat(messageTokens[5]), Float.parseFloat(messageTokens[6]), Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
                 for(GhostAvatar ghost: ghostAvatars){
                     if(ghost.getId().compareTo(ghostID) == 0){
                         ghost.setGhostPosition(ghostPosition);
@@ -123,10 +109,11 @@ public class ProtocolClient extends GameConnectionClient {
         }
     }
 
-    public void sendCreateMessage(Vector3f pos) { // format: (create, localId, x,y,z)
+    public void sendCreateMessage(Vector3f pos, Quaternion rot) { // format: (create, localId, x,y,z)
         try {
             String message = new String("create," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
+            message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,11 +130,12 @@ public class ProtocolClient extends GameConnectionClient {
         }
     }
 
-    public void sendDetailsForMeMessage(UUID remId, Vector3f pos) { // send my postion to remoteclient, //remId is destination
+    public void sendDetailsForMeMessage(UUID remId, Vector3f pos, Quaternion rot) { // send my postion to remoteclient, //remId is destination
         try {
             System.out.println("sending details for me message to server");
             String message = new String("dfm,"+ remId.toString() + "," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
+            message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,8 +154,8 @@ public class ProtocolClient extends GameConnectionClient {
         }
     }// etc�..
 
-    public void createGhostAvatar(UUID ghostID, Vector3f ghostPosition) throws IOException{
-        GhostAvatar newGhostAvatar = new GhostAvatar(ghostID, ghostPosition);
+    public void createGhostAvatar(UUID ghostID, Vector3f ghostPosition, Matrix3 ghostRotation) throws IOException{
+        GhostAvatar newGhostAvatar = new GhostAvatar(ghostID, ghostPosition, ghostRotation);
         ghostAvatars.add(newGhostAvatar);
         game.addGhostAvatarToGameWorld(newGhostAvatar);
         System.out.println("ghost avatar created");

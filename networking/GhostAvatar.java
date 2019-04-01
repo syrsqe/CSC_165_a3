@@ -10,11 +10,13 @@ public class GhostAvatar {
     private SceneNode node;
     private Entity entity;
     private Vector3f ghostPosition; //ghost position
+    private Matrix3 ghostRotation;
 
-    public GhostAvatar(UUID id, Vector3f position) {
+    public GhostAvatar(UUID id, Vector3f position, Matrix3 rotation) {
 
         this.id = id;
         this.ghostPosition = position;
+        this.ghostRotation = rotation;
     }
 
     public UUID getId() {
@@ -53,5 +55,9 @@ public class GhostAvatar {
 
     public void setGhostRotation(Matrix3 ghostRotation){
         node.setLocalRotation(ghostRotation);
+    }
+
+    public Matrix3 getGhostRotation() {
+        return ghostRotation;
     }
 }

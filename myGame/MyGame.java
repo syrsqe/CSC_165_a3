@@ -622,6 +622,11 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldPosition();
     }
+    public Quaternion getPlayerRotation() {
+        SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
+        return dolphinN.getWorldRotation().toQuaternion();
+    }
+
 
     public void addGhostAvatarToGameWorld(GhostAvatar avatar) throws IOException {
         if (avatar != null) {
@@ -630,6 +635,7 @@ public class MyGame extends VariableFrameRateGame {
             SceneNode ghostN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(avatar.getId().toString());
             ghostN.attachObject(ghostE);
             ghostN.setLocalPosition(avatar.getGhostPosition()); //get position that was sent
+            ghostN.setLocalRotation(avatar.getGhostRotation());
             avatar.setNode(ghostN);
             avatar.setEntity(ghostE);
             // avatar.setPosition(node’s position...maybe redundant);
