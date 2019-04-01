@@ -102,11 +102,7 @@ public class PlayerController {
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
-
                 protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
-
-                System.out.println("Player Rotation: " + playerRotation);
-                System.out.println("x :" + playerRotation.x() + " y :" +playerRotation.y() + " z :" +playerRotation.z()+ " w :" +playerRotation.w());
 
             }
         }
@@ -177,6 +173,11 @@ public class PlayerController {
         public void performAction(float time, Event e) {
             Degreef a = Degreef.createFrom(movementSpeed * rotationMultiplier);
             player.yaw(a);
+            if (protClient != null) {
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+
+            }
         }
     }
 
@@ -184,6 +185,11 @@ public class PlayerController {
         public void performAction(float time, Event e) {
             Degreef a = Degreef.createFrom(-movementSpeed * rotationMultiplier);
             player.yaw(a);
+            if (protClient != null) {
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+
+            }
         }
     }
 

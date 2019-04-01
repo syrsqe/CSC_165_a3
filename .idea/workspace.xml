@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/GameServerUDP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networking/ProtocolClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/networking/ProtocolClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/ProtocolClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="869">
-              <caret line="76" column="85" selection-start-line="76" selection-start-column="85" selection-end-line="76" selection-end-column="85" />
+            <state relative-caret-position="-1171">
+              <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
+            <state relative-caret-position="498">
               <caret line="93" column="43" selection-start-line="93" selection-start-column="43" selection-end-line="93" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -97,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
+            <state relative-caret-position="855">
+              <caret line="171" column="64" lean-forward="true" selection-start-line="171" selection-start-column="64" selection-end-line="171" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -156,9 +153,9 @@
         <option value="$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java" />
         <option value="$PROJECT_DIR$/myGame/MyGame.java" />
         <option value="$PROJECT_DIR$/networking/GhostAvatar.java" />
-        <option value="$PROJECT_DIR$/myGameEngine/PlayerController.java" />
         <option value="$PROJECT_DIR$/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/networking/GameServerUDP.java" />
+        <option value="$PROJECT_DIR$/myGameEngine/PlayerController.java" />
       </list>
     </option>
   </component>
@@ -302,16 +299,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/networking/GhostAvatar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -324,9 +311,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1171">
+          <caret line="58" column="42" selection-start-line="58" selection-start-column="42" selection-end-line="58" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
+        <state relative-caret-position="498">
           <caret line="93" column="43" selection-start-line="93" selection-start-column="43" selection-end-line="93" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -334,10 +331,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
+    <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="76" column="85" selection-start-line="76" selection-start-column="85" selection-end-line="76" selection-end-column="85" />
+        <state relative-caret-position="855">
+          <caret line="171" column="64" lean-forward="true" selection-start-line="171" selection-start-column="64" selection-end-line="171" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
