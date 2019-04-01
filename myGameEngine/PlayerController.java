@@ -1,6 +1,7 @@
 package myGameEngine;
 
 import networking.*;
+import myGame.*;
 
 import net.java.games.input.Component;
 import net.java.games.input.Event;
@@ -19,16 +20,18 @@ public class PlayerController {
     private float movementSpeed;
     private float rotationMultiplier = 7.0f; // turning is too slow if just using movementSpeed. Multiply it with this value.
     private ProtocolClient protClient;
+    private MyGame game;
 
 
-    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed) {
+    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, MyGame game) {
         player = playerN;
         movementSpeed = speed;
         setupInput(im, controllerName);
+        game = game;
     }
 
     //constructor if game is a client
-    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, ProtocolClient p) {
+    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, ProtocolClient p, MyGame game) {
         player = playerN;
         movementSpeed = speed;
         setupInput(im, controllerName);
@@ -190,6 +193,18 @@ public class PlayerController {
                 protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
 
             }
+        }
+    }
+
+    private class QuitGameAction extends AbstractInputAction
+    {
+        public void performAction(float time, Event event)
+        { System.out.println("shutdown requested");
+            if (protClient != null) {
+                protClient.sendByeMessage();
+            }
+            game.setState(Game.State.STOPPING);
+
         }
     }
 

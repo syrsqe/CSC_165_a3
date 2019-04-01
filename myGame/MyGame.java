@@ -90,7 +90,7 @@ public class MyGame extends VariableFrameRateGame {
     private String serverAddress;
     private int serverPort;
     private ProtocolType serverProtocol;
-    private ProtocolClient protClient;
+    private static ProtocolClient protClient;
     private GameServerUDP gameServer;
     private boolean isClientConnected;
     private LinkedList<UUID> gameObjectsToRemove;
@@ -146,6 +146,7 @@ public class MyGame extends VariableFrameRateGame {
             e.printStackTrace(System.err);
         } finally {
             game.shutdown();
+            protClient.sendByeMessage();
             game.exit();
         }
     }
@@ -430,19 +431,19 @@ public class MyGame extends VariableFrameRateGame {
 
         // set up for Player 1
         if (networkType.compareTo("c") == 0){
-            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient);
+            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
         }else{
-            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed);
+            playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
         }
 
 
         if (gpName != null) // only do if there is a gamepad connected
         {
             if(networkType.compareTo("c") == 0) {
-                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient);
+                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
             }
-            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed);
+            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
         }
 
         // Set up additional inputs below
