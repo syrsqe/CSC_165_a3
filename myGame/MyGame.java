@@ -99,6 +99,9 @@ public class MyGame extends VariableFrameRateGame {
     private static String networkType; //going to need to be nonestatic at some point
 
 
+    private static String playerModel;
+
+
     public MyGame(String serverAddr, int sPort) {
         super();
         this.serverAddress = serverAddr;
@@ -122,6 +125,18 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public static void main(String[] args) {
+        //ask about which player
+        Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Choose your character:");
+        System.out.println("press d for the dolphin");
+        System.out.println("press c for the cone");
+        String playerChoice = modelScanner.nextLine();
+        if(playerChoice.equals("c")){
+            playerModel = "cone.obj";
+
+        }else if(playerChoice.equals("d")){
+            playerModel = "dolphinHighPoly.obj";
+        }
         game = new MyGame(args[0], Integer.parseInt(args[1]));
         networkType = args[2]; // s for server, c for client
         try {
@@ -246,7 +261,8 @@ public class MyGame extends VariableFrameRateGame {
 
 
         // create Player 1 dolphin
-        Entity player1E = sm.createEntity("player1E", "dolphinHighPoly.obj");
+
+        Entity player1E = sm.createEntity("player1E", playerModel);
         player1E.setPrimitive(Primitive.TRIANGLES);
         player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
         player1Node.moveBackward(5.0f);
@@ -626,11 +642,14 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldRotation().toQuaternion();
     }
+    public String getPlayerModel(){
+        return playerModel;
+    }
 
 
-    public void addGhostAvatarToGameWorld(GhostAvatar avatar) throws IOException {
+    public void addGhostAvatarToGameWorld(GhostAvatar avatar, String model) throws IOException {
         if (avatar != null) {
-            Entity ghostE = getEngine().getSceneManager().createEntity("ghost" + avatar.getId().toString(), "dolphinHighPoly.obj");
+            Entity ghostE = getEngine().getSceneManager().createEntity("ghost" + avatar.getId().toString(), model);
             ghostE.setPrimitive(Primitive.TRIANGLES);
             SceneNode ghostN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(avatar.getId().toString());
             ghostN.attachObject(ghostE);
