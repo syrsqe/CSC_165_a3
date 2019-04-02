@@ -3,19 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/myGame/MyGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveBackwardAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveBackwardAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveForwardAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveForwardAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveLeftAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$MoveRightAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateLeftAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController$RotateRightAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/myGameEngine/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/GameServerUDP.class" beforeDir="false" afterPath="$PROJECT_DIR$/networking/GameServerUDP.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/GameServerUDP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/NetworkingServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/networking/NetworkingServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/networking/NetworkingServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/networking/NetworkingServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-server.bat" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,11 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="148" column="12" selection-start-line="148" selection-start-column="12" selection-end-line="148" selection-end-column="40" />
+            <state relative-caret-position="460">
+              <caret line="597" column="64" selection-start-line="597" selection-start-column="64" selection-end-line="597" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#24925#24926#0" expanded="true" />
@@ -63,10 +57,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/networking/NetworkingServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="86" selection-start-line="7" selection-start-column="86" selection-end-line="7" selection-end-column="86" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1093">
-              <caret line="212" column="5" lean-forward="true" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
+              <caret line="212" column="5" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#9257#9258#0" expanded="true" />
@@ -165,11 +174,12 @@
       <find>sendcreate</find>
       <find>senddetailsforme</find>
       <find>getpla</find>
-      <find>playermodel</find>
       <find>playercontroll</find>
       <find>getplayermodel</find>
-      <find>game</find>
       <find>protclient</find>
+      <find>game</find>
+      <find>shutdown</find>
+      <find>playermodel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,10 +190,11 @@
       <list>
         <option value="$PROJECT_DIR$/../../Dolphin Starship-Network Trial/a1/MyGame.java" />
         <option value="$PROJECT_DIR$/networking/GhostAvatar.java" />
-        <option value="$PROJECT_DIR$/networking/GameServerUDP.java" />
         <option value="$PROJECT_DIR$/networking/ProtocolClient.java" />
-        <option value="$PROJECT_DIR$/myGame/MyGame.java" />
         <option value="$PROJECT_DIR$/myGameEngine/PlayerController.java" />
+        <option value="$PROJECT_DIR$/networking/GameServerUDP.java" />
+        <option value="$PROJECT_DIR$/networking/NetworkingServer.java" />
+        <option value="$PROJECT_DIR$/myGame/MyGame.java" />
       </list>
     </option>
   </component>
@@ -199,7 +210,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554147484027" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554170305240" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -332,13 +343,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/networking/ProtocolClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -349,26 +353,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myGame/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="148" column="12" selection-start-line="148" selection-start-column="12" selection-end-line="148" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#24925#24926#0" expanded="true" />
-            <element signature="e#24946#24947#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1093">
-          <caret line="212" column="5" lean-forward="true" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
+          <caret line="212" column="5" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#9257#9258#0" expanded="true" />
             <element signature="e#9290#9291#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/NetworkingServer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="69" selection-start-line="26" selection-start-column="69" selection-end-line="26" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#865#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/GameServerUDP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/networking/NetworkingServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="86" selection-start-line="7" selection-start-column="86" selection-end-line="7" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myGame/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="597" column="64" selection-start-line="597" selection-start-column="64" selection-end-line="597" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#24925#24926#0" expanded="true" />
+            <element signature="e#24946#24947#0" expanded="true" />
           </folding>
         </state>
       </provider>

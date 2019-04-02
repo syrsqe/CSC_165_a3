@@ -91,7 +91,6 @@ public class MyGame extends VariableFrameRateGame {
     private int serverPort;
     private ProtocolType serverProtocol;
     private static ProtocolClient protClient;
-    private GameServerUDP gameServer;
     private boolean isClientConnected;
     private LinkedList<UUID> gameObjectsToRemove;
     private static MyGame game;
@@ -145,8 +144,8 @@ public class MyGame extends VariableFrameRateGame {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         } finally {
-            game.shutdown();
             protClient.sendByeMessage();
+            game.shutdown();
             game.exit();
         }
     }
@@ -596,11 +595,7 @@ public class MyGame extends VariableFrameRateGame {
     private void setupNetworking() {
         gameObjectsToRemove = new LinkedList<UUID>();
         if (networkType.compareTo("s") == 0) { //server
-            try {
-                gameServer = new GameServerUDP(serverPort);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            System.out.println("you are in single player mode");
         } else if (networkType.compareTo("c") == 0) { //client
             isClientConnected = false;
             try {
