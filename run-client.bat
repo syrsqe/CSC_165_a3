@@ -1,1 +1,1 @@
-java myGame.MyGame 192.168.1.106 700 c
+java myGame.MyGame 10.117.247.10 700 c

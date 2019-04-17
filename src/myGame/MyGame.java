@@ -288,6 +288,7 @@ public class MyGame extends VariableFrameRateGame {
         */
 
 
+        /*
         // set up earth
         Entity earthE = sm.createEntity("myEarth", "earth.obj");
         earthE.setPrimitive(Primitive.TRIANGLES);
@@ -296,6 +297,7 @@ public class MyGame extends VariableFrameRateGame {
         earthN.moveForward(10.0f);
         earthN.moveRight(10.0f);
         //earthN.setLocalScale(0.2f, 0.2f, 0.2f);
+        */
 
         /*
         // create ground plane
@@ -339,6 +341,38 @@ public class MyGame extends VariableFrameRateGame {
         setupNetworking(); //setup network
         setupInputs();
         setupOrbitCamera(eng, sm);
+
+        //ISSUE: camera also moves up and down with the playerNode. Need to fix later
+        HoverController hc = new HoverController(); // makes player appear as if they are hovering
+        sm.addController(hc);
+        hc.addNode(player1Node);
+
+        // code for adding terrain
+        // 2^patches: min=5, def=7, warnings start at 10
+        Tessellation tessE = sm.createTessellation("tessE", 6);
+
+        // subdivisions per patch:  min=0, try up to 32
+        tessE.setSubdivisions(8f);
+
+        SceneNode tessN = sm.getRootSceneNode().createChildSceneNode("tessN");
+        tessN.attachObject(tessE);
+
+        // to move it, note that X and Z must BOTH be positive OR negative
+        // tessN.translate(Vector3f.createFrom(-6.2f, -2.2f, 2.7f));
+        // tessN.yaw(Degreef.createFrom(37.2f));
+
+        tessN.scale(30, 80, 30);
+        tessE.setHeightMap(this.getEngine(), "terrainMap1.png");
+        //assets/scripts/" + scriptFileName
+        tessE.setTexture(this.getEngine(), "bottom.jpg");
+        // tessE.setNormalMap(. . .)
+
+
+
+        updateVerticalPosition(); // make sure player is above the terrain when game loads
+
+
+
 
 
     }
@@ -680,4 +714,32 @@ public class MyGame extends VariableFrameRateGame {
         }
 
     }
+
+
+
+    public void updateVerticalPosition()
+    {
+        //SceneNode dolphinN = this.getEngine().getSceneManager().getSceneNode("dolphinNode");
+        SceneNode tessN = this.getEngine().getSceneManager().getSceneNode("tessN");
+        Tessellation tessE = ((Tessellation) tessN.getAttachedObject("tessE"));
+
+        // Figure out Avatar's position relative to plane
+        Vector3 worldAvatarPosition = player1Node.getWorldPosition();
+        Vector3 localAvatarPosition = player1Node.getLocalPosition();
+
+        // use avatar World coordinates to get coordinates for height
+        // Keep the X coordinate
+        // The Y coordinate is the varying height
+        // Keep the Z coordinate
+        Vector3 newAvatarPosition = Vector3f.createFrom(localAvatarPosition.x(),
+                tessE.getWorldHeight(worldAvatarPosition.x(),worldAvatarPosition.z()) + 0.5f,
+                localAvatarPosition.z());
+
+        // use avatar Local coordinates to set position, including height
+        player1Node.setLocalPosition(newAvatarPosition);
+    }
+
+
+
+
 }

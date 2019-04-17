@@ -23,19 +23,20 @@ public class PlayerController {
     private MyGame game;
 
 
-    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, MyGame game) {
+    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, MyGame g) {
         player = playerN;
         movementSpeed = speed;
         setupInput(im, controllerName);
-        game = game;
+        game = g;
     }
 
     //constructor if game is a client
-    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, ProtocolClient p, MyGame game) {
+    public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, ProtocolClient p, MyGame g) {
         player = playerN;
         movementSpeed = speed;
         setupInput(im, controllerName);
         protClient = p;
+        game = g;
     }
 
     private void setupInput(InputManager im, String cn) {
@@ -79,6 +80,8 @@ public class PlayerController {
     private class MoveLeftAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
             player.moveLeft(-movementSpeed);
+            game.updateVerticalPosition();
+
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
 
@@ -90,6 +93,7 @@ public class PlayerController {
     private class MoveRightAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
             player.moveRight(-movementSpeed);
+            game.updateVerticalPosition();
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
@@ -102,6 +106,7 @@ public class PlayerController {
     private class MoveForwardAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
             player.moveForward(movementSpeed);
+            game.updateVerticalPosition();
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
@@ -116,6 +121,7 @@ public class PlayerController {
         public void performAction(float time, Event e) {
             //node.moveBackward(movementSpeed); // not working
             player.moveForward(-movementSpeed);
+            game.updateVerticalPosition();
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
@@ -144,6 +150,8 @@ public class PlayerController {
                 player.moveForward(-movementSpeed);
             else if (value == 0.25f)
                 player.moveForward(movementSpeed);
+
+            game.updateVerticalPosition();
         }
     }
 
@@ -169,6 +177,8 @@ public class PlayerController {
                 player.moveForward(-movementSpeed);
             else if (value == 0.25f)
                 player.moveForward(movementSpeed);
+
+            game.updateVerticalPosition();
         }
     }
 
