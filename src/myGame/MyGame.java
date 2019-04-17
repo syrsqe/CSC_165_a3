@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.*;
 
 import ray.rage.*;
+import ray.rage.asset.material.Material;
 import ray.rage.game.*;
 import ray.rage.rendersystem.*;
 import ray.rage.rendersystem.Renderable.*;
@@ -99,6 +100,7 @@ public class MyGame extends VariableFrameRateGame {
 
 
     private static String playerModel;
+    private static String playerTexture;
 
 
     public MyGame(String serverAddr, int sPort) {
@@ -134,7 +136,8 @@ public class MyGame extends VariableFrameRateGame {
             playerModel = "cone.obj";
 
         }else if(playerChoice.equals("d")){
-            playerModel = "dolphinHighPoly.obj";
+            playerModel = "character_new5.obj";
+            playerTexture = "cTxt.png";
         }
         game = new MyGame(args[0], Integer.parseInt(args[1]));
         networkType = args[2]; // s for server, c for client
@@ -264,10 +267,22 @@ public class MyGame extends VariableFrameRateGame {
 
         Entity player1E = sm.createEntity("player1E", playerModel);
         player1E.setPrimitive(Primitive.TRIANGLES);
+        TextureManager tm = eng.getTextureManager();
+        Texture moonTexture = tm.getAssetByPath(playerTexture);
+        RenderSystem rs = sm.getRenderSystem();
+        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
+        state.setTexture(moonTexture);
+        player1E.setRenderState(state);
+        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
+        mat1.setShininess(100);
+
+        player1E.setMaterial(mat1);
+
         player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
         player1Node.moveBackward(5.0f);
         player1Node.moveRight(2f);
         player1Node.attachObject(player1E);
+
 
 
         /*
