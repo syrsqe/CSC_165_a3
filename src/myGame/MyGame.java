@@ -133,8 +133,8 @@ public class MyGame extends VariableFrameRateGame {
         System.out.println("press c for the cone");
         String playerChoice = modelScanner.nextLine();
         if(playerChoice.equals("c")){
-            playerModel = "cone.obj";
-
+            playerModel = "robot.obj";
+            playerTexture = "robot.png";
         }else if(playerChoice.equals("d")){
             playerModel = "character_new5.obj";
             playerTexture = "cTxt.png";
@@ -282,6 +282,9 @@ public class MyGame extends VariableFrameRateGame {
         player1Node.moveBackward(5.0f);
         player1Node.moveRight(2f);
         player1Node.attachObject(player1E);
+
+        if (playerModel.contains("robot"))
+            player1Node.scale(0.25f,0.25f,0.25f);
 
 
 
