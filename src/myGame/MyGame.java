@@ -380,7 +380,7 @@ public class MyGame extends VariableFrameRateGame {
         // tessN.yaw(Degreef.createFrom(37.2f));
 
         tessN.scale(30, 80, 30);
-        tessE.setHeightMap(this.getEngine(), "terrainMap1.png");
+        tessE.setHeightMap(this.getEngine(), "terrainMap4.png");
         //assets/scripts/" + scriptFileName
         tessE.setTexture(this.getEngine(), "bottom.jpg");
         // tessE.setNormalMap(. . .)

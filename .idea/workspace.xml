@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -16,66 +17,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/jre/lib/rt.jar!/sun/nio/fs/WindowsPathParser.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/VariableFrameRateGame.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/BaseGame.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+            <state relative-caret-position="40">
+              <caret line="382" column="57" selection-start-line="382" selection-start-column="57" selection-end-line="382" selection-end-column="57" />
               <folding>
-                <element signature="e#1529#1530#0" expanded="true" />
-                <element signature="e#1575#1576#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/Engine.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/util/Configuration.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/AbstractGame.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -84,7 +30,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mygame</find>
       <find>scenemanager</find>
       <find>sendcloseconnection</find>
       <find>getplayerposition</find>
@@ -114,6 +59,7 @@
       <find>scale</find>
       <find>playermodel</find>
       <find>robot</find>
+      <find>terrain</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,9 +85,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1280" />
-    <option name="width" value="1280" />
-    <option name="height" value="1440" />
+    <option name="x" value="1490" />
+    <option name="width" value="1522" />
+    <option name="height" value="1932" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -149,23 +95,21 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="myGame" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -173,12 +117,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555562569727" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556138890288" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -248,10 +194,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="745" y="0" width="761" height="966" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17669173" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27596018" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -260,15 +205,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3299435" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3325359" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39976275" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295107" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32874617" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32858837" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -337,13 +282,7 @@
     <entry file="file://$PROJECT_DIR$/networking/NetworkingServer.java" />
     <entry file="file://$PROJECT_DIR$/myGame/MyGame.java" />
     <entry file="file://$USER_HOME$/Dolphin Starship-Network Trial/a1/MyGame.java" />
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/asset/AbstractAssetManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="62" column="17" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/asset/AbstractAssetManager.class" />
     <entry file="file://D:/Games/Star.Wars.Episode.I.Racer.GOG/Star.Wars.Episode.I.Racer.GOG/README.txt" />
     <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java" />
     <entry file="file://$USER_HOME$/Dolphin Starship/a1/MyGame.java" />
@@ -360,56 +299,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/util/Configuration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/VariableFrameRateGame.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/AbstractGame.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/Engine.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/BaseGame.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
-          <folding>
-            <element signature="e#1529#1530#0" expanded="true" />
-            <element signature="e#1575#1576#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/jre/lib/rt.jar!/sun/nio/fs/WindowsPathParser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/util/Configuration.class" />
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/VariableFrameRateGame.class" />
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/AbstractGame.class" />
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/Engine.class" />
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/BaseGame.class" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/jre/lib/rt.jar!/sun/nio/fs/WindowsPathParser.class" />
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        <state relative-caret-position="40">
+          <caret line="382" column="57" selection-start-line="382" selection-start-column="57" selection-end-line="382" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
