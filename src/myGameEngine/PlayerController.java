@@ -3,12 +3,15 @@ package myGameEngine;
 import networking.*;
 import myGame.*;
 
+import ray.rage.game.*;
 import net.java.games.input.Component;
 import net.java.games.input.Event;
+import ray.rage.Engine;
 import ray.rage.scene.*;
 import ray.input.*;
 import ray.input.action.*;
 import ray.rml.Degreef;
+import static ray.rage.scene.SkeletalEntity.EndType.*;
 
 //not sure if needed
 import ray.rage.game.*;
@@ -107,6 +110,10 @@ public class PlayerController {
         public void performAction(float time, Event e) {
             player.moveForward(movementSpeed);
             game.updateVerticalPosition();
+            //animation
+            SkeletalEntity player1E = (SkeletalEntity) game.getMyEngine().getSceneManager().getEntity("player1E");
+            //player1E.stopAnimation();
+            player1E.playAnimation("forwardAnimation", 1.0f, LOOP, 50);
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
