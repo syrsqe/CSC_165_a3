@@ -379,11 +379,20 @@ public class MyGame extends VariableFrameRateGame {
         // tessN.translate(Vector3f.createFrom(-6.2f, -2.2f, 2.7f));
         // tessN.yaw(Degreef.createFrom(37.2f));
 
-        tessN.scale(30, 80, 30);
+        tessN.scale(60, 80, 60);
         tessE.setHeightMap(this.getEngine(), "terrainMap4.png");
         //assets/scripts/" + scriptFileName
         tessE.setTexture(this.getEngine(), "bottom.jpg");
         // tessE.setNormalMap(. . .)
+
+
+
+        // add maze object
+        Entity mazeE = sm.createEntity("mazeE", "maze1.obj");
+        mazeE.setPrimitive(Primitive.TRIANGLES);
+        SceneNode mazeNode = sm.getRootSceneNode().createChildSceneNode("mazeNode");
+        mazeNode.attachObject(mazeE);
+        mazeNode.scale(1f, .25f, 1f);
 
 
 
