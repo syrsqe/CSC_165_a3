@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scripts/updateSpeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/updateSpeed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,12 +18,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
+            <state relative-caret-position="42">
+              <caret line="1014" column="5" lean-forward="true" selection-start-line="1014" selection-start-column="5" selection-end-line="1014" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#27393#27394#0" expanded="true" />
-                <element signature="e#27427#27428#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -32,8 +30,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-898">
-              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="849">
+              <caret line="169" column="18" selection-start-line="169" selection-start-column="18" selection-end-line="169" selection-end-column="18" />
+              <folding>
+                <element signature="e#11215#11216#0" expanded="true" />
+                <element signature="e#11248#11249#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -42,13 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sendcreate</find>
-      <find>senddetailsforme</find>
-      <find>getpla</find>
-      <find>playercontroll</find>
-      <find>getplayermodel</find>
-      <find>protclient</find>
-      <find>game</find>
       <find>shutdown</find>
       <find>dolphinhigh</find>
       <find>scale</find>
@@ -72,13 +67,20 @@
       <find>setups</find>
       <find>distance</find>
       <find>getDistance</find>
+      <find>maze1</find>
+      <find>checkForCollisions</find>
+      <find>controllers</find>
+      <find>getdis</find>
+      <find>distancethr</find>
+      <find>getlocal</find>
+      <find>getlocalpos</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
   </component>
@@ -94,14 +96,13 @@
         <option value="$PROJECT_DIR$/myGame/MyGame.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/PhysicsObjController.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
+        <option value="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-246" />
-    <option name="y" value="-17" />
-    <option name="width" value="1400" />
-    <option name="height" value="992" />
+    <option name="width" value="960" />
+    <option name="height" value="1032" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -120,6 +121,12 @@
               <item name="A3" type="b2602c69:ProjectViewProjectNode" />
               <item name="A3" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="meshes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="A3" type="b2602c69:ProjectViewProjectNode" />
@@ -147,7 +154,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556515453446" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556580871028" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -222,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556248673843</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Built maze in RAGE out of cube objects. Changed JS enabled to false on load.">
+      <created>1556515527279</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556515527279</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -238,8 +252,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.3322034" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39976275" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946293" weight="0.3322034" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39887005" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -300,7 +314,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added 1 character" />
     <MESSAGE value="Added first maze" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added first maze" />
+    <MESSAGE value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
+    <option name="LAST_COMMIT_MESSAGE" value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/myGame/MyGame.class" />
@@ -346,28 +361,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+    <entry file="file://$PROJECT_DIR$/../A2/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-898">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="458">
+          <caret line="557" column="41" selection-start-line="557" selection-start-column="41" selection-end-line="557" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../A2/src/myGame/MyGame.java">
+    <entry file="file://$PROJECT_DIR$/../A1/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="156" selection-start-line="156" selection-end-line="165" selection-end-column="34" />
+        <state relative-caret-position="269">
+          <caret line="478" column="13" lean-forward="true" selection-start-line="477" selection-end-line="478" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/math/Transform.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#2320#2321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rml/Vector3f.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
+          <folding>
+            <element signature="e#2738#2739#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSceneNode.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+          <folding>
+            <element signature="e#3237#3238#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="849">
+          <caret line="169" column="18" selection-start-line="169" selection-start-column="18" selection-end-line="169" selection-end-column="18" />
+          <folding>
+            <element signature="e#11215#11216#0" expanded="true" />
+            <element signature="e#11248#11249#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
+        <state relative-caret-position="42">
+          <caret line="1014" column="5" lean-forward="true" selection-start-line="1014" selection-start-column="5" selection-end-line="1014" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#27393#27394#0" expanded="true" />
-            <element signature="e#27427#27428#0" expanded="true" />
           </folding>
         </state>
       </provider>
