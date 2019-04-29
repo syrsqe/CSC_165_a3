@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/updateSpeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/updateSpeed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,11 +18,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="382" column="57" selection-start-line="382" selection-start-column="57" selection-end-line="382" selection-end-column="57" />
+            <state relative-caret-position="141">
+              <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#27393#27394#0" expanded="true" />
+                <element signature="e#27427#27428#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-898">
+              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -30,23 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>scenemanager</find>
-      <find>sendcloseconnection</find>
-      <find>getplayerposition</find>
-      <find>mydolphine</find>
-      <find>mydol</find>
-      <find>playercontroller</find>
-      <find>moveforward</find>
-      <find>forward</find>
-      <find>controller</find>
-      <find>update</find>
-      <find>setupin</find>
-      <find>setupnet</find>
-      <find>addghostav</find>
-      <find>getplayer</find>
-      <find>player1</find>
-      <find>tomatrix</find>
-      <find>createghos</find>
       <find>sendcreate</find>
       <find>senddetailsforme</find>
       <find>getpla</find>
@@ -60,13 +55,30 @@
       <find>playermodel</find>
       <find>robot</find>
       <find>terrain</find>
+      <find>GROUND_N</find>
+      <find>15</find>
+      <find>25</find>
+      <find>ball1Node</find>
+      <find>cube</find>
+      <find>orbitController1</find>
+      <find>playerController1</find>
+      <find>cubeTestNode</find>
+      <find>createRagePhysicsWorld</find>
+      <find>updat</find>
+      <find>controll</find>
+      <find>physController1</find>
+      <find>update</find>
+      <find>planetsn</find>
+      <find>setups</find>
+      <find>distance</find>
+      <find>getDistance</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="WorkingBranch" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -80,14 +92,16 @@
         <option value="$PROJECT_DIR$/networking/GameServerUDP.java" />
         <option value="$PROJECT_DIR$/networking/NetworkingServer.java" />
         <option value="$PROJECT_DIR$/myGame/MyGame.java" />
+        <option value="$PROJECT_DIR$/src/myGameEngine/PhysicsObjController.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1490" />
-    <option name="width" value="1522" />
-    <option name="height" value="1932" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-246" />
+    <option name="y" value="-17" />
+    <option name="width" value="1400" />
+    <option name="height" value="992" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -99,30 +113,41 @@
         <subPane>
           <expand>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="myGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="myGameEngine" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556138890288" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556515453446" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -190,13 +215,21 @@
       <option name="project" value="LOCAL" />
       <updated>1555529533714</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added first maze">
+      <created>1556248673843</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556248673843</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="745" y="0" width="761" height="966" extended-state="0" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27596018" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1820623" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -205,13 +238,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3325359" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.3322034" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39976275" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50053704" side_tool="true" weight="0.3322034" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295107" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32858837" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -266,7 +299,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added 1 character" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added 1 character" />
+    <MESSAGE value="Added first maze" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added first maze" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/myGame/MyGame.class" />
@@ -305,12 +339,35 @@
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/Engine.class" />
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/BaseGame.class" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/jre/lib/rt.jar!/sun/nio/fs/WindowsPathParser.class" />
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PhysicsObjController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-898">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../A2/src/myGame/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="156" selection-start-line="156" selection-end-line="165" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="382" column="57" selection-start-line="382" selection-start-column="57" selection-end-line="382" selection-end-column="57" />
+        <state relative-caret-position="141">
+          <caret line="319" column="10" selection-start-line="319" selection-start-column="10" selection-end-line="319" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#27393#27394#0" expanded="true" />
+            <element signature="e#27427#27428#0" expanded="true" />
           </folding>
         </state>
       </provider>
