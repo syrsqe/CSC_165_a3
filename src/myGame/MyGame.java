@@ -1008,10 +1008,12 @@ player1Node.setPhysicsObject(roundNodePhysObj);
 
 
         // Scale height of maze. Uses hierarchy to apply it to all maze pieces
-        wholeMazeNode.scale(1f,height,1f);
+        wholeMazeNode.scale(1f, height,1f);
         wholeMazeNode.moveUp(UpPos);
 
-
+        // make the outermost maze walls taller
+        outerLevelNode.scale(1f, height * 2,1f);
+        outerLevelNode.moveUp(UpPos * 2 - 0.5f);
     }
 
     public boolean checkDistanceFromWall(SceneNode obj)
@@ -1044,25 +1046,16 @@ player1Node.setPhysicsObject(roundNodePhysObj);
         */
 
         // check for case 1: player inside InnerLevel3
-        if ((x > -8f && x < 8f) && (z > -7.5f && z < 7.5f))
+        if ((x > -8f && x < 8f) && (z > -8f && z < 8f))
         {
             // detailed check for innerLevel3 wall collisions
             // only 6 cube objects to check distance to
             // can narrow down even further by checking the sign of the x z values
             // this way only 2 objects to compare distance to
             // using this same method for the other levels would mean 4 objects to compare distance to
-
+///*
             if (x > 0)
             {
-
-                /*//SceneNode innerLevel3Node = getEngine().getSceneManager().getSceneNode("innerLevel3Node");
-                SceneNode outerLevelNode = getEngine().getSceneManager().getSceneNode("outerLevelNode");
-                SceneNode innerLevel1Node = getEngine().getSceneManager().getSceneNode("innerLevel1Node");
-                SceneNode innerLevel2Node = getEngine().getSceneManager().getSceneNode("innerLevel2Node");
-                SceneNode innerLevel3Node = getEngine().getSceneManager().getSceneNode("innerLevel3Node");
-                */
-
-
 
                 if (z < 0)
                 {
@@ -1152,6 +1145,196 @@ player1Node.setPhysicsObject(roundNodePhysObj);
         }
 
 
+        // check for case 2: player between InnerLevel2 and 3
+        else if ((x > -16f && x < 16f) && (z > -16f && z < 16f))
+        {
+
+            // check for left and right sides first
+            // ALSO NEED to check for the innerLevel3 outer walls. Do this later
+            // PROBABLY should add another separate else if statement for this. Check btwn 8f and 10f or something similar
+
+
+            if (x > 0)
+            {
+                if (z < 0)
+                {
+                    // need leftPiece B and M
+                    SceneNode innerLevel2LeftPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceBNode");
+                    SceneNode innerLevel2LeftPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceMNode");
+
+                    // for M piece, just need to check x distance
+                    tooClose = getXdistance(obj1, innerLevel2LeftPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        tooClose = getZdistance(obj1, innerLevel2LeftPieceBNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getXdistance(obj1, innerLevel2LeftPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need leftPiece T and M
+                    SceneNode innerLevel2LeftPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceTNode");
+                    SceneNode innerLevel2LeftPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getXdistance(obj1, innerLevel2LeftPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getZdistance(obj1, innerLevel2LeftPieceTNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getXdistance(obj1, innerLevel2LeftPieceTNode.getWorldPosition(), (distanceThreshold + 18) * 2);
+                    }
+                }
+            }
+
+            else // x < 0
+            {
+                if (z < 0)
+                {
+                    // need rightPiece B and M
+                    SceneNode innerLevel2RightPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceBNode");
+                    SceneNode innerLevel2RightPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getXdistance(obj1, innerLevel2RightPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getZdistance(obj1, innerLevel2RightPieceBNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getXdistance(obj1, innerLevel2RightPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need rightPiece T and M
+                    SceneNode innerLevel2RightPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceTNode");
+                    SceneNode innerLevel2RightPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getXdistance(obj1, innerLevel2RightPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getZdistance(obj1, innerLevel2RightPieceTNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getXdistance(obj1, innerLevel2RightPieceTNode.getWorldPosition(), (distanceThreshold + 18) * 2);
+                    }
+                }
+            }
+  //*/
+        }
+
+/*
+        // check for case 3: player between InnerLevel1 and 2
+        else if ((x > -32f && x < 32f) && (z > -32f && z < 32f))
+        {
+
+            if (x > 0)
+            {
+
+                if (z < 0)
+                {
+                    // need lowerPiece L and M
+                    SceneNode innerLevel1BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel1BottomPieceLNode");
+                    SceneNode innerLevel1BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel1BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel1BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel1BottomPieceLNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel1BottomPieceLNode.getWorldPosition(), distanceThreshold + 26);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need upperPiece L and M
+                    SceneNode innerLevel1TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel1TopPieceLNode");
+                    SceneNode innerLevel1TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel1TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel1TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel1TopPieceLNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel1TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+
+            else // x > 0
+            {
+                if (z < 0)
+                {
+                    // need lowerPiece R and M
+                    SceneNode innerLevel1BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel1BottomPieceRNode");
+                    SceneNode innerLevel1BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel1BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel1BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel1BottomPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel1BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need UpperPiece R and M
+                    SceneNode innerLevel1TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel1TopPieceRNode");
+                    SceneNode innerLevel1TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel1TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel1TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel1TopPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel1TopPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+
+        }
+        */
+
+
         // just check if within the values of innerLevel2. already checked if in range for IL3 so don't need to do so again.
         // we would already know it's between these two walls
       //  else if ()
@@ -1178,7 +1361,7 @@ player1Node.setPhysicsObject(roundNodePhysObj);
     }
 
     private boolean getXdistance(Vector3 obj1, Vector3 obj2, float distanceThreshold) {
-        // checks the distance on the z axis between two vectors
+        // checks the distance on the x axis between two vectors
 
         boolean tooClose = false;
         float dx = -obj1.x(); // make it negative so orientation matches the maze objects
