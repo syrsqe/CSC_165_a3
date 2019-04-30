@@ -24,6 +24,7 @@ public class PlayerController {
     private float rotationMultiplier = 7.0f; // turning is too slow if just using movementSpeed. Multiply it with this value.
     private ProtocolClient protClient;
     private MyGame game;
+    private boolean danceStarted = false;
 
 
     public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, MyGame g) {
@@ -59,6 +60,15 @@ public class PlayerController {
             im.associateAction(cn, net.java.games.input.Component.Identifier.Key.Q, turnLeftAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
             RotateRightAction turnRightAction = new RotateRightAction();
             im.associateAction(cn, net.java.games.input.Component.Identifier.Key.E, turnRightAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+
+            // n to start npcs
+            StartNPCsAction startNPCsAction = new StartNPCsAction();
+            im.associateAction(cn, net.java.games.input.Component.Identifier.Key.N, startNPCsAction, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+
+            // j to dance
+            DanceAnimation danceAnimation = new DanceAnimation();
+            im.associateAction(cn, net.java.games.input.Component.Identifier.Key.J, danceAnimation, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+
         } else if (cn.toLowerCase().contains("controller") || cn.toLowerCase().contains("gamepad")) {
             // NOTE: due to sensitivity issues when using the left and right sticks on a PS4 controller, movement is controlled with the directional buttons
 
@@ -111,9 +121,7 @@ public class PlayerController {
             player.moveForward(movementSpeed);
             game.updateVerticalPosition();
             //animation
-            SkeletalEntity player1E = (SkeletalEntity) game.getMyEngine().getSceneManager().getEntity("player1E");
-            //player1E.stopAnimation();
-            player1E.playAnimation("forwardAnimation", 1.0f, LOOP, 50);
+
 
             if (protClient != null) {
                 Quaternion playerRotation = player.getWorldRotation().toQuaternion();
@@ -122,6 +130,23 @@ public class PlayerController {
             }
         }
 
+    }
+    private class DanceAnimation extends AbstractInputAction {
+        public void performAction(float time, Event e) {
+            //animation
+            SkeletalEntity player1E = (SkeletalEntity) game.getMyEngine().getSceneManager().getEntity("player1E");
+            if(danceStarted == true){
+                player1E.stopAnimation();
+                danceStarted = false;
+            }else if(danceStarted == false){
+                player1E.stopAnimation();
+                player1E.playAnimation("danceAnimation", 0.5f, LOOP, 50);
+                danceStarted = true;
+            }
+
+
+
+        }
     }
 
     private class MoveBackwardAction extends AbstractInputAction {
@@ -222,6 +247,15 @@ public class PlayerController {
             }
             game.setState(Game.State.STOPPING);
 
+        }
+    }
+    private class StartNPCsAction extends AbstractInputAction {
+        public void performAction(float time, Event e) {
+
+            if (protClient != null) {
+                protClient.sendStartNPCMessage();
+
+            }
         }
     }
 

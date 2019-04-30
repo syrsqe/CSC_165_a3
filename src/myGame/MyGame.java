@@ -1,5 +1,6 @@
 package myGame;
 
+import com.bulletphysics.linearmath.QuaternionUtil;
 import myGameEngine.*;
 import networking.*;
 
@@ -21,6 +22,9 @@ import ray.rage.asset.texture.*;
 import ray.input.*;
 import ray.input.action.*;
 import ray.rage.rendersystem.shader.*;
+
+import static ray.rage.scene.SkeletalEntity.EndType.*;
+
 import ray.rage.util.BufferUtil;
 
 
@@ -28,9 +32,10 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 // skybox imports
+
+import ray.rage.util.*;
 import ray.rage.rendersystem.states.*;
 import ray.rage.asset.texture.*;
-import ray.rage.util.*;
 
 import java.awt.geom.*;
 
@@ -51,9 +56,10 @@ import java.lang.Exception;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
-import ray.networking.IGameConnection.ProtocolType;
-import java.net.UnknownHostException;
 
+import ray.networking.IGameConnection.ProtocolType;
+
+import java.net.UnknownHostException;
 
 
 public class MyGame extends VariableFrameRateGame {
@@ -95,12 +101,16 @@ public class MyGame extends VariableFrameRateGame {
     private boolean isClientConnected;
     private LinkedList<UUID> gameObjectsToRemove;
     private static MyGame game;
+    private GameServerUDP thisUDPServer;
+    private NPCcontroller npcCtrl;
 
     private static String networkType; //going to need to be nonestatic at some point
 
 
     private static String playerModel;
     private static String playerTexture;
+
+    private Engine myEngine;
 
 
     public MyGame(String serverAddr, int sPort) {
@@ -114,6 +124,7 @@ public class MyGame extends VariableFrameRateGame {
         System.out.println("arrow keys to rotate the camera");
         System.out.println("Z and X keys to zoom the camera");
         System.out.println("Press SPACEBAR to toggle javascripts");
+        System.out.println("When connected to server, press n from any client to start NPCs");
 
         /*
         System.out.println("PLAYER 2: (PS4 controller)");
@@ -123,6 +134,7 @@ public class MyGame extends VariableFrameRateGame {
         System.out.println("Square and Circle buttons to zoom the camera");
         System.out.println("press ESC to quit game");
         */
+        myEngine = getEngine();
     }
 
     public static void main(String[] args) {
@@ -132,13 +144,14 @@ public class MyGame extends VariableFrameRateGame {
         System.out.println("press d for the dolphin");
         System.out.println("press c for the cone");
         String playerChoice = modelScanner.nextLine();
-        if(playerChoice.equals("c")){
+        if (playerChoice.equals("c")) {
             playerModel = "robot.obj";
             playerTexture = "robot.png";
-        }else if(playerChoice.equals("d")){
+        } else if (playerChoice.equals("d")) {
             playerModel = "character_new5.obj";
             playerTexture = "cTxt.png";
         }
+
         game = new MyGame(args[0], Integer.parseInt(args[1]));
         networkType = args[2]; // s for server, c for client
         try {
@@ -149,14 +162,13 @@ public class MyGame extends VariableFrameRateGame {
         } finally {
             protClient.sendByeMessage();
             game.shutdown();
-            game.exit();
         }
     }
+        @Override
+        protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
+            rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+        }
 
-    @Override
-    protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
-        rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
-    }
 
 	/*
     //  now we add setting up viewports in the window
@@ -264,27 +276,43 @@ public class MyGame extends VariableFrameRateGame {
 
 
         // create Player 1 dolphin
+//
+//        Entity player1E = sm.createEntity("player1E", playerModel);
+//        player1E.setPrimitive(Primitive.TRIANGLES);
+//        TextureManager tm = eng.getTextureManager();
+//        Texture moonTexture = tm.getAssetByPath(playerTexture);
+//        RenderSystem rs = sm.getRenderSystem();
+//        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
+//        state.setTexture(moonTexture);
+//        player1E.setRenderState(state);
+//        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
+//        mat1.setShininess(100);
+//
+//        player1E.setMaterial(mat1);
+//
+//        player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
+//        player1Node.moveBackward(5.0f);
+//        player1Node.moveRight(2f);
+//        player1Node.attachObject(player1E);
 
-        Entity player1E = sm.createEntity("player1E", playerModel);
-        player1E.setPrimitive(Primitive.TRIANGLES);
-        TextureManager tm = eng.getTextureManager();
-        Texture moonTexture = tm.getAssetByPath(playerTexture);
-        RenderSystem rs = sm.getRenderSystem();
-        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
-        state.setTexture(moonTexture);
-        player1E.setRenderState(state);
-        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
-        mat1.setShininess(100);
-
-        player1E.setMaterial(mat1);
-
+        //animation
+        SkeletalEntity player1E = sm.createSkeletalEntity("player1E", "robo.rkm", "robo.rks");
+        Texture tex = sm.getTextureManager().getAssetByPath(playerTexture);
+        TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        tstate.setTexture(tex);
+        player1E.setRenderState(tstate);
+// attach the entity to a scene node
         player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
-        player1Node.moveBackward(5.0f);
-        player1Node.moveRight(2f);
         player1Node.attachObject(player1E);
+        player1Node.scale(0.2f, 0.2f, 0.2f);
+
+
+// load animations
+        player1E.loadAnimation("danceAnimation", "dance2.rka");
+
 
         if (playerModel.contains("robot"))
-            player1Node.scale(0.25f,0.25f,0.25f);
+            player1Node.scale(0.2f, 0.2f, 0.2f);
 
 
 
@@ -386,11 +414,7 @@ public class MyGame extends VariableFrameRateGame {
         // tessE.setNormalMap(. . .)
 
 
-
         updateVerticalPosition(); // make sure player is above the terrain when game loads
-
-
-
 
 
     }
@@ -421,6 +445,9 @@ public class MyGame extends VariableFrameRateGame {
     @Override
     protected void update(Engine engine) {
         processNetworking(elapsTime);
+
+        SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
+        player1E.update();
 
         // if scripting is turned on, read any scripts and update appropriate variables
         if (allowJavascripts) {
@@ -481,17 +508,17 @@ public class MyGame extends VariableFrameRateGame {
         //System.out.println("gamepad name: " + gpName);
 
         // set up for Player 1
-        if (networkType.compareTo("c") == 0){
+        if (networkType.compareTo("c") == 0) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
-        }else{
+        } else {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
         }
 
 
         if (gpName != null) // only do if there is a gamepad connected
         {
-            if(networkType.compareTo("c") == 0) {
+            if (networkType.compareTo("c") == 0) {
                 playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
             }
             playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
@@ -647,7 +674,13 @@ public class MyGame extends VariableFrameRateGame {
     private void setupNetworking() {
         gameObjectsToRemove = new LinkedList<UUID>();
         if (networkType.compareTo("s") == 0) { //server
-            System.out.println("you are in single player mode");
+            //System.out.println("you are in single player mode");
+            try {
+                    thisUDPServer = new GameServerUDP(serverPort, npcCtrl, this);
+                    //  npcCtrl = new NPCcontroller(thisUDPServer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (networkType.compareTo("c") == 0) { //client
             isClientConnected = false;
             try {
@@ -686,11 +719,13 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldPosition();
     }
+
     public Quaternion getPlayerRotation() {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldRotation().toQuaternion();
     }
-    public String getPlayerModel(){
+
+    public String getPlayerModel() {
         return playerModel;
     }
 
@@ -710,17 +745,37 @@ public class MyGame extends VariableFrameRateGame {
 
         }
     }
+
+
 //    public void updateGhostAvatarPosition(GhostAvatar avatar, Vector3f newPosition){
 //        if(avatar!= null){
 //            avatar.setLocalPosition(newPosition);
 //        }
 //    }
 
+
     public void removeGhostAvatarFromGameWorld(GhostAvatar avatar) {
         if (avatar != null) gameObjectsToRemove.add(avatar.getId());
         for (UUID u : gameObjectsToRemove) {
             System.out.println("client: " + u + " left");
         }
+    }
+
+    public void addGhostNPCtoGameWorld(GhostNPC npc) throws IOException {
+        if (npc != null) {
+            Entity npcE = getEngine().getSceneManager().createEntity("npc" + Integer.toString(npc.getId()), "dolphinHighPoly.obj");
+            npcE.setPrimitive(Primitive.TRIANGLES);
+            SceneNode npcN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(Integer.toString(npc.getId()));
+            npcN.attachObject(npcE);
+            npcN.setLocalPosition(npc.getPosition()); //get position that was sent
+            //npcN.setLocalRotation(npc.getGhostRotation());
+            npc.setEntity(npcE);
+            npc.setNode(npcN);
+            Quaternion npcRot = npcN.getLocalRotation().toQuaternion();
+            System.out.println( "npc original rotation Quaternion " + npcRot);
+        }
+
+
     }
 
     private class SendCloseConnectionPacketAction extends AbstractInputAction { // for leaving the game... need to attach to an input device
@@ -734,9 +789,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
 
-
-    public void updateVerticalPosition()
-    {
+    public void updateVerticalPosition() {
         //SceneNode dolphinN = this.getEngine().getSceneManager().getSceneNode("dolphinNode");
         SceneNode tessN = this.getEngine().getSceneManager().getSceneNode("tessN");
         Tessellation tessE = ((Tessellation) tessN.getAttachedObject("tessE"));
@@ -750,14 +803,16 @@ public class MyGame extends VariableFrameRateGame {
         // The Y coordinate is the varying height
         // Keep the Z coordinate
         Vector3 newAvatarPosition = Vector3f.createFrom(localAvatarPosition.x(),
-                tessE.getWorldHeight(worldAvatarPosition.x(),worldAvatarPosition.z()) + 0.5f,
+                tessE.getWorldHeight(worldAvatarPosition.x(), worldAvatarPosition.z()) + 0.5f,
                 localAvatarPosition.z());
 
         // use avatar Local coordinates to set position, including height
         player1Node.setLocalPosition(newAvatarPosition);
     }
 
-
+    public Engine getMyEngine() {
+        return myEngine;
+    }
 
 
 }
