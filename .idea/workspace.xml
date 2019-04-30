@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/animations/dance.rka" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/animations/dance2.rka" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/animations/dance3.rka" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/animations/dance4.rka" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/animations/forward.rka" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/meshes/robo.rkm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/meshes/roborgin.rkm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/meshes/roborin.rkm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/skeletons/robo.rks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/skeletons/roborgin.rks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/skeletons/roborig.rks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/myGame/run-server.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/GhostNPC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/NPCcontroller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/SideFour.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/SideFourTurn.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\James\Documents\CSC 165\as3\CSC_165_a3\.idea\shelf/" />
@@ -62,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="683" column="30" selection-start-line="683" selection-start-column="19" selection-end-line="683" selection-end-column="30" />
+            <state relative-caret-position="232">
+              <caret line="687" column="30" lean-forward="true" selection-start-line="687" selection-start-column="30" selection-end-line="687" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#28194#28195#0" expanded="true" />
@@ -236,7 +219,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556590063255" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556590223610" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -363,10 +346,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1275" y="0" width="1280" height="1440" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49658313" visible="true" weight="0.2852459" />
-      <window_info id="Structure" order="1" sideWeight="0.50341684" side_tool="true" visible="true" weight="0.2852459" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49714938" visible="true" weight="0.2852459" />
+      <window_info id="Structure" order="1" sideWeight="0.50285065" side_tool="true" visible="true" weight="0.2852459" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -374,12 +356,12 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32874617" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32874617" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32874617" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39908257" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3295107" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32874617" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32798165" />
@@ -691,8 +673,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="683" column="30" selection-start-line="683" selection-start-column="19" selection-end-line="683" selection-end-column="30" />
+        <state relative-caret-position="232">
+          <caret line="687" column="30" lean-forward="true" selection-start-line="687" selection-start-column="30" selection-end-line="687" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#28194#28195#0" expanded="true" />
