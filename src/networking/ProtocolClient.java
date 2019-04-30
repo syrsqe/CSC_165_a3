@@ -147,11 +147,12 @@ public class ProtocolClient extends GameConnectionClient {
 
     public void sendMoveMessage(Vector3f pos, Quaternion rot) {
         try {
-            System.out.println("sending move message to server");
+           // System.out.println("sending move message to server");
             String message = new String("move," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
             message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
+            System.out.println(pos);
         } catch (IOException e) {
             e.printStackTrace();
         }

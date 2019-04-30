@@ -426,6 +426,7 @@ public class MyGame extends VariableFrameRateGame {
         //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
 
+
         /*
         if (orbitController2 != null)
         {
