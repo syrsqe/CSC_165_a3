@@ -1,5 +1,6 @@
 package myGame;
 
+import com.bulletphysics.linearmath.QuaternionUtil;
 import myGameEngine.*;
 import networking.*;
 
@@ -21,6 +22,9 @@ import ray.rage.asset.texture.*;
 import ray.input.*;
 import ray.input.action.*;
 import ray.rage.rendersystem.shader.*;
+
+import static ray.rage.scene.SkeletalEntity.EndType.*;
+
 import ray.rage.util.BufferUtil;
 
 
@@ -28,6 +32,8 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 // skybox imports
+
+import ray.rage.util.*;
 import ray.rage.rendersystem.states.*;
 import ray.rage.asset.texture.*;
 import ray.rage.util.*;
@@ -51,14 +57,15 @@ import java.lang.Exception;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
+
 import ray.networking.IGameConnection.ProtocolType;
+
 import java.net.UnknownHostException;
 
 // physics
 import ray.physics.PhysicsEngine;
 import ray.physics.PhysicsObject;
 import ray.physics.PhysicsEngineFactory;
-
 
 
 public class MyGame extends VariableFrameRateGame {
@@ -91,6 +98,8 @@ public class MyGame extends VariableFrameRateGame {
     private boolean allowJavascripts = false; // javascripts can be enabled/disabled
 
     //Networking
+
+
     private String serverAddress;
     private int serverPort;
     private ProtocolType serverProtocol;
@@ -98,6 +107,8 @@ public class MyGame extends VariableFrameRateGame {
     private boolean isClientConnected;
     private LinkedList<UUID> gameObjectsToRemove;
     private static MyGame game;
+    private GameServerUDP thisUDPServer;
+    private NPCcontroller npcCtrl;
 
     private static String networkType; //going to need to be nonestatic at some point
 
@@ -121,18 +132,23 @@ public class MyGame extends VariableFrameRateGame {
 
     private SceneNode wholeMazeNode;
 
+    private Engine myEngine;
+
 
     public MyGame(String serverAddr, int sPort) {
         super();
         this.serverAddress = serverAddr;
         this.serverPort = sPort;
         this.serverProtocol = ProtocolType.UDP;
-        System.out.println("PLAYER 1:");
-        System.out.println("WASD keys to move");
-        System.out.println("Q and E keys to turn");
-        System.out.println("arrow keys to rotate the camera");
-        System.out.println("Z and X keys to zoom the camera");
-        System.out.println("Press SPACEBAR to toggle javascripts");
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            System.out.println("WASD keys to move");
+            System.out.println("Q and E keys to turn");
+            System.out.println("arrow keys to rotate the camera");
+            System.out.println("Z and X keys to zoom the camera");
+            System.out.println("Press SPACEBAR to toggle javascripts");
+            System.out.println("When connected to server, press n from any client to start NPCs");
+        }
+
 
         /*
         System.out.println("PLAYER 2: (PS4 controller)");
@@ -142,24 +158,31 @@ public class MyGame extends VariableFrameRateGame {
         System.out.println("Square and Circle buttons to zoom the camera");
         System.out.println("press ESC to quit game");
         */
+        myEngine = getEngine();
     }
 
     public static void main(String[] args) {
         //ask about which player
-        Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Choose your character:");
-        System.out.println("press d for the dolphin");
-        System.out.println("press c for the cone");
-        String playerChoice = modelScanner.nextLine();
-        if(playerChoice.equals("c")){
+        String playerChoice = "";
+        networkType = args[2]; // s for server, c for client
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0 ){
+            Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
+            System.out.println("Choose your character:");
+            System.out.println("press d for the dolphin");
+            System.out.println("press c for the cone");
+            playerChoice = modelScanner.nextLine();
+        }
+
+        if (playerChoice.equals("c")) {
             playerModel = "robot.obj";
             playerTexture = "robot.png";
-        }else if(playerChoice.equals("d")){
+        } else if (playerChoice.equals("d")) {
             playerModel = "character_new5.obj";
             playerTexture = "cTxt.png";
         }
+
         game = new MyGame(args[0], Integer.parseInt(args[1]));
-        networkType = args[2]; // s for server, c for client
+
         try {
             game.startup();
             game.run();
@@ -171,13 +194,25 @@ public class MyGame extends VariableFrameRateGame {
             game.exit();
         }
     }
+        @Override
+        protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
+            rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+        }
 
-    @Override
-    protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
-        rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+	/*
+    //  now we add setting up viewports in the window
+    protected void setupWindowViewports(RenderWindow rw)
+    {
+        rw.addKeyListener(this);
+        Viewport topViewport = rw.getViewport(0);
+        topViewport.setDimensions(.04f, .01f, .99f, .49f);// B,L,W,H
+        topViewport.setClearColor(new Color(.04f, .3f, .5f));
+        //Viewport botViewport = rw.createViewport(.01f, .01f, .99f, .49f);
+        //botViewport.setClearColor(new Color(.04f, .3f, .5f));
     }
+    */
 
-
+    //  we need a camera for each viewport
     @Override
     protected void setupCameras(SceneManager sm, RenderWindow rw) {
         SceneNode rootNode = sm.getRootSceneNode();
@@ -191,11 +226,44 @@ public class MyGame extends VariableFrameRateGame {
         cameraN1.attachObject(camera1);
         camera1.setMode('n');
         camera1.getFrustum().setFarClipDistance(1000.0f);
+
+        /*
+        camera2 = sm.createCamera("MainCamera2",Projection.PERSPECTIVE);
+        rw.getViewport(1).setCamera(camera2);
+        camera2.setRt((Vector3f)Vector3f.createFrom(1.0f, 0.0f, 0.0f));
+        camera2.setUp((Vector3f)Vector3f.createFrom(0.0f, 1.0f, 0.0f));
+        camera2.setFd((Vector3f)Vector3f.createFrom(0.0f, 0.0f, -1.0f));
+        camera2.setPo((Vector3f)Vector3f.createFrom(0.0f, 0.0f, 0.0f));
+        SceneNode cameraN2 = rootNode.createChildSceneNode("MainCamera2Node");
+        cameraN2.attachObject(camera2);
+        camera2.setMode('n');
+        camera2.getFrustum().setFarClipDistance(1000.0f);
+        */
     }
 
     @Override
     protected void setupScene(Engine eng, SceneManager sm) throws IOException {
         setDefaults();
+
+        /*
+        ScriptEngineManager factory = new ScriptEngineManager();
+        String scriptFileName = "hello.js";
+
+        // get a list of the script engines on this platform
+        List<ScriptEngineFactory> list = factory.getEngineFactories();
+
+        System.out.println("Script Engine Factories found:");
+        for (ScriptEngineFactory f : list)
+        {
+            System.out.println("  Name = " + f.getEngineName() + "  language = " + f.getLanguageName() + "  extensions = " + f.getExtensions());
+        }
+
+        // get the JavaScript engine
+        ScriptEngine jsEngine = factory.getEngineByName("js");
+
+        // run the script
+        executeScript(jsEngine, scriptFileName);
+        */
 
 
         // set up sky box
@@ -237,27 +305,91 @@ public class MyGame extends VariableFrameRateGame {
 
 
         // create Player 1 dolphin
+//
+//        Entity player1E = sm.createEntity("player1E", playerModel);
+//        player1E.setPrimitive(Primitive.TRIANGLES);
+//        TextureManager tm = eng.getTextureManager();
+//        Texture moonTexture = tm.getAssetByPath(playerTexture);
+//        RenderSystem rs = sm.getRenderSystem();
+//        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
+//        state.setTexture(moonTexture);
+//        player1E.setRenderState(state);
+//        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
+//        mat1.setShininess(100);
+//
+//        player1E.setMaterial(mat1);
+//
+//        player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
+//        player1Node.moveBackward(5.0f);
+//        player1Node.moveRight(2f);
+//        player1Node.attachObject(player1E);
 
-        Entity player1E = sm.createEntity("player1E", playerModel);
-        player1E.setPrimitive(Primitive.TRIANGLES);
+        //animation
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            SkeletalEntity player1E = sm.createSkeletalEntity("player1E", "robo.rkm", "robo.rks");
+            Texture tex = sm.getTextureManager().getAssetByPath(playerTexture);
+            TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+            tstate.setTexture(tex);
+            player1E.setRenderState(tstate);
+// attach the entity to a scene node
+            player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
+//            player1Node.moveBackward(5.0f);
+//            player1Node.moveRight(2f);
+
+            player1Node.setLocalPosition(Vector3f.createFrom(26.0f, 1.65f, -28.0f));
+            player1Node.attachObject(player1E);
+            player1Node.scale(0.2f, 0.2f, 0.2f);
+
+
+// load animations
+            player1E.loadAnimation("danceAnimation", "dance2.rka");
+
+
+            if (playerModel.contains("robot"))
+                player1Node.scale(0.25f,0.25f,0.25f);
+        }
+
+
+
+
+        /*
+        // create Player 2 dolphin
+        Entity player2E = sm.createEntity("player2E", "dolphinHighPoly.obj");
+        player2E.setPrimitive(Primitive.TRIANGLES);
+        player2Node = sm.getRootSceneNode().createChildSceneNode("player2Node");
+        player2Node.moveBackward(5.0f);
+        player2Node.moveLeft(2f);
+        player2Node.attachObject(player2E);
+        // set render state for Player 2
         TextureManager tm = eng.getTextureManager();
-        Texture moonTexture = tm.getAssetByPath(playerTexture);
+        Texture redTexture = tm.getAssetByPath("blue-snow.jpeg");
         RenderSystem rs = sm.getRenderSystem();
-        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
-        state.setTexture(moonTexture);
-        player1E.setRenderState(state);
-        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
-        mat1.setShininess(100);
+        TextureState state = (TextureState)rs.createRenderState(RenderState.Type.TEXTURE);
+        state.setTexture(redTexture);
+        player2E.setRenderState(state);
+        */
 
-        player1E.setMaterial(mat1);
 
-        player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
-        player1Node.moveBackward(5.0f);
-        player1Node.moveRight(2f);
-        player1Node.attachObject(player1E);
+        /*
+        // set up earth
+        Entity earthE = sm.createEntity("myEarth", "earth.obj");
+        earthE.setPrimitive(Primitive.TRIANGLES);
+        SceneNode earthN = sm.getRootSceneNode().createChildSceneNode(earthE.getName() + "Node");
+        earthN.attachObject(earthE);
+        earthN.moveForward(10.0f);
+        earthN.moveRight(10.0f);
+        //earthN.setLocalScale(0.2f, 0.2f, 0.2f);
+        */
 
-        if (playerModel.contains("robot"))
-            player1Node.scale(0.25f,0.25f,0.25f);
+        /*
+        // create ground plane
+        ManualObject groundplane = makeGroundPlane(eng, sm);
+        SceneNode groundplaneN = sm.getRootSceneNode().createChildSceneNode("groundplaneN");
+        groundplaneN.scale(50f, 50f, 50f);
+        groundplaneN.moveUp(47.3f);
+        groundplaneN.attachObject(groundplane);
+        */
+
 
         // set up lights
         sm.getAmbientLight().setIntensity(new Color(.1f, .1f, .1f));
@@ -294,8 +426,11 @@ public class MyGame extends VariableFrameRateGame {
 
         //ISSUE: camera also moves up and down with the playerNode. Need to fix later
         HoverController hc = new HoverController(); // makes player appear as if they are hovering
-        sm.addController(hc);
-        hc.addNode(player1Node);
+        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+            sm.addController(hc);
+            hc.addNode(player1Node);
+        }
+
 
         // code for adding terrain
         // 2^patches: min=5, def=7, warnings start at 10
@@ -329,8 +464,9 @@ public class MyGame extends VariableFrameRateGame {
         */
 
 
-
-        updateVerticalPosition(); // make sure player is above the terrain when game loads
+        if (networkType.equals("c") || networkType.compareTo("m") == 0) {
+            updateVerticalPosition(); // make sure player is above the terrain when game loads
+        }
 
 
 /*
@@ -378,9 +514,12 @@ public class MyGame extends VariableFrameRateGame {
         String gpName = im.getFirstGamepadName();
 
         // set up for Player 1
-        SceneNode player1N = sm.getSceneNode("player1Node");
-        SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
-        orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
+        if (networkType.equals("c")|| networkType.compareTo("m") == 0) {
+            SceneNode player1N = sm.getSceneNode("player1Node");
+            SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
+            orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
+        }
+
 
         /*
         if (gpName != null) // only do if there is a gamepad connected
@@ -397,6 +536,11 @@ public class MyGame extends VariableFrameRateGame {
     @Override
     protected void update(Engine engine) {
         processNetworking(elapsTime);
+        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+            SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
+            player1E.update();
+        }
+
 
         // if scripting is turned on, read any scripts and update appropriate variables
         if (allowJavascripts) {
@@ -426,6 +570,7 @@ public class MyGame extends VariableFrameRateGame {
         //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
 
+
         /*
         if (orbitController2 != null)
         {
@@ -439,8 +584,10 @@ public class MyGame extends VariableFrameRateGame {
         */
 
         im.update(elapsTime); // tell the input manager to process the inputs
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            orbitController1.updateCameraPosition();
+        }
 
-        orbitController1.updateCameraPosition();
 
         /*
         if (orbitController2 != null)
@@ -474,23 +621,23 @@ public class MyGame extends VariableFrameRateGame {
         //System.out.println("gamepad name: " + gpName);
 
         // set up for Player 1
-        if (networkType.compareTo("c") == 0){
+        if (networkType.compareTo("c") == 0) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
-        }else{
+        } else if(!(networkType.compareTo("c") == 0) && !(networkType.compareTo("s") == 0)  ) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(gndNode, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(ball2Node, kbName, im, movementSpeed, game);
         }
 
 
-        if (gpName != null) // only do if there is a gamepad connected
-        {
-            if(networkType.compareTo("c") == 0) {
-                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
-            }
-            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
-        }
+//        if (gpName != null) // only do if there is a gamepad connected
+//        {
+//            if (networkType.compareTo("c") == 0) {
+//                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
+//            }
+//            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
+//        }
 
         // Set up additional inputs below
 
@@ -504,8 +651,66 @@ public class MyGame extends VariableFrameRateGame {
     }
 
 
+    protected void planetVisited(SceneNode playerNode, SceneNode planetNode) {
+        if (playerNode.getName().contains("1")) {
+            player1Score += scoreIncrement; // increase score
+            player1PlanetsVisited++; // increment count of planets visited
+            BounceController bc = (BounceController) getEngine().getSceneManager().getController(1); // gets the bounceController
+            bc.addNode(planetNode); // add Node controller to planet
+        } else {
+            player2Score += scoreIncrement; // increase score
+            player2PlanetsVisited++; // increment count of planets visited
+            RotationController rc = (RotationController) getEngine().getSceneManager().getController(0); // gets the RotationController
+            rc.addNode(planetNode); // add Node controller to planet
+        }
+    }
 
 
+    protected ManualObject makeGroundPlane(Engine eng, SceneManager sm) throws IOException {
+        ManualObject groundPlane = sm.createManualObject("GroundPlane");
+        ManualObjectSection groundPlaneSec = groundPlane.createManualSection("GroundPlaneSection");
+        groundPlane.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
+
+        float[] vertices = new float[]
+                {
+                        -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f,
+                        1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f,
+                };
+
+        float[] texcoords = new float[]
+                {
+                        1.0f, 0.0f, 1.0f, 1.0f, 0.5f, 1.0f,
+                        0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 1.0f,
+                };
+
+        float[] normals = new float[]
+                {
+                        0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                        0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f
+                };
+
+        int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6};//,7,8,9,10,11,12,13,14,15,16,17 };
+
+        FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
+        FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
+        FloatBuffer normBuf = BufferUtil.directFloatBuffer(normals);
+        IntBuffer indexBuf = BufferUtil.directIntBuffer(indices);
+
+        groundPlaneSec.setVertexBuffer(vertBuf);
+        groundPlaneSec.setTextureCoordsBuffer(texBuf);
+        groundPlaneSec.setNormalsBuffer(normBuf);
+        groundPlaneSec.setIndexBuffer(indexBuf);
+
+        Texture tex = eng.getTextureManager().getAssetByPath("bottom.jpg");
+        TextureState texState = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        texState.setTexture(tex);
+        FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
+        groundPlane.setDataSource(DataSource.INDEX_BUFFER);
+        groundPlane.setRenderState(texState);
+        groundPlane.setRenderState(faceState);
+
+        return groundPlane;
+    }
 
 
     private float getDistance(Vector3 obj1, Vector3 obj2) {
@@ -584,9 +789,15 @@ public class MyGame extends VariableFrameRateGame {
     private void setupNetworking() {
         gameObjectsToRemove = new LinkedList<UUID>();
         if (networkType.compareTo("s") == 0) { //server
-            System.out.println("you are in single player mode");
+            //System.out.println("you are in single player mode");
+            try {
+                    thisUDPServer = new GameServerUDP(serverPort, npcCtrl, this);
+                    //  npcCtrl = new NPCcontroller(thisUDPServer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (networkType.compareTo("c") == 0) { //client
-            isClientConnected = false;
+            isClientConnected = true;
             try {
                 protClient = new ProtocolClient(InetAddress.getByName(serverAddress), serverPort, serverProtocol, this);
             } catch (UnknownHostException e) {
@@ -623,11 +834,13 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldPosition();
     }
+
     public Quaternion getPlayerRotation() {
         SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
         return dolphinN.getWorldRotation().toQuaternion();
     }
-    public String getPlayerModel(){
+
+    public String getPlayerModel() {
         return playerModel;
     }
 
@@ -647,17 +860,37 @@ public class MyGame extends VariableFrameRateGame {
 
         }
     }
+
+
 //    public void updateGhostAvatarPosition(GhostAvatar avatar, Vector3f newPosition){
 //        if(avatar!= null){
 //            avatar.setLocalPosition(newPosition);
 //        }
 //    }
 
+
     public void removeGhostAvatarFromGameWorld(GhostAvatar avatar) {
         if (avatar != null) gameObjectsToRemove.add(avatar.getId());
         for (UUID u : gameObjectsToRemove) {
             System.out.println("client: " + u + " left");
         }
+    }
+
+    public void addGhostNPCtoGameWorld(GhostNPC npc) throws IOException {
+        if (npc != null) {
+            Entity npcE = getEngine().getSceneManager().createEntity("npc" + Integer.toString(npc.getId()), "dolphinHighPoly.obj");
+            npcE.setPrimitive(Primitive.TRIANGLES);
+            SceneNode npcN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(Integer.toString(npc.getId()));
+            npcN.attachObject(npcE);
+            npcN.setLocalPosition(npc.getPosition()); //get position that was sent
+            //npcN.setLocalRotation(npc.getGhostRotation());
+            npc.setEntity(npcE);
+            npc.setNode(npcN);
+            Quaternion npcRot = npcN.getLocalRotation().toQuaternion();
+            System.out.println( "npc original rotation Quaternion " + npcRot);
+        }
+
+
     }
 
     private class SendCloseConnectionPacketAction extends AbstractInputAction { // for leaving the game... need to attach to an input device
@@ -671,9 +904,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
 
-
-    public void updateVerticalPosition()
-    {
+    public void updateVerticalPosition() {
         //SceneNode dolphinN = this.getEngine().getSceneManager().getSceneNode("dolphinNode");
         SceneNode tessN = this.getEngine().getSceneManager().getSceneNode("tessN");
         Tessellation tessE = ((Tessellation) tessN.getAttachedObject("tessE"));
@@ -687,13 +918,16 @@ public class MyGame extends VariableFrameRateGame {
         // The Y coordinate is the varying height
         // Keep the Z coordinate
         Vector3 newAvatarPosition = Vector3f.createFrom(localAvatarPosition.x(),
-                tessE.getWorldHeight(worldAvatarPosition.x(),worldAvatarPosition.z()) + 0.5f,
+                tessE.getWorldHeight(worldAvatarPosition.x(), worldAvatarPosition.z()) + 0.5f,
                 localAvatarPosition.z());
 
         // use avatar Local coordinates to set position, including height
         player1Node.setLocalPosition(newAvatarPosition);
     }
 
+    public Engine getMyEngine() {
+        return myEngine;
+    }
 
     private void initPhysicsSystem()
     {

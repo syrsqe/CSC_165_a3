@@ -12,13 +12,15 @@ import java.util.LinkedList;
 public class ProtocolClient extends GameConnectionClient {
     private MyGame game;
     private UUID id;
-   private LinkedList<GhostAvatar> ghostAvatars;
+    private LinkedList<GhostAvatar> ghostAvatars;
+    private LinkedList<GhostNPC> ghostNPCs;
 
     public ProtocolClient(InetAddress remAddr, int remPort, ProtocolType pType, MyGame game) throws IOException { //initializeds in main
         super(remAddr, remPort, pType);
         this.game = game;
         this.id = UUID.randomUUID();
         ghostAvatars= new LinkedList<GhostAvatar>();
+        ghostNPCs = new LinkedList<GhostNPC>();
         //this.ghostAvatars = new LinkedList<GhostAvatar>();
     }
 
@@ -97,7 +99,47 @@ public class ProtocolClient extends GameConnectionClient {
                 }
 
                 //find proper ghost avatar
-            }// etc�..
+            }
+
+            // handle updates to NPC positions
+             //format: (mnpc,npcID,x,y,z)
+            if(messageTokens[0].compareTo("cnpc") == 0)
+            { int ghostID = Integer.parseInt(messageTokens[1]);
+                Vector3 ghostPosition = Vector3f.createFrom(
+                        Float.parseFloat(messageTokens[2]),
+                        Float.parseFloat(messageTokens[3]),
+                        Float.parseFloat(messageTokens[4]));
+                try{
+                    createGhostNPC(ghostID, (Vector3f) ghostPosition);
+                } catch (IOException e) {
+                System.out.println("error creating npc avatar");
+            }
+
+
+
+            }
+            if(messageTokens[0].compareTo("mnpc") == 0){
+            if(ghostNPCs.size() > 1){
+                int ghostID = Integer.parseInt(messageTokens[1]);
+                Vector3 ghostPosition = Vector3f.createFrom(
+                        Float.parseFloat(messageTokens[2]),
+                        Float.parseFloat(messageTokens[3]),
+                        Float.parseFloat(messageTokens[4]));
+                Quaternion ghostRotation = Quaternionf.createFrom(Float.parseFloat(messageTokens[5]), Float.parseFloat(messageTokens[6]), Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
+
+                for(GhostNPC ghost: ghostNPCs){
+                    if(ghost.getId() == ghostID){
+                        System.out.println("npc pos" + ghostPosition);
+                        ghost.setPosition((Vector3f) ghostPosition);
+                        ghost.setGhostRotation(ghostRotation.toMatrix3());
+
+                    }
+                }
+            }
+
+
+
+            }
         }
     }
 
@@ -147,15 +189,25 @@ public class ProtocolClient extends GameConnectionClient {
 
     public void sendMoveMessage(Vector3f pos, Quaternion rot) {
         try {
-            System.out.println("sending move message to server");
+           // System.out.println("sending move message to server");
             String message = new String("move," + id.toString());
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
             message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
+            System.out.println(pos);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }// etc�..
+    }
+    public void sendStartNPCMessage(){
+        try {
+            System.out.println("sending move message to server");
+            String message = new String("startNPC,");
+            sendPacket(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void createGhostAvatar(UUID ghostID, Vector3f ghostPosition, Matrix3 ghostRotation, String playerModel) throws IOException{
         GhostAvatar newGhostAvatar = new GhostAvatar(ghostID, ghostPosition, ghostRotation);
@@ -164,6 +216,26 @@ public class ProtocolClient extends GameConnectionClient {
         System.out.println("ghost avatar created");
 
     }
+
+    //npc
+
+    private void createGhostNPC(int id, Vector3f position) throws IOException
+    {   GhostNPC newNPC = new GhostNPC(id, position);
+        ghostNPCs.add(newNPC);
+        game.addGhostNPCtoGameWorld(newNPC);
+        //System.out.println("ghost Npc created");
+    }
+    private void updateGhostNPC(int id, Vector3f position)
+    { ghostNPCs.get(id).setPosition((Vector3f) position);
+    }
+
+    public void askForNPCinfo()
+    { try
+    { sendPacket(new String("needNPC," + id.toString()));
+    }
+    catch (IOException e)
+    { e.printStackTrace();
+    } }
 }
 
 

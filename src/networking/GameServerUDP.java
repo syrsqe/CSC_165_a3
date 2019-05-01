@@ -1,5 +1,6 @@
-
-
+package networking;
+//import networking.*;
+import myGame.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
@@ -10,18 +11,22 @@ import java.lang.*;
 
 import ray.networking.server.GameConnectionServer;
 import ray.networking.server.IClientInfo;
-
-
+import ray.rml.Quaternion;
 
 
 public class GameServerUDP extends GameConnectionServer<UUID> {
 
     private ConcurrentHashMap<UUID, IClientInfo> clientList;
     private Enumeration clientEnum;
+    private NPCcontroller npcCtrl;
+    private MyGame game;
 
-    public GameServerUDP(int localPort) throws IOException {
+    public GameServerUDP(int localPort, NPCcontroller controller, MyGame game) throws IOException {
         super(localPort, ProtocolType.UDP);
+        game = game;
+        npcCtrl = new NPCcontroller(this, game);
         System.out.println("server running on port: " + localPort);
+       // npcCtrl.start();
     }
 
     @Override
@@ -40,6 +45,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
                     System.out.println("Client Info: " + ci);
                     addClient(ci, clientID);
                     sendJoinedMessage(clientID, true);
+                    sendNPCinfoMessage(clientID);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -80,6 +86,10 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
                 String[] pos = {msgTokens[2], msgTokens[3], msgTokens[4]};
                 String[] rot = {msgTokens[5], msgTokens[6], msgTokens[7], msgTokens[8]};
                 sendMoveMessages(clientID, pos, rot);
+            }
+
+            if (msgTokens[0].compareTo("startNPC") == 0) {
+                startNPCController();
             }
         }
     }
@@ -210,4 +220,60 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
         }
     }
+
+    //npc
+    // sent when client joins
+    public void sendNPCinfoMessage(UUID clientID) // informs clients of new NPC positions
+    {
+        for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++) {
+            try {
+                String message = new String("cnpc," + Integer.toString(i));
+                message += "," + (npcCtrl.getNPC(i)).getX();
+                message += "," + (npcCtrl.getNPC(i)).getY();
+                message += "," + (npcCtrl.getNPC(i)).getZ();
+                System.out.println("sending npc info");
+                sendPacket(message, clientID);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+// . . .
+//                // also additional cases for receiving messages about NPCs, such as:
+//                if (messageTokens[0].compareTo("needNPC") == 0) { . . .}
+//                if (messageTokens[0].compareTo("collide") == 0) { . . .}
+        }
+
+    }
+
+    public void sendNPCUpdateinfo() {
+        if(npcCtrl != null){
+            for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++) {
+                Quaternion rot = npcCtrl.getNPC(i).getQuaternionNPCRot();
+                try {
+                    String message = new String("mnpc," + Integer.toString(i));
+                    message += "," + (npcCtrl.getNPC(i)).getX();
+                    message += "," + (npcCtrl.getNPC(i)).getY();
+                    message += "," + (npcCtrl.getNPC(i)).getZ();
+                    message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
+                    System.out.println("sending npc update info");
+                    sendPacketToAll(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    private void startNPCController(){
+        if(npcCtrl.getHasStarted() == false){
+            this.npcCtrl.start();
+        }
+        else{
+            System.out.println("The NPC controller has already been started by another client");
+        }
+
+    }
+
 }
