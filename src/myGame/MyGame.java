@@ -140,13 +140,15 @@ public class MyGame extends VariableFrameRateGame {
         this.serverAddress = serverAddr;
         this.serverPort = sPort;
         this.serverProtocol = ProtocolType.UDP;
-        System.out.println("PLAYER 1:");
-        System.out.println("WASD keys to move");
-        System.out.println("Q and E keys to turn");
-        System.out.println("arrow keys to rotate the camera");
-        System.out.println("Z and X keys to zoom the camera");
-        System.out.println("Press SPACEBAR to toggle javascripts");
-        System.out.println("When connected to server, press n from any client to start NPCs");
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            System.out.println("WASD keys to move");
+            System.out.println("Q and E keys to turn");
+            System.out.println("arrow keys to rotate the camera");
+            System.out.println("Z and X keys to zoom the camera");
+            System.out.println("Press SPACEBAR to toggle javascripts");
+            System.out.println("When connected to server, press n from any client to start NPCs");
+        }
+
 
         /*
         System.out.println("PLAYER 2: (PS4 controller)");
@@ -161,11 +163,16 @@ public class MyGame extends VariableFrameRateGame {
 
     public static void main(String[] args) {
         //ask about which player
-        Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Choose your character:");
-        System.out.println("press d for the dolphin");
-        System.out.println("press c for the cone");
-        String playerChoice = modelScanner.nextLine();
+        String playerChoice = "";
+        networkType = args[2]; // s for server, c for client
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0 ){
+            Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
+            System.out.println("Choose your character:");
+            System.out.println("press d for the dolphin");
+            System.out.println("press c for the cone");
+            playerChoice = modelScanner.nextLine();
+        }
+
         if (playerChoice.equals("c")) {
             playerModel = "robot.obj";
             playerTexture = "robot.png";
@@ -175,7 +182,7 @@ public class MyGame extends VariableFrameRateGame {
         }
 
         game = new MyGame(args[0], Integer.parseInt(args[1]));
-        networkType = args[2]; // s for server, c for client
+
         try {
             game.startup();
             game.run();
@@ -318,25 +325,30 @@ public class MyGame extends VariableFrameRateGame {
 //        player1Node.attachObject(player1E);
 
         //animation
-        SkeletalEntity player1E = sm.createSkeletalEntity("player1E", "robo.rkm", "robo.rks");
-        Texture tex = sm.getTextureManager().getAssetByPath(playerTexture);
-        TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
-        tstate.setTexture(tex);
-        player1E.setRenderState(tstate);
+        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            SkeletalEntity player1E = sm.createSkeletalEntity("player1E", "robo.rkm", "robo.rks");
+            Texture tex = sm.getTextureManager().getAssetByPath(playerTexture);
+            TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+            tstate.setTexture(tex);
+            player1E.setRenderState(tstate);
 // attach the entity to a scene node
-        player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
-        player1Node.moveBackward(5.0f);
-        player1Node.moveRight(2f);
-        player1Node.attachObject(player1E);
-        player1Node.scale(0.2f, 0.2f, 0.2f);
+            player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
+//            player1Node.moveBackward(5.0f);
+//            player1Node.moveRight(2f);
+
+            player1Node.setLocalPosition(Vector3f.createFrom(26.0f, 1.65f, -28.0f));
+            player1Node.attachObject(player1E);
+            player1Node.scale(0.2f, 0.2f, 0.2f);
 
 
 // load animations
-        player1E.loadAnimation("danceAnimation", "dance2.rka");
+            player1E.loadAnimation("danceAnimation", "dance2.rka");
 
 
-        if (playerModel.contains("robot"))
-            player1Node.scale(0.25f,0.25f,0.25f);
+            if (playerModel.contains("robot"))
+                player1Node.scale(0.25f,0.25f,0.25f);
+        }
+
 
 
 
@@ -414,8 +426,11 @@ public class MyGame extends VariableFrameRateGame {
 
         //ISSUE: camera also moves up and down with the playerNode. Need to fix later
         HoverController hc = new HoverController(); // makes player appear as if they are hovering
-        sm.addController(hc);
-        hc.addNode(player1Node);
+        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+            sm.addController(hc);
+            hc.addNode(player1Node);
+        }
+
 
         // code for adding terrain
         // 2^patches: min=5, def=7, warnings start at 10
@@ -449,8 +464,9 @@ public class MyGame extends VariableFrameRateGame {
         */
 
 
-
-        updateVerticalPosition(); // make sure player is above the terrain when game loads
+        if (networkType.equals("c") || networkType.compareTo("m") == 0) {
+            updateVerticalPosition(); // make sure player is above the terrain when game loads
+        }
 
 
 /*
@@ -498,9 +514,12 @@ public class MyGame extends VariableFrameRateGame {
         String gpName = im.getFirstGamepadName();
 
         // set up for Player 1
-        SceneNode player1N = sm.getSceneNode("player1Node");
-        SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
-        orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
+        if (networkType.equals("c")|| networkType.compareTo("m") == 0) {
+            SceneNode player1N = sm.getSceneNode("player1Node");
+            SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
+            orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
+        }
+
 
         /*
         if (gpName != null) // only do if there is a gamepad connected
@@ -517,9 +536,11 @@ public class MyGame extends VariableFrameRateGame {
     @Override
     protected void update(Engine engine) {
         processNetworking(elapsTime);
+        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+            SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
+            player1E.update();
+        }
 
-        SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
-        player1E.update();
 
         // if scripting is turned on, read any scripts and update appropriate variables
         if (allowJavascripts) {
@@ -563,8 +584,10 @@ public class MyGame extends VariableFrameRateGame {
         */
 
         im.update(elapsTime); // tell the input manager to process the inputs
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+            orbitController1.updateCameraPosition();
+        }
 
-        orbitController1.updateCameraPosition();
 
         /*
         if (orbitController2 != null)
@@ -601,20 +624,20 @@ public class MyGame extends VariableFrameRateGame {
         if (networkType.compareTo("c") == 0) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
-        } else {
+        } else if(!(networkType.compareTo("c") == 0) && !(networkType.compareTo("s") == 0)  ) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(gndNode, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(ball2Node, kbName, im, movementSpeed, game);
         }
 
 
-        if (gpName != null) // only do if there is a gamepad connected
-        {
-            if (networkType.compareTo("c") == 0) {
-                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
-            }
-            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
-        }
+//        if (gpName != null) // only do if there is a gamepad connected
+//        {
+//            if (networkType.compareTo("c") == 0) {
+//                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
+//            }
+//            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
+//        }
 
         // Set up additional inputs below
 
