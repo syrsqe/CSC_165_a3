@@ -6,13 +6,21 @@ import ray.ai.behaviortrees.BTAction;
 
 public class SideThreeTurn extends BTAction {
     private NPC npc;
-    public SideThreeTurn(NPC n){
+    private boolean rotated = false;
+
+    public SideThreeTurn(NPC n) {
         npc = n;
     }
 
     @Override
     protected BTStatus update(float v) {
-        npc.sideThreeTurn();
+        if (rotated == false) {
+            npc.sideTwoRotation();
+            rotated = true;
+        } else {
+            npc.sideThreeTurn();
+
+        }
         return BTStatus.BH_SUCCESS;
     }
 }

@@ -92,7 +92,16 @@ public class PlayerController {
 
     private class MoveLeftAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
+
             player.moveLeft(-movementSpeed);
+
+            // make sure this doesn't move the player too close to the wall
+            boolean tooCloseToWall = game.checkDistanceFromWall(player);
+            while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                player.moveLeft(movementSpeed + 0.1f);
+                tooCloseToWall = game.checkDistanceFromWall(player);
+            }
+
             game.updateVerticalPosition();
 
             if (protClient != null) {
@@ -105,7 +114,16 @@ public class PlayerController {
 
     private class MoveRightAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
+
             player.moveRight(-movementSpeed);
+
+            // make sure this doesn't move the player too close to the wall
+            boolean tooCloseToWall = game.checkDistanceFromWall(player);
+            while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                player.moveRight(movementSpeed + 0.1f);
+                tooCloseToWall = game.checkDistanceFromWall(player);
+            }
+
             game.updateVerticalPosition();
 
             if (protClient != null) {
@@ -118,7 +136,16 @@ public class PlayerController {
 
     private class MoveForwardAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
+
             player.moveForward(movementSpeed);
+
+            // make sure this doesn't move the player too close to the wall
+            boolean tooCloseToWall = game.checkDistanceFromWall(player);
+            while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                player.moveForward(-(movementSpeed + 0.1f));
+                tooCloseToWall = game.checkDistanceFromWall(player);
+            }
+
             game.updateVerticalPosition();
             //animation
 
@@ -129,7 +156,6 @@ public class PlayerController {
 
             }
         }
-
     }
     private class DanceAnimation extends AbstractInputAction {
         public void performAction(float time, Event e) {
@@ -151,8 +177,16 @@ public class PlayerController {
 
     private class MoveBackwardAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
-            //node.moveBackward(movementSpeed); // not working
+
             player.moveForward(-movementSpeed);
+
+            // make sure this doesn't move the player too close to the wall
+            boolean tooCloseToWall = game.checkDistanceFromWall(player);
+            while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                player.moveForward(movementSpeed + 0.1f);
+                tooCloseToWall = game.checkDistanceFromWall(player);
+            }
+
             game.updateVerticalPosition();
 
             if (protClient != null) {
@@ -162,6 +196,10 @@ public class PlayerController {
             }
         }
     }
+
+
+
+    /* THE GAMEPAD CLASSES NEED TO BE UPDATED if they are going to be used */
 
     private class GamepadMovementAction extends AbstractInputAction {
         // intended for use with Playstation 4 controller. Uses the 4 directional buttons on the left side of the controller.

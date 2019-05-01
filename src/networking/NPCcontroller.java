@@ -15,8 +15,8 @@ public class NPCcontroller {
     private MyGame game;
 
     public NPCcontroller(GameServerUDP s, MyGame game){
-        NPClist[0] = new NPC();
-        NPClist[1] = new NPC();
+        NPClist[0] = new NPC(game);
+        NPClist[1] = new NPC(game);
         server = s;
         hasStarted = false;
         game = game;
@@ -59,10 +59,15 @@ public class NPCcontroller {
     } }
 
     public void setupBehaviorTree()
-    { bt.insertAtRoot(new BTSequence(10));
+    {
+    bt.insertAtRoot(new BTSequence(10));
         bt.insertAtRoot(new BTSequence(20));
         bt.insertAtRoot(new BTSequence(30));
         bt.insertAtRoot(new BTSequence(40));
+        bt.insertAtRoot(new BTSequence(50));
+        bt.insertAtRoot(new BTSequence(60));
+        bt.insertAtRoot(new BTSequence(70));
+        bt.insertAtRoot(new BTSequence(80));
         bt.insert(10, new SideOne(NPClist[0], false));
         bt.insert(10, new SideOneTurn(NPClist[0]));
         bt.insert(20, new SideTwo(NPClist[0], false));
@@ -71,6 +76,14 @@ public class NPCcontroller {
         bt.insert(30, new SideThreeTurn(NPClist[0]));
         bt.insert(40, new SideFour(NPClist[0], false));
         bt.insert(40, new SideFourTurn(NPClist[0]));
+        bt.insert(50, new SideFive(NPClist[0], false));
+        bt.insert(50, new SideFiveTurn(NPClist[0]));
+        bt.insert(60, new SideSix(NPClist[0], false));
+        bt.insert(60, new SideSixTurn(NPClist[0]));
+        bt.insert(70, new SideSeven(NPClist[0], false));
+        bt.insert(70, new SideSevenTurn(NPClist[0]));
+        bt.insert(80, new SideEight(NPClist[0], false));
+        bt.insert(80, new SideEightTurn(NPClist[0]));
 
 
     }

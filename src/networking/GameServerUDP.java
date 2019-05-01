@@ -11,8 +11,7 @@ import java.lang.*;
 
 import ray.networking.server.GameConnectionServer;
 import ray.networking.server.IClientInfo;
-
-
+import ray.rml.Quaternion;
 
 
 public class GameServerUDP extends GameConnectionServer<UUID> {
@@ -249,11 +248,13 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
     public void sendNPCUpdateinfo() {
         if(npcCtrl != null){
             for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++) {
+                Quaternion rot = npcCtrl.getNPC(i).getQuaternionNPCRot();
                 try {
                     String message = new String("mnpc," + Integer.toString(i));
                     message += "," + (npcCtrl.getNPC(i)).getX();
                     message += "," + (npcCtrl.getNPC(i)).getY();
                     message += "," + (npcCtrl.getNPC(i)).getZ();
+                    message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
                     System.out.println("sending npc update info");
                     sendPacketToAll(message);
                 } catch (IOException e) {

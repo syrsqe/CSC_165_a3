@@ -36,6 +36,7 @@ import java.nio.IntBuffer;
 import ray.rage.util.*;
 import ray.rage.rendersystem.states.*;
 import ray.rage.asset.texture.*;
+import ray.rage.util.*;
 
 import java.awt.geom.*;
 
@@ -61,6 +62,11 @@ import ray.networking.IGameConnection.ProtocolType;
 
 import java.net.UnknownHostException;
 
+// physics
+import ray.physics.PhysicsEngine;
+import ray.physics.PhysicsObject;
+import ray.physics.PhysicsEngineFactory;
+
 
 public class MyGame extends VariableFrameRateGame {
     // to minimize variable allocation in update()
@@ -85,11 +91,11 @@ public class MyGame extends VariableFrameRateGame {
     private float movementSpeed = 0.08f, rotationAmount = 1.0f;
 
     private Camera3Pcontroller orbitController1, orbitController2;
-    private PlayerController playerController1, playerController2;
+    private PlayerController playerController1, playerController2, physController1, physController2;
 
 
     private static final String SKYBOX_NAME = "SkyBox";
-    private boolean allowJavascripts = true; // javascripts can be enabled/disabled
+    private boolean allowJavascripts = false; // javascripts can be enabled/disabled
 
     //Networking
 
@@ -107,8 +113,24 @@ public class MyGame extends VariableFrameRateGame {
     private static String networkType; //going to need to be nonestatic at some point
 
 
+    // physics
+    private SceneNode ball1Node, ball2Node, gndNode;// TESTING
+    private SceneNode cameraPositionNode;// TESTING
+    private final static String GROUND_E = "Ground";// TESTING
+    private final static String GROUND_N = "GroundNode"; // TESTING
+    private PhysicsEngine physicsEng;
+    private PhysicsObject ball1PhysObj, ball2PhysObj, gndPlaneP; // TESTING
+
+    private SceneNode cubeTestNode, roundNode; // my test
+    private PhysicsObject cubeTestPhysObj, roundNodePhysObj;
+
+    private PhysicsObject playerPhysObj;
+
+
     private static String playerModel;
     private static String playerTexture;
+
+    private SceneNode wholeMazeNode;
 
     private Engine myEngine;
 
@@ -162,13 +184,13 @@ public class MyGame extends VariableFrameRateGame {
         } finally {
             protClient.sendByeMessage();
             game.shutdown();
+            game.exit();
         }
     }
         @Override
         protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
             rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
         }
-
 
 	/*
     //  now we add setting up viewports in the window
@@ -303,6 +325,8 @@ public class MyGame extends VariableFrameRateGame {
         player1E.setRenderState(tstate);
 // attach the entity to a scene node
         player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
+        player1Node.moveBackward(5.0f);
+        player1Node.moveRight(2f);
         player1Node.attachObject(player1E);
         player1Node.scale(0.2f, 0.2f, 0.2f);
 
@@ -312,7 +336,7 @@ public class MyGame extends VariableFrameRateGame {
 
 
         if (playerModel.contains("robot"))
-            player1Node.scale(0.2f, 0.2f, 0.2f);
+            player1Node.scale(0.25f,0.25f,0.25f);
 
 
 
@@ -407,16 +431,64 @@ public class MyGame extends VariableFrameRateGame {
         // tessN.translate(Vector3f.createFrom(-6.2f, -2.2f, 2.7f));
         // tessN.yaw(Degreef.createFrom(37.2f));
 
-        tessN.scale(30, 80, 30);
+        tessN.scale(60, 80, 60);
         tessE.setHeightMap(this.getEngine(), "terrainMap4.png");
         //assets/scripts/" + scriptFileName
         tessE.setTexture(this.getEngine(), "bottom.jpg");
         // tessE.setNormalMap(. . .)
 
 
+
+        /*
+        // add maze object
+        Entity mazeE = sm.createEntity("mazeE", "maze1.obj");
+        mazeE.setPrimitive(Primitive.TRIANGLES);
+        SceneNode mazeNode = sm.getRootSceneNode().createChildSceneNode("mazeNode");
+        mazeNode.attachObject(mazeE);
+        mazeNode.scale(1f, .10f, 1f);
+        */
+
+
+
         updateVerticalPosition(); // make sure player is above the terrain when game loads
 
 
+/*
+        //TESTING
+        SceneNode rootNode = sm.getRootSceneNode();
+
+        Entity testEntity = sm.createEntity("cube1", "robot.obj");
+        roundNode = rootNode.createChildSceneNode("roundNode");
+        roundNode.attachObject(testEntity);
+
+
+        // Ball 1
+        Entity ball1Entity = sm.createEntity("ball1", "earth.obj");
+        ball1Node = rootNode.createChildSceneNode("Ball1Node");
+        ball1Node.attachObject(ball1Entity);
+        ball1Node.setLocalPosition(0, 2, -2);
+
+        // Ball 2
+        Entity ball2Entity = sm.createEntity("Ball2", "earth.obj");
+        ball2Node = rootNode.createChildSceneNode("Ball2Node");
+        ball2Node.attachObject(ball2Entity);
+        ball2Node.setLocalPosition(-1,10,-2);
+
+        // Ground plane
+        Entity groundEntity = sm.createEntity(GROUND_E,  "cube.obj");
+        gndNode = rootNode.createChildSceneNode(GROUND_N);
+        gndNode.attachObject(groundEntity);
+        gndNode.setLocalPosition(0, 1, -2);
+//END of TESTING
+        */
+
+
+        // physics
+        //initPhysicsSystem();
+        //createRagePhysicsWorld();
+
+
+        buildMaze(eng, sm);
     }
 
 
@@ -477,6 +549,7 @@ public class MyGame extends VariableFrameRateGame {
         //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
 
+
         /*
         if (orbitController2 != null)
         {
@@ -497,6 +570,23 @@ public class MyGame extends VariableFrameRateGame {
         if (orbitController2 != null)
             orbitController2.updateCameraPosition();
         */
+
+/*
+        // physics
+        float time = engine.getElapsedTimeMillis();
+
+        Matrix4 mat;
+        physicsEng.update(time);
+
+        for (SceneNode s : engine.getSceneManager().getSceneNodes()) {
+            if (s.getPhysicsObject() != null) {
+                mat = Matrix4f.createFrom(toFloatArray(s.getPhysicsObject().getTransform()));
+                s.setLocalPosition(mat.value(0, 3), mat.value(1, 3), mat.value(2, 3));
+            }
+        }
+
+       */
+
     }
 
 
@@ -513,6 +603,8 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println("client movement setup");
         } else {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
+            //physController1 = new PlayerController(gndNode, kbName, im, movementSpeed, game);
+            //physController1 = new PlayerController(ball2Node, kbName, im, movementSpeed, game);
         }
 
 
@@ -682,7 +774,7 @@ public class MyGame extends VariableFrameRateGame {
                 e.printStackTrace();
             }
         } else if (networkType.compareTo("c") == 0) { //client
-            isClientConnected = false;
+            isClientConnected = true;
             try {
                 protClient = new ProtocolClient(InetAddress.getByName(serverAddress), serverPort, serverProtocol, this);
             } catch (UnknownHostException e) {
@@ -814,5 +906,501 @@ public class MyGame extends VariableFrameRateGame {
         return myEngine;
     }
 
+    private void initPhysicsSystem()
+    {
+        String engine = "ray.physics.JBullet.JBulletPhysicsEngine";
+        float[] gravity = {0, -3f, 0};
+
+        physicsEng = PhysicsEngineFactory.createPhysicsEngine(engine);
+        physicsEng.initSystem();
+        physicsEng.setGravity(gravity);
+    }
+
+
+    private void createRagePhysicsWorld()
+    {
+        float mass = 1.0f;
+        float up[] = {0,1,0};
+        double[] temptf;
+
+
+
+        temptf = toDoubleArray(ball1Node.getLocalTransform().toFloatArray());
+        ball1PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
+
+
+        temptf = toDoubleArray(player1Node.getLocalTransform().toFloatArray());
+        roundNodePhysObj = physicsEng.addBoxObject(physicsEng.nextUID(),mass, temptf, roundNode.getLocalTransform().toFloatArray());
+player1Node.setPhysicsObject(roundNodePhysObj);
+
+        ball1PhysObj.setBounciness(1.0f);
+        ball1Node.setPhysicsObject(ball1PhysObj);
+
+        temptf = toDoubleArray(ball2Node.getLocalTransform().toFloatArray());
+        ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
+
+        ball2PhysObj.setBounciness(1.0f);ball2Node.setPhysicsObject(ball2PhysObj);
+        temptf = toDoubleArray(gndNode.getLocalTransform().toFloatArray());
+
+        gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(),temptf, up, 0.0f);
+        gndPlaneP.setBounciness(1.0f);gndNode.scale(3f, .05f, 3f);
+        gndNode.setLocalPosition(0, 1, -2);
+        gndNode.setPhysicsObject(gndPlaneP);
+
+        // can also set damping, friction, etc.
+    }
+
+
+    private float[] toFloatArray(double[] arr)
+    {
+        if (arr == null) return null;
+        int n = arr.length;float[] ret = new float[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            ret[i] = (float)arr[i];
+        }
+
+        return ret;
+    }
+
+    private double[] toDoubleArray(float[] arr)
+    {
+        if (arr == null)
+            return null;
+
+        int n = arr.length;
+        double[] ret = new double[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            ret[i] = (double)arr[i];
+        }
+
+        return ret;
+    }
+
+
+    private void buildMaze(Engine eng, SceneManager sm) throws IOException
+    {
+        // build maze out of 22 cube/rectangle objects
+        // use a scene node hierarchy to group them
+
+        /*
+        ------------------------------------
+        |
+        |  -------------------------------
+        |  |
+        |  |  |---------   --------------
+        |     |  ______________________
+        |  |  |  |
+        |  |  |   _____________________
+        |  |  |---------   --------------
+        |  |
+        |  -------------------------------
+        |
+        ------------------------------------
+        */
+
+        /* To keep track of naming conventions for the pieces:
+        outerlevel = 4 rectangles
+            outerLevelL, outerLevelR, outerLevelT, outerLevelB // outer level left, right, top, bottom
+        innerLevel1 = 2 pieces of 3 rectangles each
+            innerLevel1TopPieceL, innerLevel1TopPieceM, innerLevel1TopPieceR // top piece left, middle, and right
+            innerLevel1BottomPieceL, innerLevel1BottomPieceM, innerLevel1BottomPieceR
+        innerLevel2 = 2 pieces of 3 rectangles each
+            innerLevel2LeftPieceT, innerLevel2LeftPieceM, innerLevel2LeftPieceB // left piece top, middle, and bottom
+            innerLevel2RightPieceT, innerLevel2RightPieceM, innerLevel2RightPieceB
+        innerLevel3 = 2 pieces of 3 rectangles each
+            innerLevel3TopPieceL, innerLevel3TopPieceM, innerLevel3TopPieceR // top piece left, middle, and right
+            innerLevel3BottomPieceL, innerLevel3BottomPieceM, innerLevel3BottomPieceR
+        */
+
+        // parent node that will contain all the planets
+        wholeMazeNode = sm.getRootSceneNode().createChildSceneNode("wholeMazeNode");
+        SceneNode outerLevelNode = wholeMazeNode.createChildSceneNode("outerLevelNode");
+        SceneNode innerLevel1Node = wholeMazeNode.createChildSceneNode("innerLevel1Node");
+        SceneNode innerLevel2Node = wholeMazeNode.createChildSceneNode("innerLevel2Node");
+        SceneNode innerLevel3Node = wholeMazeNode.createChildSceneNode("innerLevel3Node");
+
+
+        String objName = "cube.obj";
+
+        // variables used for scaling
+        float MfwdPos = 7.5f; // distance the innermost middle piece is from origin, used for forward/backward
+        float Mscale = 8f;
+        float LRfwdPos = 4.5f; // distance the innermost side pieces are from origin, used for forward/backward
+        float LRpos = 7.0f; // distance the innermost side pieces are from origin, used for left/right
+        float LRscale = 2.5f;
+
+        float height = 1.0f;
+        float UpPos = 1.0f; // used for raising/lowering height of maze
+
+
+        // set up innerLevel3 top piece
+        Entity innerLevel3TopPieceMEntity = sm.createEntity("innerLevel3TopPieceMEntity", objName);
+        innerLevel3TopPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3TopPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3TopPieceMNode");
+        innerLevel3TopPieceMNode.attachObject(innerLevel3TopPieceMEntity);
+        innerLevel3TopPieceMNode.moveForward(MfwdPos);
+        innerLevel3TopPieceMNode.scale(Mscale,1f,1f);
+
+        Entity innerLevel3TopPieceLEntity = sm.createEntity("innerLevel3TopPieceLEntity", objName);
+        innerLevel3TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3TopPieceLNode = innerLevel3Node.createChildSceneNode("innerLevel3TopPieceLNode");
+        innerLevel3TopPieceLNode.attachObject(innerLevel3TopPieceLEntity);
+        innerLevel3TopPieceLNode.moveForward(LRfwdPos);
+        innerLevel3TopPieceLNode.moveLeft(LRpos);
+        innerLevel3TopPieceLNode.scale(1f,1f, LRscale);
+
+        Entity innerLevel3TopPieceREntity = sm.createEntity("innerLevel3TopPieceREntity", objName);
+        innerLevel3TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3TopPieceRNode = innerLevel3Node.createChildSceneNode("innerLevel3TopPieceRNode");
+        innerLevel3TopPieceRNode.attachObject(innerLevel3TopPieceREntity);
+        innerLevel3TopPieceRNode.moveForward(LRfwdPos);
+        innerLevel3TopPieceRNode.moveRight(LRpos);
+        innerLevel3TopPieceRNode.scale(1f,1f, LRscale);
+
+
+        // set up innerLevel3 bottom piece
+        Entity innerLevel3BottomPieceMEntity = sm.createEntity("innerLevel3BottomPieceMEntity", objName);
+        innerLevel3BottomPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3BottomPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3BottomPieceMNode");
+        innerLevel3BottomPieceMNode.attachObject(innerLevel3BottomPieceMEntity);
+        innerLevel3BottomPieceMNode.moveBackward(MfwdPos);
+        innerLevel3BottomPieceMNode.scale(Mscale,1f,1f);
+
+        Entity innerLevel3BottomPieceLEntity = sm.createEntity("innerLevel3BottomPieceLEntity", objName);
+        innerLevel3BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3BottomPieceLNode = innerLevel3Node.createChildSceneNode("innerLevel3BottomPieceLNode");
+        innerLevel3BottomPieceLNode.attachObject(innerLevel3BottomPieceLEntity);
+        innerLevel3BottomPieceLNode.moveBackward(LRfwdPos);
+        innerLevel3BottomPieceLNode.moveLeft(LRpos);
+        innerLevel3BottomPieceLNode.scale(1f,1f,LRscale);
+
+        Entity innerLevel3BottomPieceREntity = sm.createEntity("innerLevel3BottomPieceREntity", objName);
+        innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel3BottomPieceRNode = innerLevel3Node.createChildSceneNode("innerLevel3BottomPieceRNode");
+        innerLevel3BottomPieceRNode.attachObject(innerLevel3BottomPieceREntity);
+        innerLevel3BottomPieceRNode.moveBackward(LRfwdPos);
+        innerLevel3BottomPieceRNode.moveRight(LRpos);
+        innerLevel3BottomPieceRNode.scale(1f,1f,LRscale);
+
+
+        // set up innerLevel2 left piece
+        Entity innerLevel2LeftPieceMEntity = sm.createEntity("innerLevel2LeftPieceMEntity", objName);
+        innerLevel2LeftPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2LeftPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2LeftPieceMNode");
+        innerLevel2LeftPieceMNode.attachObject(innerLevel2LeftPieceMEntity);
+        innerLevel2LeftPieceMNode.moveLeft(MfwdPos * 2);
+        innerLevel2LeftPieceMNode.scale(1f,1f, Mscale * 2);
+
+        Entity innerLevel2LeftPieceTEntity = sm.createEntity("innerLevel2LeftPieceTEntity", objName);
+        innerLevel2LeftPieceTEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2LeftPieceTNode = innerLevel2Node.createChildSceneNode("innerLevel2LeftPieceTNode");
+        innerLevel2LeftPieceTNode.attachObject(innerLevel2LeftPieceTEntity);
+        innerLevel2LeftPieceTNode.moveForward(LRpos * 2 + 1);
+        innerLevel2LeftPieceTNode.moveLeft(LRpos + 1);
+        innerLevel2LeftPieceTNode.scale(LRscale * 2 + 1,1f,1f);
+
+        Entity innerLevel2LeftPieceBEntity = sm.createEntity("innerLevel2LeftPieceBEntity", objName);
+        innerLevel2LeftPieceBEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2LeftPieceBNode = innerLevel2Node.createChildSceneNode("innerLevel2LeftPieceBNode");
+        innerLevel2LeftPieceBNode.attachObject(innerLevel2LeftPieceBEntity);
+        innerLevel2LeftPieceBNode.moveBackward(LRpos * 2 + 1);
+        innerLevel2LeftPieceBNode.moveLeft(LRpos + 1);
+        innerLevel2LeftPieceBNode.scale(LRscale * 2 + 1,1f,1f);
+
+
+        // set up innerLevel2 right piece
+        Entity innerLevel2RightPieceMEntity = sm.createEntity("innerLevel2RightPieceMEntity", objName);
+        innerLevel2RightPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2RightPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2RightPieceMNode");
+        innerLevel2RightPieceMNode.attachObject(innerLevel2RightPieceMEntity);
+        innerLevel2RightPieceMNode.moveRight(MfwdPos * 2);
+        innerLevel2RightPieceMNode.scale(1f,1f, Mscale * 2);
+
+        Entity innerLevel2RightPieceTEntity = sm.createEntity("innerLevel2RightPieceTEntity", objName);
+        innerLevel2RightPieceTEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2RightPieceTNode = innerLevel2Node.createChildSceneNode("innerLevel2RightPieceTNode");
+        innerLevel2RightPieceTNode.attachObject(innerLevel2RightPieceTEntity);
+        innerLevel2RightPieceTNode.moveForward(LRpos * 2 + 1);
+        innerLevel2RightPieceTNode.moveRight(LRpos + 1);
+        innerLevel2RightPieceTNode.scale(LRscale * 2 + 1f,1f,1f);
+
+        Entity innerLevel2RightPieceBEntity = sm.createEntity("innerLevel2RightPieceBEntity", objName);
+        innerLevel2RightPieceBEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel2RightPieceBNode = innerLevel2Node.createChildSceneNode("innerLevel2RightPieceBNode");
+        innerLevel2RightPieceBNode.attachObject(innerLevel2RightPieceBEntity);
+        innerLevel2RightPieceBNode.moveBackward(LRpos * 2 + 1);
+        innerLevel2RightPieceBNode.moveRight(LRpos + 1);
+        innerLevel2RightPieceBNode.scale(LRscale * 2 + 1,1f,1f);
+
+
+        // set up innerLevel1 top piece
+        Entity innerLevel1TopPieceMEntity = sm.createEntity("innerLevel1TopPieceMEntity", objName);
+        innerLevel1TopPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1TopPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1TopPieceMNode");
+        innerLevel1TopPieceMNode.attachObject(innerLevel1TopPieceMEntity);
+        innerLevel1TopPieceMNode.moveForward(MfwdPos * 3);
+        innerLevel1TopPieceMNode.scale(Mscale * 3,1f,1f);
+
+        Entity innerLevel1TopPieceLEntity = sm.createEntity("innerLevel1TopPieceLEntity", objName);
+        innerLevel1TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1TopPieceLNode = innerLevel1Node.createChildSceneNode("innerLevel1TopPieceLNode");
+        innerLevel1TopPieceLNode.attachObject(innerLevel1TopPieceLEntity);
+        innerLevel1TopPieceLNode.moveForward(LRfwdPos * 3);
+        innerLevel1TopPieceLNode.moveLeft(LRpos * 3 + 2);
+        innerLevel1TopPieceLNode.scale(1f,1f, LRscale * 4 + 1);
+
+        Entity innerLevel1TopPieceREntity = sm.createEntity("innerLevel1TopPieceREntity", objName);
+        innerLevel1TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1TopPieceRNode = innerLevel1Node.createChildSceneNode("innerLevel1TopPieceRNode");
+        innerLevel1TopPieceRNode.attachObject(innerLevel1TopPieceREntity);
+        innerLevel1TopPieceRNode.moveForward(LRfwdPos * 3);
+        innerLevel1TopPieceRNode.moveRight(LRpos * 3 + 2);
+        innerLevel1TopPieceRNode.scale(1f,1f,LRscale * 4 + 1);
+
+
+        // set up innerLevel1 bottom piece
+        Entity innerLevel1BottomPieceMEntity = sm.createEntity("innerLevel1BottomPieceMEntity", objName);
+        innerLevel1BottomPieceMEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1BottomPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1BottomPieceMNode");
+        innerLevel1BottomPieceMNode.attachObject(innerLevel1BottomPieceMEntity);
+        innerLevel1BottomPieceMNode.moveBackward(MfwdPos * 3);
+        innerLevel1BottomPieceMNode.scale(Mscale * 3,1f,1f);
+
+        Entity innerLevel1BottomPieceLEntity = sm.createEntity("innerLevel1BottomPieceLEntity", objName);
+        innerLevel1BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1BottomPieceLNode = innerLevel1Node.createChildSceneNode("innerLevel1BottomPieceLNode");
+        innerLevel1BottomPieceLNode.attachObject(innerLevel1BottomPieceLEntity);
+        innerLevel1BottomPieceLNode.moveBackward(LRfwdPos * 3);
+        innerLevel1BottomPieceLNode.moveLeft(LRpos * 3 + 2);
+        innerLevel1BottomPieceLNode.scale(1f,1f,LRscale * 4 + 1);
+
+        Entity innerLevel1BottomPieceREntity = sm.createEntity("innerLevel1BottomPieceREntity", objName);
+        innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode innerLevel1BottomPieceRNode = innerLevel1Node.createChildSceneNode("innerLevel1BottomPieceRNode");
+        innerLevel1BottomPieceRNode.attachObject(innerLevel1BottomPieceREntity);
+        innerLevel1BottomPieceRNode.moveBackward(LRfwdPos * 3);
+        innerLevel1BottomPieceRNode.moveRight(LRpos * 3 + 2);
+        innerLevel1BottomPieceRNode.scale(1f,1f,LRscale * 4 + 1);
+
+
+        // set up outer level
+        //outerLevelL, outerLevelR, outerLevelT, outerLevelB // outer level left, right, top, bottom
+        Entity outerLevelTEntity = sm.createEntity("outerLevelTEntity", objName);
+        outerLevelTEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode outerLevelTNode = outerLevelNode.createChildSceneNode("outerLevelTNode");
+        outerLevelTNode.attachObject(outerLevelTEntity);
+        outerLevelTNode.moveForward(MfwdPos * 4);
+        outerLevelTNode.scale(Mscale * 4,1f,1f);
+
+        Entity outerLevelBEntity = sm.createEntity("outerLevelBEntity", objName);
+        outerLevelBEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode outerLevelBNode = outerLevelNode.createChildSceneNode("outerLevelBNode");
+        outerLevelBNode.attachObject(outerLevelBEntity);
+        outerLevelBNode.moveBackward(MfwdPos * 4);
+        outerLevelBNode.scale(Mscale * 4,1f,1f);
+
+        Entity outerLevelLEntity = sm.createEntity("outerLevelLEntity", objName);
+        outerLevelLEntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode outerLevelLNode = outerLevelNode.createChildSceneNode("outerLevelLNode");
+        outerLevelLNode.attachObject(outerLevelLEntity);
+        outerLevelLNode.moveLeft(MfwdPos * 4);
+        outerLevelLNode.scale(1f,1f,Mscale * 4);
+
+        Entity outerLevelREntity = sm.createEntity("outerLevelREntity", objName);
+        outerLevelREntity.setPrimitive(Primitive.TRIANGLES);
+        SceneNode outerLevelRNode = outerLevelNode.createChildSceneNode("outerLevelRNode");
+        outerLevelRNode.attachObject(outerLevelREntity);
+        outerLevelRNode.moveRight(MfwdPos * 4);
+        outerLevelRNode.scale(1f,1f,Mscale * 4);
+
+
+        // Scale height of maze. Uses hierarchy to apply it to all maze pieces
+        wholeMazeNode.scale(1f,height,1f);
+        wholeMazeNode.moveUp(UpPos);
+
+
+    }
+
+    public boolean checkDistanceFromWall(SceneNode obj)
+    {
+        // get player's pos
+        // check if loc is inside innerLevel3
+        // if yes, only compare to those wall objects
+
+        // only need to check x and z? coords
+        // maybe use gridlike system?
+        // ie) player is less than 10f on x axis away from center, which means they are in checking distance for inner lev 3 and 2
+
+        boolean tooClose = false;
+        float distanceThreshold = 2f;
+
+        Vector3 obj1 = obj.getWorldPosition();
+        float x = obj1.x();
+        float z = obj1.z();
+
+
+        // innerLevel3 range: x = +- 8f, z = +- 7.5f (not worrying about the maze openings yet.
+        // innerLevel2 range: x = 15f, z = 16f
+
+        /*
+        Cases:
+        1: player inside InnerLevel3
+        2: player between InnerLevel2 and 3
+        3: player between InnerLevel 1 and 2
+        4: player between OuterLevel and InnerLevel1
+        */
+
+        // check for case 1: player inside InnerLevel3
+        if ((x > -8f && x < 8f) && (z > -7.5f && z < 7.5f))
+        {
+            // detailed check for innerLevel3 wall collisions
+            // only 6 cube objects to check distance to
+            // can narrow down even further by checking the sign of the x z values
+            // this way only 2 objects to compare distance to
+            // using this same method for the other levels would mean 4 objects to compare distance to
+
+            if (x > 0)
+            {
+
+                /*//SceneNode innerLevel3Node = getEngine().getSceneManager().getSceneNode("innerLevel3Node");
+                SceneNode outerLevelNode = getEngine().getSceneManager().getSceneNode("outerLevelNode");
+                SceneNode innerLevel1Node = getEngine().getSceneManager().getSceneNode("innerLevel1Node");
+                SceneNode innerLevel2Node = getEngine().getSceneManager().getSceneNode("innerLevel2Node");
+                SceneNode innerLevel3Node = getEngine().getSceneManager().getSceneNode("innerLevel3Node");
+                */
+
+
+
+                if (z < 0)
+                {
+                    // need lowerPiece L and M
+                    SceneNode innerLevel3BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceLNode");
+                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need upperPiece L and M
+                    SceneNode innerLevel3TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceLNode");
+                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+
+            else // x > 0
+            {
+                if (z < 0)
+                {
+                    // need lowerPiece R and M
+                    SceneNode innerLevel3BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceRNode");
+                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need UpperPiece R and M
+                    SceneNode innerLevel3TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceRNode");
+                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+
+
+        }
+
+
+        // just check if within the values of innerLevel2. already checked if in range for IL3 so don't need to do so again.
+        // we would already know it's between these two walls
+      //  else if ()
+      //  {
+
+      //  }
+
+        return tooClose;
+    }
+
+    private boolean getZdistance(Vector3 obj1, Vector3 obj2, float distanceThreshold) {
+        // checks the distance on the z axis between two vectors
+
+        boolean tooClose = false;
+        float dz = obj1.z();
+        float cz = obj2.z();
+
+        float distance = ((dz - cz) * (dz - cz));
+
+        if (distance < distanceThreshold)
+            tooClose = true;
+
+        return tooClose;
+    }
+
+    private boolean getXdistance(Vector3 obj1, Vector3 obj2, float distanceThreshold) {
+        // checks the distance on the z axis between two vectors
+
+        boolean tooClose = false;
+        float dx = -obj1.x(); // make it negative so orientation matches the maze objects
+        float cx = obj2.x();
+
+        float distance = ((dx - cx) * (dx - cx));
+
+        if (distance < distanceThreshold)
+            tooClose = true;
+
+        return tooClose;
+    }
 
 }

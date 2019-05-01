@@ -3,10 +3,10 @@ package networking;
 
 import ray.ai.behaviortrees.BTCondition;
 
-public class SideFour extends BTCondition {
+public class SideFive extends BTCondition {
     private NPC npc;
 
-    public SideFour(NPC n, boolean toNegate) {
+    public SideFive(NPC n, boolean toNegate) {
         super(toNegate);
 //        server = s;
 //        npcc = c;
@@ -16,8 +16,9 @@ public class SideFour extends BTCondition {
 
     @Override
     protected boolean check() {
-        if (npc.getX() < 19.2f && npc.getX() > 0.1f && npc.getZ() > 18.0f && npc.getZ() < 18.6f) {
+        if (npc.getX() < 0.4f && npc.getX() > -0.9f && npc.getZ() > 11.0f && npc.getZ() < 18.6f) {
             return true;
+
         } else {
             return false;
         }

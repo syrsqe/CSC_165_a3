@@ -15,7 +15,7 @@ public class SideTwo extends BTCondition {
 
     @Override
     protected boolean check() {
-        if (npc.getX() < 2.02f && npc.getX() > 1.98 && npc.getZ() < 2.01f && npc.getZ() > -2.01) {
+        if (npc.getX() < 25.3f && npc.getX() > 19.0 && npc.getZ() < -1.3f && npc.getZ() > -1.8f) {
             return true;
         } else {
             return false;
