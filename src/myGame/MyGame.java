@@ -245,26 +245,6 @@ public class MyGame extends VariableFrameRateGame {
     protected void setupScene(Engine eng, SceneManager sm) throws IOException {
         setDefaults();
 
-        /*
-        ScriptEngineManager factory = new ScriptEngineManager();
-        String scriptFileName = "hello.js";
-
-        // get a list of the script engines on this platform
-        List<ScriptEngineFactory> list = factory.getEngineFactories();
-
-        System.out.println("Script Engine Factories found:");
-        for (ScriptEngineFactory f : list)
-        {
-            System.out.println("  Name = " + f.getEngineName() + "  language = " + f.getLanguageName() + "  extensions = " + f.getExtensions());
-        }
-
-        // get the JavaScript engine
-        ScriptEngine jsEngine = factory.getEngineByName("js");
-
-        // run the script
-        executeScript(jsEngine, scriptFileName);
-        */
-
 
         // set up sky box
         Configuration conf = eng.getConfiguration();
@@ -308,7 +288,7 @@ public class MyGame extends VariableFrameRateGame {
 //
 //        Entity player1E = sm.createEntity("player1E", playerModel);
 //        player1E.setPrimitive(Primitive.TRIANGLES);
-//        TextureManager tm = eng.getTextureManager();
+           TextureManager tm = eng.getTextureManager();
 //        Texture moonTexture = tm.getAssetByPath(playerTexture);
 //        RenderSystem rs = sm.getRenderSystem();
 //        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
@@ -370,25 +350,8 @@ public class MyGame extends VariableFrameRateGame {
         */
 
 
-        /*
-        // set up earth
-        Entity earthE = sm.createEntity("myEarth", "earth.obj");
-        earthE.setPrimitive(Primitive.TRIANGLES);
-        SceneNode earthN = sm.getRootSceneNode().createChildSceneNode(earthE.getName() + "Node");
-        earthN.attachObject(earthE);
-        earthN.moveForward(10.0f);
-        earthN.moveRight(10.0f);
-        //earthN.setLocalScale(0.2f, 0.2f, 0.2f);
-        */
 
-        /*
-        // create ground plane
-        ManualObject groundplane = makeGroundPlane(eng, sm);
-        SceneNode groundplaneN = sm.getRootSceneNode().createChildSceneNode("groundplaneN");
-        groundplaneN.scale(50f, 50f, 50f);
-        groundplaneN.moveUp(47.3f);
-        groundplaneN.attachObject(groundplane);
-        */
+
 
 
         // set up lights
@@ -469,39 +432,57 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
-/*
+///*
         //TESTING
         SceneNode rootNode = sm.getRootSceneNode();
 
-        Entity testEntity = sm.createEntity("cube1", "robot.obj");
-        roundNode = rootNode.createChildSceneNode("roundNode");
-        roundNode.attachObject(testEntity);
 
-
+        /*
         // Ball 1
         Entity ball1Entity = sm.createEntity("ball1", "earth.obj");
         ball1Node = rootNode.createChildSceneNode("Ball1Node");
         ball1Node.attachObject(ball1Entity);
-        ball1Node.setLocalPosition(0, 2, -2);
+        ball1Node.setLocalPosition(0, 0, 0);
+        //ball1Node.setLocalPosition(0,-20,0);
+        */
 
+        ///*
         // Ball 2
-        Entity ball2Entity = sm.createEntity("Ball2", "earth.obj");
+        Entity ball2Entity = sm.createEntity("Ball2", "sphere.obj");
         ball2Node = rootNode.createChildSceneNode("Ball2Node");
         ball2Node.attachObject(ball2Entity);
-        ball2Node.setLocalPosition(-1,10,-2);
+        //ball2Node.scale(0.4f, 0.4f, 0.4f);
+        ball2Node.setLocalPosition(-1,5,-2);
+
+
+        //tm = getEngine().getTextureManager();
+        //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
+        //tm.setBaseDirectoryPath("assets/textures/");
+
+        //TextureManager tm2 = eng.getTextureManager();
+        Texture redTexture = eng.getTextureManager().getAssetByPath("ground.jpeg");
+        RenderSystem rs2 = sm.getRenderSystem();
+        TextureState state2 = (TextureState)rs2.createRenderState(RenderState.Type.TEXTURE);
+        state2.setTexture(redTexture);
+        ball2Entity.setRenderState(state2);
+
+
 
         // Ground plane
         Entity groundEntity = sm.createEntity(GROUND_E,  "cube.obj");
         gndNode = rootNode.createChildSceneNode(GROUND_N);
         gndNode.attachObject(groundEntity);
         gndNode.setLocalPosition(0, 1, -2);
-//END of TESTING
-        */
+
+        //END of TESTING
+        //
 
 
         // physics
-        //initPhysicsSystem();
-        //createRagePhysicsWorld();
+        initPhysicsSystem();
+        createRagePhysicsWorld();
+
+
 
 
         buildMaze(eng, sm);
@@ -589,12 +570,7 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
-        /*
-        if (orbitController2 != null)
-            orbitController2.updateCameraPosition();
-        */
-
-/*
+///*
         // physics
         float time = engine.getElapsedTimeMillis();
 
@@ -608,7 +584,16 @@ public class MyGame extends VariableFrameRateGame {
             }
         }
 
-       */
+
+        // reset ball
+        Vector3 vf = ball2Node.getLocalPosition();
+        if (vf.x() >= 50 || vf.y() >= 50 || vf.y() >= 50)
+            ball2Node.setLocalPosition(-1,5,-2);
+
+        ball2PhysObj.applyForce(10,0,0,0,0,0);
+        ball2PhysObj.applyTorque(100,1000,0); // doesn't seem to have any effect
+
+        // */
 
     }
 
@@ -942,37 +927,38 @@ public class MyGame extends VariableFrameRateGame {
 
     private void createRagePhysicsWorld()
     {
-        float mass = 1.0f;
+        float mass = 10.0f;
         float up[] = {0,1,0};
         double[] temptf;
 
 
-
+        /*
+        ball1Node.scale(.4f, .4f, .4f);
+        //ball1Node.setLocalPosition(0,-10,0); // gone completely if negative value
         temptf = toDoubleArray(ball1Node.getLocalTransform().toFloatArray());
         ball1PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
-
-
-        temptf = toDoubleArray(player1Node.getLocalTransform().toFloatArray());
-        roundNodePhysObj = physicsEng.addBoxObject(physicsEng.nextUID(),mass, temptf, roundNode.getLocalTransform().toFloatArray());
-player1Node.setPhysicsObject(roundNodePhysObj);
-
-        ball1PhysObj.setBounciness(1.0f);
+        //ball1PhysObj.setBounciness(0f);
         ball1Node.setPhysicsObject(ball1PhysObj);
+        */
 
+        ///*
         temptf = toDoubleArray(ball2Node.getLocalTransform().toFloatArray());
         ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
+        ball2PhysObj.setBounciness(1.0f);
+        ball2Node.setPhysicsObject(ball2PhysObj);
+        //*/
 
-        ball2PhysObj.setBounciness(1.0f);ball2Node.setPhysicsObject(ball2PhysObj);
         temptf = toDoubleArray(gndNode.getLocalTransform().toFloatArray());
-
         gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(),temptf, up, 0.0f);
-        gndPlaneP.setBounciness(1.0f);gndNode.scale(3f, .05f, 3f);
-        gndNode.setLocalPosition(0, 1, -2);
+        //gndPlaneP.setBounciness(0f);
+        gndNode.scale(3f, .05f, 3f);
+        gndNode.setLocalPosition(0, -2, -2);
         gndNode.setPhysicsObject(gndPlaneP);
 
         // can also set damping, friction, etc.
+        //ball2PhysObj.applyTorque(1000,0,0);
+        //ball2PhysObj.applyForce(500,0,0,0,0,0);
     }
-
 
     private float[] toFloatArray(double[] arr)
     {
