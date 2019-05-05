@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/myGameEngine/DisplaySettingsDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/ProtocolClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,56 +28,68 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
+        <entry file="file://$PROJECT_DIR$/src/networking/NPC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1428">
-              <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
+            <state relative-caret-position="-1">
+              <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/SideSix.java">
+        <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="26" />
+            <state relative-caret-position="408">
+              <caret line="61" column="5" lean-forward="true" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="587">
+              <caret line="218" column="71" lean-forward="true" selection-start-line="218" selection-start-column="71" selection-end-line="218" selection-end-column="71" />
+              <folding>
+                <element signature="e#34087#34088#0" expanded="true" />
+                <element signature="e#37629#37630#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
+        <entry file="file://$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="595" column="13" lean-forward="true" selection-start-line="595" selection-start-column="13" selection-end-line="595" selection-end-column="13" />
+            <state relative-caret-position="872">
+              <caret line="328" column="36" selection-start-line="328" selection-start-column="32" selection-end-line="328" selection-end-column="36" />
               <folding>
-                <element signature="e#32160#32161#0" expanded="true" />
-                <element signature="e#32194#32195#0" expanded="true" />
-                <element signature="e#35705#35706#0" expanded="true" />
-                <element signature="e#35736#35737#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../physics mygame/MyGame.java">
+        <entry file="file://$PROJECT_DIR$/src/myGameEngine/DisplaySettingsDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="360" column="10" selection-start-line="360" selection-start-column="8" selection-end-line="360" selection-end-column="10" />
+            <state relative-caret-position="578">
+              <caret line="34" column="3" lean-forward="true" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/GhostNPC.java">
+        <entry file="file://$PROJECT_DIR$/../../Dolphin Starship/a1/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="61" selection-start-line="61" selection-end-line="61" />
-              <folding>
-                <element signature="e#963#964#0" expanded="true" />
-                <element signature="e#999#1000#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="306">
+              <caret line="233" column="24" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -81,17 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2108">
-              <caret line="131" column="64" selection-start-line="131" selection-start-column="64" selection-end-line="131" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/SideOneRotation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="886">
+              <caret line="196" column="14" selection-start-line="196" selection-start-column="14" selection-end-line="196" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -134,23 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getDistance</find>
-      <find>maze1</find>
-      <find>checkForCollisions</find>
-      <find>controllers</find>
-      <find>getdis</find>
-      <find>distancethr</find>
-      <find>getlocal</find>
-      <find>getlocalpos</find>
-      <find>move</find>
-      <find>isclientconnected</find>
-      <find>isclientcon</find>
-      <find>player1</find>
-      <find>setupscene</find>
-      <find>degree</find>
-      <find>player1node</find>
-      <find>networktype</find>
-      <find>skeletal</find>
       <find>setupsc</find>
       <find>physics</find>
       <find>initph</find>
@@ -164,6 +154,23 @@
       <find>RenderSystem</find>
       <find>initphy</find>
       <find>update</find>
+      <find>manual object</find>
+      <find>mygame</find>
+      <find>setupscene</find>
+      <find>specialitem</find>
+      <find>setu</find>
+      <find>specialItem</find>
+      <find>makepyramid</find>
+      <find>shapen</find>
+      <find>specialitemN</find>
+      <find>shapeN</find>
+      <find>makeshape</find>
+      <find>light</find>
+      <find>setup</find>
+      <find>frame</find>
+      <find>render</find>
+      <find>fullscreen</find>
+      <find>full</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,7 +205,6 @@
         <option value="$PROJECT_DIR$/src/networking/SideFourTurn.java" />
         <option value="$PROJECT_DIR$/src/networking/SideFour.java" />
         <option value="$PROJECT_DIR$/src/networking/SideFiveTurn.java" />
-        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/src/networking/SideFive.java" />
         <option value="$PROJECT_DIR$/src/networking/SideSixTurn.java" />
         <option value="$PROJECT_DIR$/src/networking/SideSix.java" />
@@ -208,14 +214,18 @@
         <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
         <option value="$PROJECT_DIR$/src/networking/SideEight.java" />
         <option value="$PROJECT_DIR$/src/networking/NPC.java" />
+        <option value="$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java" />
+        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
+        <option value="$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java" />
+        <option value="$PROJECT_DIR$/src/myGameEngine/DisplaySettingDialog.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1490" />
-    <option name="width" value="1522" />
-    <option name="height" value="1932" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1280" />
+    <option name="width" value="1280" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -225,63 +235,46 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="animations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="meshes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="skeletons" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="myGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="myGameEngine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="networking" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556830896414" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557082695236" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -303,7 +296,8 @@
     <configuration name="MyGame" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="myGame.MyGame" />
       <module name="A3" />
-      <option name="PROGRAM_PARAMETERS" value="10.117.247.10 700 c" />
+      <option name="PROGRAM_PARAMETERS" value="192.168.1.106 700 c " />
+      <option name="VM_PARAMETERS" value="-Dsun.java2d.noddraw=true -Dsun.java2d.d3d=false" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="myGame.*" />
@@ -376,10 +370,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
-    <editor active="true" />
+    <frame x="1280" y="0" width="1280" height="1440" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.24467354" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.24344262" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -388,14 +381,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.3440095" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946293" weight="0.23623854" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39803624" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32930514" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32874617" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32777777" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50053704" side_tool="true" weight="0.3322034" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295107" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3288889" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3180428" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -408,7 +401,7 @@
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.15977742" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.24467354" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.24344262" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -417,7 +410,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.3440095" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.23623854" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39803624" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -484,12 +477,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/asset/AbstractAssetManager.class" />
-    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java" />
-    <entry file="file://$USER_HOME$/Dolphin Starship/a1/MyGame.java" />
-    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/util/Configuration.class" />
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/VariableFrameRateGame.class" />
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/game/AbstractGame.class" />
@@ -553,7 +540,6 @@
     </entry>
     <entry file="file://D:/Games/Star.Wars.Episode.I.Racer.GOG/Star.Wars.Episode.I.Racer.GOG/README.txt" />
     <entry file="file://$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.class" />
-    <entry file="file://$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java" />
     <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
@@ -668,23 +654,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/NPC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" selection-start-line="23" selection-end-line="25" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/SideSix.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -700,13 +669,6 @@
             <element signature="e#963#964#0" expanded="true" />
             <element signature="e#999#1000#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="131" column="64" selection-start-line="131" selection-start-column="64" selection-end-line="131" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -738,22 +700,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../physics mygame/MyGame.java">
+    <entry file="file://$PROJECT_DIR$/../physics mygame/MyGame.java" />
+    <entry file="file://$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="360" column="10" selection-start-line="360" selection-start-column="8" selection-end-line="360" selection-end-column="10" />
+        <state relative-caret-position="306">
+          <caret line="284" column="28" selection-start-line="284" selection-start-column="28" selection-end-line="284" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="886">
+          <caret line="196" column="14" selection-start-line="196" selection-start-column="14" selection-end-line="196" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Dolphin Starship/a1/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="233" column="24" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/NPC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1">
+          <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/Launcher/src/Launcher/DisplayPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/DisplaySettingsDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="3" lean-forward="true" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="61" column="5" lean-forward="true" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="595" column="13" lean-forward="true" selection-start-line="595" selection-start-column="13" selection-end-line="595" selection-end-column="13" />
+        <state relative-caret-position="587">
+          <caret line="218" column="71" lean-forward="true" selection-start-line="218" selection-start-column="71" selection-end-line="218" selection-end-column="71" />
           <folding>
-            <element signature="e#32160#32161#0" expanded="true" />
-            <element signature="e#32194#32195#0" expanded="true" />
-            <element signature="e#35705#35706#0" expanded="true" />
-            <element signature="e#35736#35737#0" expanded="true" />
+            <element signature="e#34087#34088#0" expanded="true" />
+            <element signature="e#37629#37630#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="872">
+          <caret line="328" column="36" selection-start-line="328" selection-start-column="32" selection-end-line="328" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

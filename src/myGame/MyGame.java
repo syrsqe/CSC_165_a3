@@ -99,7 +99,7 @@ public class MyGame extends VariableFrameRateGame {
 
     //Networking
 
-
+    private SceneNode specialItemN;
     private String serverAddress;
     private int serverPort;
     private ProtocolType serverProtocol;
@@ -109,6 +109,7 @@ public class MyGame extends VariableFrameRateGame {
     private static MyGame game;
     private GameServerUDP thisUDPServer;
     private NPCcontroller npcCtrl;
+    ManualObject specialItem;
 
     private static String networkType; //going to need to be nonestatic at some point
 
@@ -196,8 +197,39 @@ public class MyGame extends VariableFrameRateGame {
     }
         @Override
         protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
-            rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
-        }
+            //rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+            GraphicsDevice gd = ge.getDefaultScreenDevice();
+            DisplaySettingsDialog dsd = new DisplaySettingsDialog(ge.getDefaultScreenDevice());
+            dsd.showIt();
+            RenderWindow rw = rs.createRenderWindow(dsd.getSelectedDisplayMode(), dsd.isFullScreenModeSelected());
+
+
+    }
+//    private void tryFullScreenMode(GraphicsDevice gd, DisplayMode dispMode)
+//    { if (gd.isFullScreenSupported())
+//
+//    { gd.setUndecorated(true);
+//        frame.setResizable(false);
+//        // AWT repaint events unecessary – we manage render loop
+//        frame.setIgnoreRepaint(true);
+//        gd.setFullScreenWindow(frame);
+//        if (gd.isDisplayChangeSupported())
+//        { try
+//        { gd.setDisplayMode(dispMode);
+//            frame.setSize(dispMode.getWidth(), dispMode.getHeight());
+//            isInFullScreenMode = true;
+//        } catch (IllegalArgumentException e)
+//        { frame.setUndecorated(false);
+//            frame.setResizable(true);
+//        }} else {
+//            logger.fine("FSEM not supported");
+//        }} else {
+//        frame.setUndecorated(false);
+//        frame.setResizable(true);
+//        frame.setSize(dispMode.getWidth(), dispMode.getHeight());
+//        frame.setLocationRelativeTo(null);
+//    }
+//    }
 
 	/*
     //  now we add setting up viewports in the window
@@ -357,25 +389,43 @@ public class MyGame extends VariableFrameRateGame {
         // set up lights
         sm.getAmbientLight().setIntensity(new Color(.1f, .1f, .1f));
 
-        Light plight1 = sm.createLight("Lamp1", Light.Type.POINT);
-        plight1.setAmbient(new Color(.3f, .3f, .3f));
-        plight1.setDiffuse(new Color(.7f, .7f, .7f));
-        plight1.setSpecular(new Color(1.0f, 1.0f, 1.0f));
-        plight1.setRange(50f);
-        SceneNode plightNode1 = sm.getRootSceneNode().createChildSceneNode("plightNode1");
-        plightNode1.attachObject(plight1);
-        plightNode1.moveUp(10f);
+//        Light plight1 = sm.createLight("Lamp1", Light.Type.POINT);
+//        plight1.setAmbient(new Color(.3f, .3f, .3f));
+//        plight1.setDiffuse(new Color(.7f, .7f, .7f));
+//        plight1.setSpecular(new Color(0.5f, 0.5f, 0.5f));
+//        plight1.setRange(50f);
+//        SceneNode plightNode1 = sm.getRootSceneNode().createChildSceneNode("plightNode1");
+//        plightNode1.attachObject(plight1);
+//        plightNode1.moveUp(10f);
 
-        Light plight2 = sm.createLight("Lamp2", Light.Type.POINT);
-        plight2.setAmbient(new Color(.3f, .3f, .3f));
-        plight2.setDiffuse(new Color(.7f, .7f, .7f));
-        plight2.setSpecular(new Color(1.0f, 1.0f, 1.0f));
-        plight2.setRange(50f);
-        SceneNode plightNode2 = sm.getRootSceneNode().createChildSceneNode("plightNode2");
-        plightNode2.attachObject(plight2);
-        plightNode2.moveForward(20f);
-        //plightNode2.moveLeft(20f);
-        plightNode2.moveUp(10f);
+//        Light plight2 = sm.createLight("Lamp2", Light.Type.POINT);
+//        plight2.setAmbient(new Color(.3f, .3f, .3f));
+//        plight2.setDiffuse(new Color(.7f, .7f, .7f));
+//        plight2.setSpecular(new Color(0.0f, 1.0f, 1.0f));
+//        plight2.setRange(50f);
+//        SceneNode plightNode2 = sm.getRootSceneNode().createChildSceneNode("plightNode2");
+//        plightNode2.attachObject(plight2);
+//        plightNode2.moveForward(20f);
+//        //plightNode2.moveLeft(20f);
+//        plightNode2.moveUp(10f);
+
+
+
+        Light spotlight = sm.createLight("spotlight", Light.Type.SPOT);
+        spotlight.setAmbient(new Color(0.1f, 0.1f, 0.1f));
+        spotlight.setDiffuse(new Color(0.5f, 0.5f, 0.5f));
+        spotlight.setSpecular(new Color(1.0f, 1.0f, 1.0f));
+        spotlight.setConeCutoffAngle(Degreef.createFrom(1.0f));
+        spotlight.setRange(50f);
+        SceneNode spotLightNode = sm.getRootSceneNode().createChildSceneNode("spotLightNode");
+        spotLightNode.attachObject(spotlight);
+        spotLightNode.yaw(Degreef.createFrom(-90.0f));
+        System.out.println(spotLightNode.getWorldPosition());
+
+        //spotLightNode.moveUp(5f);
+        Vector3f spotlightPos = (Vector3f) spotLightNode.getWorldPosition();
+        //spotLightNode.setLocalPosition(spotlightPos.x(), spotlightPos.y()*-1, spotlightPos.z());
+
 
 
         // set up node controllers. DO NOT change this order of adding them to the scene. Needed for PlanetVisited()
@@ -476,8 +526,13 @@ public class MyGame extends VariableFrameRateGame {
 
         //END of TESTING
         //
-
-
+        ManualObject shape = makeShape(eng, sm);
+        SceneNode shapeN = sm.getRootSceneNode().createChildSceneNode("ShapeNode");
+        shapeN.scale(1.0f, 1.0f, 1.0f);
+        shapeN.attachObject(shape);
+        shapeN.setLocalPosition(Vector3f.createFrom(-1.05f, 5.65f, 0));
+        //specialItemN.attachObject(specialItem);
+        System.out.println(shapeN.getWorldPosition());
         // physics
         initPhysicsSystem();
         createRagePhysicsWorld();
@@ -551,7 +606,7 @@ public class MyGame extends VariableFrameRateGame {
         //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
 
-
+        //System.out.println(specialItemN.getWorldPosition());
         /*
         if (orbitController2 != null)
         {
@@ -1593,6 +1648,126 @@ public class MyGame extends VariableFrameRateGame {
             tooClose = true;
 
         return tooClose;
+    }
+    //used from his notes for extra activity object
+    protected ManualObject makePyramid(Engine eng, SceneManager sm) throws IOException {
+        ManualObject pyr = sm.createManualObject("Pyramid");
+        ManualObjectSection pyrSec = pyr.createManualSection("PyramidSection");
+        pyr.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
+        float[] vertices = new float[]
+                { -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //front
+                        1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //right
+                        1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //back
+                        -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //left
+                        -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, //LF
+                        1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f //RR
+                };
+
+
+
+        float[] texcoords = new float[]
+                { 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
+                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
+                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
+                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
+                        0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+                        1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
+                };
+        float[] normals = new float[]
+                { 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                        1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+                        0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f,
+                        -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+                        0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f,
+                        0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f
+                };
+        int[] indices = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+
+        FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
+        FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
+        FloatBuffer normBuf = BufferUtil.directFloatBuffer(normals);
+        IntBuffer indexBuf = BufferUtil.directIntBuffer(indices);
+        pyrSec.setVertexBuffer(vertBuf);
+        pyrSec.setTextureCoordsBuffer(texBuf);
+        pyrSec.setNormalsBuffer(normBuf);
+        pyrSec.setIndexBuffer(indexBuf);
+        Texture tex = eng.getTextureManager().getAssetByPath("chain-fence.jpeg");
+        TextureState texState = (TextureState)sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        texState.setTexture(tex);
+        FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
+        pyr.setDataSource(DataSource.INDEX_BUFFER);
+        pyr.setRenderState(texState);
+        pyr.setRenderState(faceState);
+        return pyr;
+    }
+    protected ManualObject makeShape(Engine eng, SceneManager sm) throws IOException {
+        ManualObject shape = sm.createManualObject("Shape");
+        ManualObjectSection shapeSec = shape.createManualSection("ShapeSection");
+        shape.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
+        //shape
+        float[] vertices = new float[]
+                {-1.0f,1.0f,0.5f,1.0f,1.0f,0.5f,0.0f,2.0f,0.0f,//topfront
+                        1.0f,1.0f,0.5f,1.0f,1.0f,-0.5f,0.0f,2.0f,0.0f,//topright
+                        1.0f,1.0f,-0.5f, -1.0f,1.0f,-0.5f,0.0f,2.0f,0.0f,//top back
+                        -1.0f,1.0f,-0.5f,-1.0f,1.0f,0.5f,0.0f,2.0f, 0.0f,//topLeft
+                        1.0f,1.0f,0.5f,-1.0f,1.0f,0.5f,0.0f,-2.0f,0.0f,//bottomfront
+                        1.0f,1.0f,-0.5f,1.0f,1.0f,0.5f,0.0f,-2.0f,0.0f,//bottomright
+                        -1.0f,1.0f,-0.5f,1.0f,1.0f,-0.5f,0.0f,-2.0f,0.0f,//bottom back
+                        -1.0f,1.0f,0.5f,-1.0f,1.0f,-0.5f,0.0f,-2.0f, 0.0f//bottomLeft
+
+
+                };
+        float[] texcoords = new float[]
+                { 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topfront
+                        0.25f, 0.0f, 0.75f,0.0f,0.5f,1.0f, //topright
+                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topback
+                        0.25f, 0.0f, 0.75f,0.0f,0.5f,1.0f, //topleft
+                        0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //bottomfront
+                        0.4f, 0.0f, 0.6f,0.0f,0.5f,1.0f, //bottomright
+                        0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //bottomback
+                        0.4f, 0.0f, 0.6f,0.0f,0.5f,1.0f //boottomleft
+
+
+
+
+
+                };
+        float[] normals = new float[]
+                {         0.0f,2.0f,0.5f,0.0f,2.0f,0.5f,0.0f,2.0f,0.5f,//topfront
+                        1.0f,2.0f,0.0f,1.0f,2.0f,0.0f,1.0f,2.0f,0.0f,//topright
+                        0.0f,2.0f,-0.5f,0.0f,2.0f,-0.5f,0.0f,2.0f,-0.5f,//topback
+                        -1.0f,2.0f,0.0f,-1.0f,2.0f,0.0f,-1.0f,2.0f,0.0f, //topleft
+                        0.0f,0.0f,0.5f,0.0f,0.0f,0.5f,0.0f,0.0f,0.5f,//bottomfront
+                        1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,//bottomright
+                        0.0f,0.0f,-0.5f,0.0f,0.0f,-0.5f,0.0f,0.0f,-0.5f,//bottomback
+                        -1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f //bottomleft
+
+
+
+
+                };
+        int[] indices = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23};//,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41};
+
+        FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
+        FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
+        FloatBuffer normBuf = BufferUtil.directFloatBuffer(normals);
+        IntBuffer indexBuf = BufferUtil.directIntBuffer(indices);
+        shapeSec.setVertexBuffer(vertBuf);
+        shapeSec.setTextureCoordsBuffer(texBuf);
+        shapeSec.setNormalsBuffer(normBuf);
+        shapeSec.setIndexBuffer(indexBuf);
+        Texture tex = eng.getTextureManager().getAssetByPath("hexagons.jpeg");
+        TextureState texState = (TextureState)sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        texState.setTexture(tex);
+        Material mat1 = sm.getMaterialManager().getAssetByPath("default.mtl");
+        //mat1.setEmissive(Color.WHITE);
+        shapeSec.setMaterial(mat1);
+        FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
+        shape.setDataSource(DataSource.INDEX_BUFFER);
+        shape.setRenderState(texState);
+        shape.setRenderState(faceState);
+        shape.setMaterial(mat1);
+        return shape;
     }
 
 }
