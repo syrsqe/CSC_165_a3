@@ -194,7 +194,7 @@ public class ProtocolClient extends GameConnectionClient {
             message += "," + pos.x() + "," + pos.y() + "," + pos.z();
             message += "," + rot.w() + "," + rot.x() + "," + rot.y()+ "," + rot.z();
             sendPacket(message);
-            //System.out.println(pos);
+            System.out.println(pos);
         } catch (IOException e) {
             e.printStackTrace();
         }

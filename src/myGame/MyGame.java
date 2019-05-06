@@ -130,10 +130,15 @@ public class MyGame extends VariableFrameRateGame {
 
     private static String playerModel;
     private static String playerTexture;
+    public static String playerSkeleton;
+    private boolean playerOneWins = false, NPCWins = false, ghostWon = false;
+    private String winGameTime;
 
     private SceneNode wholeMazeNode;
 
     private Engine myEngine;
+    private LinkedList<GhostAvatar> ghostAvatars = new LinkedList<GhostAvatar>();
+    private LinkedList<Boolean> ghostAvatarWin = new LinkedList<Boolean>();
 
 
     public MyGame(String serverAddr, int sPort) {
@@ -141,7 +146,7 @@ public class MyGame extends VariableFrameRateGame {
         this.serverAddress = serverAddr;
         this.serverPort = sPort;
         this.serverProtocol = ProtocolType.UDP;
-        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
             System.out.println("WASD keys to move");
             System.out.println("Q and E keys to turn");
             System.out.println("arrow keys to rotate the camera");
@@ -166,7 +171,7 @@ public class MyGame extends VariableFrameRateGame {
         //ask about which player
         String playerChoice = "";
         networkType = args[2]; // s for server, c for client
-        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0 ){
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
             Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Choose your character:");
             System.out.println("press d for the dolphin");
@@ -175,11 +180,13 @@ public class MyGame extends VariableFrameRateGame {
         }
 
         if (playerChoice.equals("c")) {
-            playerModel = "robot.obj";
+            playerModel = "robo2.rkm";
             playerTexture = "robot.png";
+            playerSkeleton = "robo2.rks";
         } else if (playerChoice.equals("d")) {
-            playerModel = "character_new5.obj";
+            playerModel = "robo.rkm";
             playerTexture = "cTxt.png";
+            playerSkeleton = "robo.rks";
         }
 
         game = new MyGame(args[0], Integer.parseInt(args[1]));
@@ -195,13 +202,17 @@ public class MyGame extends VariableFrameRateGame {
             game.exit();
         }
     }
-        @Override
-        protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
-            //rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+
+    @Override
+    protected void setupWindow(RenderSystem rs, GraphicsEnvironment ge) {
+        if (networkType.equals("s")) {
+            rs.createRenderWindow(new DisplayMode(1000, 700, 24, 60), false);
+        } else {
             GraphicsDevice gd = ge.getDefaultScreenDevice();
             DisplaySettingsDialog dsd = new DisplaySettingsDialog(ge.getDefaultScreenDevice());
             dsd.showIt();
             RenderWindow rw = rs.createRenderWindow(dsd.getSelectedDisplayMode(), dsd.isFullScreenModeSelected());
+        }
 
 
     }
@@ -283,12 +294,12 @@ public class MyGame extends VariableFrameRateGame {
         TextureManager txm = getEngine().getTextureManager();
         //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
         txm.setBaseDirectoryPath("assets/skyboxes/grassyHill/");
-        Texture front = txm.getAssetByPath("Side2.jpg");
-        Texture back = txm.getAssetByPath("Side4.jpg");
-        Texture left = txm.getAssetByPath("Side1.jpg");
-        Texture right = txm.getAssetByPath("Side3.jpg");
-        Texture top = txm.getAssetByPath("top.jpg");
-        Texture bottom = txm.getAssetByPath("bottom.jpg");
+        Texture front = txm.getAssetByPath("Side2New.jpg");
+        Texture back = txm.getAssetByPath("Side4New.jpg");
+        Texture left = txm.getAssetByPath("Side1New.jpg");
+        Texture right = txm.getAssetByPath("Side3New.jpg");
+        Texture top = txm.getAssetByPath("topNew.jpg");
+        Texture bottom = txm.getAssetByPath("bottomNew.jpg");
         txm.setBaseDirectoryPath(conf.valueOf("assets.textures.path"));
 
         // cubemap textures are flipped upside-down.
@@ -320,7 +331,7 @@ public class MyGame extends VariableFrameRateGame {
 //
 //        Entity player1E = sm.createEntity("player1E", playerModel);
 //        player1E.setPrimitive(Primitive.TRIANGLES);
-           TextureManager tm = eng.getTextureManager();
+        TextureManager tm = eng.getTextureManager();
 //        Texture moonTexture = tm.getAssetByPath(playerTexture);
 //        RenderSystem rs = sm.getRenderSystem();
 //        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
@@ -337,8 +348,8 @@ public class MyGame extends VariableFrameRateGame {
 //        player1Node.attachObject(player1E);
 
         //animation
-        if(networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
-            SkeletalEntity player1E = sm.createSkeletalEntity("player1E", "robo.rkm", "robo.rks");
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
+            SkeletalEntity player1E = sm.createSkeletalEntity("player1E", playerModel, playerSkeleton);
             Texture tex = sm.getTextureManager().getAssetByPath(playerTexture);
             TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
             tstate.setTexture(tex);
@@ -354,12 +365,16 @@ public class MyGame extends VariableFrameRateGame {
 
 
 // load animations
-            player1E.loadAnimation("danceAnimation", "dance2.rka");
+            if(playerTexture.contains("cTxt")){
+                player1E.loadAnimation("danceAnimation", "dance2.rka");
 
-
-            if (playerModel.contains("robot"))
-                player1Node.scale(0.25f,0.25f,0.25f);
+            }
         }
+
+
+//            if (playerModel.contains("robot"))
+//                player1Node.scale(0.25f, 0.25f, 0.25f);
+//        }
 
 
 
@@ -382,21 +397,17 @@ public class MyGame extends VariableFrameRateGame {
         */
 
 
-
-
-
-
         // set up lights
-        sm.getAmbientLight().setIntensity(new Color(.1f, .1f, .1f));
+        //sm.getAmbientLight().setIntensity(new Color(.1f, .1f, .1f));
 
-//        Light plight1 = sm.createLight("Lamp1", Light.Type.POINT);
-//        plight1.setAmbient(new Color(.3f, .3f, .3f));
-//        plight1.setDiffuse(new Color(.7f, .7f, .7f));
-//        plight1.setSpecular(new Color(0.5f, 0.5f, 0.5f));
-//        plight1.setRange(50f);
-//        SceneNode plightNode1 = sm.getRootSceneNode().createChildSceneNode("plightNode1");
-//        plightNode1.attachObject(plight1);
-//        plightNode1.moveUp(10f);
+        Light plight1 = sm.createLight("Lamp1", Light.Type.POINT);
+        plight1.setAmbient(new Color(.1f, .1f, .1f));
+        plight1.setDiffuse(new Color(.1f, .1f, .1f));
+        plight1.setSpecular(new Color(0.1f, 0.1f, 0.1f));
+        plight1.setRange(50f);
+        SceneNode plightNode1 = sm.getRootSceneNode().createChildSceneNode("plightNode1");
+        plightNode1.attachObject(plight1);
+        plightNode1.moveUp(10f);
 
 //        Light plight2 = sm.createLight("Lamp2", Light.Type.POINT);
 //        plight2.setAmbient(new Color(.3f, .3f, .3f));
@@ -410,22 +421,26 @@ public class MyGame extends VariableFrameRateGame {
 //        plightNode2.moveUp(10f);
 
 
+        if (networkType.equals("c")) {
+            Light spotlight = sm.createLight("spotlight", Light.Type.SPOT);
+            //spotlight.setAmbient(new Color(0.1f, 0.1f, 0.1f));
+            spotlight.setDiffuse(new Color(1.0f, 1.0f, 1.0f));
+            spotlight.setSpecular(new Color(1.0f, 1.0f, 1.0f));
+            spotlight.setConeCutoffAngle(Degreef.createFrom(30.0f));
+            //spotlight.setConstantAttenuation(0.4f);
+            spotlight.setLinearAttenuation(0.01f);
+            //spotlight.setQuadraticAttenuation(0.01f);
+            spotlight.setFalloffExponent(0.1f);
+            spotlight.setRange(100f);
+            SceneNode spotLightNode = sm.getSceneNode("player1Node").createChildSceneNode("spotLightNode"); //getSceneNode("player1Node")
+            spotLightNode.attachObject(spotlight);
+            spotLightNode.pitch(Degreef.createFrom(10.0f));
+            System.out.println(spotLightNode.getWorldPosition());
+            spotLightNode.moveUp(2f);
+        }
 
-        Light spotlight = sm.createLight("spotlight", Light.Type.SPOT);
-        spotlight.setAmbient(new Color(0.1f, 0.1f, 0.1f));
-        spotlight.setDiffuse(new Color(0.5f, 0.5f, 0.5f));
-        spotlight.setSpecular(new Color(1.0f, 1.0f, 1.0f));
-        spotlight.setConeCutoffAngle(Degreef.createFrom(1.0f));
-        spotlight.setRange(50f);
-        SceneNode spotLightNode = sm.getRootSceneNode().createChildSceneNode("spotLightNode");
-        spotLightNode.attachObject(spotlight);
-        spotLightNode.yaw(Degreef.createFrom(-90.0f));
-        System.out.println(spotLightNode.getWorldPosition());
-
-        //spotLightNode.moveUp(5f);
-        Vector3f spotlightPos = (Vector3f) spotLightNode.getWorldPosition();
+        //Vector3f spotlightPos = (Vector3f) spotLightNode.getWorldPosition();
         //spotLightNode.setLocalPosition(spotlightPos.x(), spotlightPos.y()*-1, spotlightPos.z());
-
 
 
         // set up node controllers. DO NOT change this order of adding them to the scene. Needed for PlanetVisited()
@@ -439,7 +454,7 @@ public class MyGame extends VariableFrameRateGame {
 
         //ISSUE: camera also moves up and down with the playerNode. Need to fix later
         HoverController hc = new HoverController(); // makes player appear as if they are hovering
-        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+        if (networkType.equals("c") || networkType.compareTo("m") == 0) {
             sm.addController(hc);
             hc.addNode(player1Node);
         }
@@ -502,7 +517,7 @@ public class MyGame extends VariableFrameRateGame {
         ball2Node = rootNode.createChildSceneNode("Ball2Node");
         ball2Node.attachObject(ball2Entity);
         //ball2Node.scale(0.4f, 0.4f, 0.4f);
-        ball2Node.setLocalPosition(-1,5,-2);
+        ball2Node.setLocalPosition(-1, 5, -2);
 
 
         //tm = getEngine().getTextureManager();
@@ -512,14 +527,13 @@ public class MyGame extends VariableFrameRateGame {
         //TextureManager tm2 = eng.getTextureManager();
         Texture redTexture = eng.getTextureManager().getAssetByPath("ground.jpeg");
         RenderSystem rs2 = sm.getRenderSystem();
-        TextureState state2 = (TextureState)rs2.createRenderState(RenderState.Type.TEXTURE);
+        TextureState state2 = (TextureState) rs2.createRenderState(RenderState.Type.TEXTURE);
         state2.setTexture(redTexture);
         ball2Entity.setRenderState(state2);
 
 
-
         // Ground plane
-        Entity groundEntity = sm.createEntity(GROUND_E,  "cube.obj");
+        Entity groundEntity = sm.createEntity(GROUND_E, "cube.obj");
         gndNode = rootNode.createChildSceneNode(GROUND_N);
         gndNode.attachObject(groundEntity);
         gndNode.setLocalPosition(0, 1, -2);
@@ -538,8 +552,6 @@ public class MyGame extends VariableFrameRateGame {
         createRagePhysicsWorld();
 
 
-
-
         buildMaze(eng, sm);
     }
 
@@ -550,7 +562,7 @@ public class MyGame extends VariableFrameRateGame {
         String gpName = im.getFirstGamepadName();
 
         // set up for Player 1
-        if (networkType.equals("c")|| networkType.compareTo("m") == 0) {
+        if (networkType.equals("c") || networkType.compareTo("m") == 0) {
             SceneNode player1N = sm.getSceneNode("player1Node");
             SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
             orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
@@ -572,7 +584,7 @@ public class MyGame extends VariableFrameRateGame {
     @Override
     protected void update(Engine engine) {
         processNetworking(elapsTime);
-        if (networkType.equals("c") || networkType.compareTo("m") == 0){
+        if (networkType.equals("c") || networkType.compareTo("m") == 0) {
             SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
             player1E.update();
         }
@@ -601,7 +613,15 @@ public class MyGame extends VariableFrameRateGame {
         int view1Left = rs.getRenderWindow().getViewport(0).getActualLeft();
         int view1Bottom = rs.getRenderWindow().getViewport(0).getActualBottom();
 
-        player1HUD = "Time = " + elapsTimeStr + "   Score = " + player1Score + "   Javascripts Enabled = " + allowJavascripts;
+
+
+
+        if(playerOneWins == false && NPCWins == false && ghostWon == false){
+            player1HUD = "Time = " + elapsTimeStr + "   Score = " + player1Score + "   Javascripts Enabled = " + allowJavascripts;
+            winGameTime = elapsTimeStr;
+        }
+
+
         //if (allPlanetsVisited)
         //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
@@ -620,8 +640,35 @@ public class MyGame extends VariableFrameRateGame {
         */
 
         im.update(elapsTime); // tell the input manager to process the inputs
-        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0){
+        if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
             orbitController1.updateCameraPosition();
+        }
+        if(networkType.equals("c")){
+            for(GhostAvatar ghost: ghostAvatars){
+                if(ghost.getNode().getWorldPosition().x() < 4.30f && ghost.getNode().getWorldPosition().x() > -4.30f && ghost.getNode().getWorldPosition().z() < 3.4f && ghost.getNode().getWorldPosition().z() > -3.4f && NPCWins == false && playerOneWins == false){
+                    ghostWon = true;
+                    player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " Another player won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
+
+                }
+            }
+
+            SceneNode player = engine.getSceneManager().getSceneNode("player1Node");
+            SceneNode npc = null;
+            if(engine.getSceneManager().hasSceneNode("npc0")){
+                npc = engine.getSceneManager().getSceneNode("npc0");
+            }
+            if(player.getWorldPosition().x() < 4.30f && player.getWorldPosition().x() > -4.30f && player.getWorldPosition().z() < 3.4f && player.getWorldPosition().z() > -3.4f && NPCWins == false && ghostWon == false){
+                playerOneWins = true;
+                player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " congratulations, you won!" +"   Javascripts Enabled = " + allowJavascripts;
+            }
+            if(npc!= null){
+                if(npc.getWorldPosition().x() < 4.30f && npc.getWorldPosition().x() > -4.30f&& npc.getWorldPosition().z() < 3.4f && npc.getWorldPosition().z() > -3.4f && playerOneWins == false && ghostWon == false){
+                    NPCWins = true;
+                    player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " The NPC won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
+                }
+
+            }
+
         }
 
 
@@ -643,10 +690,10 @@ public class MyGame extends VariableFrameRateGame {
         // reset ball
         Vector3 vf = ball2Node.getLocalPosition();
         if (vf.x() >= 50 || vf.y() >= 50 || vf.y() >= 50)
-            ball2Node.setLocalPosition(-1,5,-2);
+            ball2Node.setLocalPosition(-1, 5, -2);
 
-        ball2PhysObj.applyForce(10,0,0,0,0,0);
-        ball2PhysObj.applyTorque(100,1000,0); // doesn't seem to have any effect
+        ball2PhysObj.applyForce(10, 0, 0, 0, 0, 0);
+        ball2PhysObj.applyTorque(100, 1000, 0); // doesn't seem to have any effect
 
         // */
 
@@ -664,7 +711,7 @@ public class MyGame extends VariableFrameRateGame {
         if (networkType.compareTo("c") == 0) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
-        } else if(!(networkType.compareTo("c") == 0) && !(networkType.compareTo("s") == 0)  ) {
+        } else if (!(networkType.compareTo("c") == 0) && !(networkType.compareTo("s") == 0)) {
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(gndNode, kbName, im, movementSpeed, game);
             //physController1 = new PlayerController(ball2Node, kbName, im, movementSpeed, game);
@@ -831,8 +878,8 @@ public class MyGame extends VariableFrameRateGame {
         if (networkType.compareTo("s") == 0) { //server
             //System.out.println("you are in single player mode");
             try {
-                    thisUDPServer = new GameServerUDP(serverPort, npcCtrl, this);
-                    //  npcCtrl = new NPCcontroller(thisUDPServer);
+                thisUDPServer = new GameServerUDP(serverPort, npcCtrl, this);
+                //  npcCtrl = new NPCcontroller(thisUDPServer);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -895,6 +942,7 @@ public class MyGame extends VariableFrameRateGame {
             ghostN.setLocalRotation(avatar.getGhostRotation());
             avatar.setNode(ghostN);
             avatar.setEntity(ghostE);
+            ghostAvatars.push(avatar); // Used in update to tell if ghost wins or not
             // avatar.setPosition(node’s position...maybe redundant);
 
 
@@ -920,14 +968,14 @@ public class MyGame extends VariableFrameRateGame {
         if (npc != null) {
             Entity npcE = getEngine().getSceneManager().createEntity("npc" + Integer.toString(npc.getId()), "dolphinHighPoly.obj");
             npcE.setPrimitive(Primitive.TRIANGLES);
-            SceneNode npcN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(Integer.toString(npc.getId()));
+            SceneNode npcN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode("npc"+Integer.toString(npc.getId()));
             npcN.attachObject(npcE);
             npcN.setLocalPosition(npc.getPosition()); //get position that was sent
             //npcN.setLocalRotation(npc.getGhostRotation());
             npc.setEntity(npcE);
             npc.setNode(npcN);
             Quaternion npcRot = npcN.getLocalRotation().toQuaternion();
-            System.out.println( "npc original rotation Quaternion " + npcRot);
+            System.out.println("npc original rotation Quaternion " + npcRot);
         }
 
 
@@ -969,8 +1017,7 @@ public class MyGame extends VariableFrameRateGame {
         return myEngine;
     }
 
-    private void initPhysicsSystem()
-    {
+    private void initPhysicsSystem() {
         String engine = "ray.physics.JBullet.JBulletPhysicsEngine";
         float[] gravity = {0, -3f, 0};
 
@@ -980,10 +1027,9 @@ public class MyGame extends VariableFrameRateGame {
     }
 
 
-    private void createRagePhysicsWorld()
-    {
+    private void createRagePhysicsWorld() {
         float mass = 10.0f;
-        float up[] = {0,1,0};
+        float up[] = {0, 1, 0};
         double[] temptf;
 
 
@@ -998,13 +1044,13 @@ public class MyGame extends VariableFrameRateGame {
 
         ///*
         temptf = toDoubleArray(ball2Node.getLocalTransform().toFloatArray());
-        ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
+        ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(), mass, temptf, 2.0f);
         ball2PhysObj.setBounciness(1.0f);
         ball2Node.setPhysicsObject(ball2PhysObj);
         //*/
 
         temptf = toDoubleArray(gndNode.getLocalTransform().toFloatArray());
-        gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(),temptf, up, 0.0f);
+        gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(), temptf, up, 0.0f);
         //gndPlaneP.setBounciness(0f);
         gndNode.scale(3f, .05f, 3f);
         gndNode.setLocalPosition(0, -2, -2);
@@ -1015,38 +1061,34 @@ public class MyGame extends VariableFrameRateGame {
         //ball2PhysObj.applyForce(500,0,0,0,0,0);
     }
 
-    private float[] toFloatArray(double[] arr)
-    {
+    private float[] toFloatArray(double[] arr) {
         if (arr == null) return null;
-        int n = arr.length;float[] ret = new float[n];
+        int n = arr.length;
+        float[] ret = new float[n];
 
-        for (int i = 0; i < n; i++)
-        {
-            ret[i] = (float)arr[i];
+        for (int i = 0; i < n; i++) {
+            ret[i] = (float) arr[i];
         }
 
         return ret;
     }
 
-    private double[] toDoubleArray(float[] arr)
-    {
+    private double[] toDoubleArray(float[] arr) {
         if (arr == null)
             return null;
 
         int n = arr.length;
         double[] ret = new double[n];
 
-        for (int i = 0; i < n; i++)
-        {
-            ret[i] = (double)arr[i];
+        for (int i = 0; i < n; i++) {
+            ret[i] = (double) arr[i];
         }
 
         return ret;
     }
 
 
-    private void buildMaze(Engine eng, SceneManager sm) throws IOException
-    {
+    private void buildMaze(Engine eng, SceneManager sm) throws IOException {
         // build maze out of 22 cube/rectangle objects
         // use a scene node hierarchy to group them
 
@@ -1107,7 +1149,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel3TopPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3TopPieceMNode");
         innerLevel3TopPieceMNode.attachObject(innerLevel3TopPieceMEntity);
         innerLevel3TopPieceMNode.moveForward(MfwdPos);
-        innerLevel3TopPieceMNode.scale(Mscale,1f,1f);
+        innerLevel3TopPieceMNode.scale(Mscale, 1f, 1f);
 
         Entity innerLevel3TopPieceLEntity = sm.createEntity("innerLevel3TopPieceLEntity", objName);
         innerLevel3TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1115,7 +1157,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3TopPieceLNode.attachObject(innerLevel3TopPieceLEntity);
         innerLevel3TopPieceLNode.moveForward(LRfwdPos);
         innerLevel3TopPieceLNode.moveLeft(LRpos);
-        innerLevel3TopPieceLNode.scale(1f,1f, LRscale);
+        innerLevel3TopPieceLNode.scale(1f, 1f, LRscale);
 
         Entity innerLevel3TopPieceREntity = sm.createEntity("innerLevel3TopPieceREntity", objName);
         innerLevel3TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1123,7 +1165,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3TopPieceRNode.attachObject(innerLevel3TopPieceREntity);
         innerLevel3TopPieceRNode.moveForward(LRfwdPos);
         innerLevel3TopPieceRNode.moveRight(LRpos);
-        innerLevel3TopPieceRNode.scale(1f,1f, LRscale);
+        innerLevel3TopPieceRNode.scale(1f, 1f, LRscale);
 
 
         // set up innerLevel3 bottom piece
@@ -1132,7 +1174,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel3BottomPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3BottomPieceMNode");
         innerLevel3BottomPieceMNode.attachObject(innerLevel3BottomPieceMEntity);
         innerLevel3BottomPieceMNode.moveBackward(MfwdPos);
-        innerLevel3BottomPieceMNode.scale(Mscale,1f,1f);
+        innerLevel3BottomPieceMNode.scale(Mscale, 1f, 1f);
 
         Entity innerLevel3BottomPieceLEntity = sm.createEntity("innerLevel3BottomPieceLEntity", objName);
         innerLevel3BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1140,7 +1182,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3BottomPieceLNode.attachObject(innerLevel3BottomPieceLEntity);
         innerLevel3BottomPieceLNode.moveBackward(LRfwdPos);
         innerLevel3BottomPieceLNode.moveLeft(LRpos);
-        innerLevel3BottomPieceLNode.scale(1f,1f,LRscale);
+        innerLevel3BottomPieceLNode.scale(1f, 1f, LRscale);
 
         Entity innerLevel3BottomPieceREntity = sm.createEntity("innerLevel3BottomPieceREntity", objName);
         innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1148,7 +1190,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3BottomPieceRNode.attachObject(innerLevel3BottomPieceREntity);
         innerLevel3BottomPieceRNode.moveBackward(LRfwdPos);
         innerLevel3BottomPieceRNode.moveRight(LRpos);
-        innerLevel3BottomPieceRNode.scale(1f,1f,LRscale);
+        innerLevel3BottomPieceRNode.scale(1f, 1f, LRscale);
 
 
         // set up innerLevel2 left piece
@@ -1157,7 +1199,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel2LeftPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2LeftPieceMNode");
         innerLevel2LeftPieceMNode.attachObject(innerLevel2LeftPieceMEntity);
         innerLevel2LeftPieceMNode.moveLeft(MfwdPos * 2);
-        innerLevel2LeftPieceMNode.scale(1f,1f, Mscale * 2);
+        innerLevel2LeftPieceMNode.scale(1f, 1f, Mscale * 2);
 
         Entity innerLevel2LeftPieceTEntity = sm.createEntity("innerLevel2LeftPieceTEntity", objName);
         innerLevel2LeftPieceTEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1165,7 +1207,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2LeftPieceTNode.attachObject(innerLevel2LeftPieceTEntity);
         innerLevel2LeftPieceTNode.moveForward(LRpos * 2 + 1);
         innerLevel2LeftPieceTNode.moveLeft(LRpos + 1);
-        innerLevel2LeftPieceTNode.scale(LRscale * 2 + 1,1f,1f);
+        innerLevel2LeftPieceTNode.scale(LRscale * 2 + 1, 1f, 1f);
 
         Entity innerLevel2LeftPieceBEntity = sm.createEntity("innerLevel2LeftPieceBEntity", objName);
         innerLevel2LeftPieceBEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1173,7 +1215,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2LeftPieceBNode.attachObject(innerLevel2LeftPieceBEntity);
         innerLevel2LeftPieceBNode.moveBackward(LRpos * 2 + 1);
         innerLevel2LeftPieceBNode.moveLeft(LRpos + 1);
-        innerLevel2LeftPieceBNode.scale(LRscale * 2 + 1,1f,1f);
+        innerLevel2LeftPieceBNode.scale(LRscale * 2 + 1, 1f, 1f);
 
 
         // set up innerLevel2 right piece
@@ -1182,7 +1224,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel2RightPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2RightPieceMNode");
         innerLevel2RightPieceMNode.attachObject(innerLevel2RightPieceMEntity);
         innerLevel2RightPieceMNode.moveRight(MfwdPos * 2);
-        innerLevel2RightPieceMNode.scale(1f,1f, Mscale * 2);
+        innerLevel2RightPieceMNode.scale(1f, 1f, Mscale * 2);
 
         Entity innerLevel2RightPieceTEntity = sm.createEntity("innerLevel2RightPieceTEntity", objName);
         innerLevel2RightPieceTEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1190,7 +1232,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2RightPieceTNode.attachObject(innerLevel2RightPieceTEntity);
         innerLevel2RightPieceTNode.moveForward(LRpos * 2 + 1);
         innerLevel2RightPieceTNode.moveRight(LRpos + 1);
-        innerLevel2RightPieceTNode.scale(LRscale * 2 + 1f,1f,1f);
+        innerLevel2RightPieceTNode.scale(LRscale * 2 + 1f, 1f, 1f);
 
         Entity innerLevel2RightPieceBEntity = sm.createEntity("innerLevel2RightPieceBEntity", objName);
         innerLevel2RightPieceBEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1198,7 +1240,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2RightPieceBNode.attachObject(innerLevel2RightPieceBEntity);
         innerLevel2RightPieceBNode.moveBackward(LRpos * 2 + 1);
         innerLevel2RightPieceBNode.moveRight(LRpos + 1);
-        innerLevel2RightPieceBNode.scale(LRscale * 2 + 1,1f,1f);
+        innerLevel2RightPieceBNode.scale(LRscale * 2 + 1, 1f, 1f);
 
 
         // set up innerLevel1 top piece
@@ -1207,7 +1249,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel1TopPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1TopPieceMNode");
         innerLevel1TopPieceMNode.attachObject(innerLevel1TopPieceMEntity);
         innerLevel1TopPieceMNode.moveForward(MfwdPos * 3);
-        innerLevel1TopPieceMNode.scale(Mscale * 3,1f,1f);
+        innerLevel1TopPieceMNode.scale(Mscale * 3, 1f, 1f);
 
         Entity innerLevel1TopPieceLEntity = sm.createEntity("innerLevel1TopPieceLEntity", objName);
         innerLevel1TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1215,7 +1257,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1TopPieceLNode.attachObject(innerLevel1TopPieceLEntity);
         innerLevel1TopPieceLNode.moveForward(LRfwdPos * 3);
         innerLevel1TopPieceLNode.moveLeft(LRpos * 3 + 2);
-        innerLevel1TopPieceLNode.scale(1f,1f, LRscale * 4 + 1);
+        innerLevel1TopPieceLNode.scale(1f, 1f, LRscale * 4 + 1);
 
         Entity innerLevel1TopPieceREntity = sm.createEntity("innerLevel1TopPieceREntity", objName);
         innerLevel1TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1223,7 +1265,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1TopPieceRNode.attachObject(innerLevel1TopPieceREntity);
         innerLevel1TopPieceRNode.moveForward(LRfwdPos * 3);
         innerLevel1TopPieceRNode.moveRight(LRpos * 3 + 2);
-        innerLevel1TopPieceRNode.scale(1f,1f,LRscale * 4 + 1);
+        innerLevel1TopPieceRNode.scale(1f, 1f, LRscale * 4 + 1);
 
 
         // set up innerLevel1 bottom piece
@@ -1232,7 +1274,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel1BottomPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1BottomPieceMNode");
         innerLevel1BottomPieceMNode.attachObject(innerLevel1BottomPieceMEntity);
         innerLevel1BottomPieceMNode.moveBackward(MfwdPos * 3);
-        innerLevel1BottomPieceMNode.scale(Mscale * 3,1f,1f);
+        innerLevel1BottomPieceMNode.scale(Mscale * 3, 1f, 1f);
 
         Entity innerLevel1BottomPieceLEntity = sm.createEntity("innerLevel1BottomPieceLEntity", objName);
         innerLevel1BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1240,7 +1282,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1BottomPieceLNode.attachObject(innerLevel1BottomPieceLEntity);
         innerLevel1BottomPieceLNode.moveBackward(LRfwdPos * 3);
         innerLevel1BottomPieceLNode.moveLeft(LRpos * 3 + 2);
-        innerLevel1BottomPieceLNode.scale(1f,1f,LRscale * 4 + 1);
+        innerLevel1BottomPieceLNode.scale(1f, 1f, LRscale * 4 + 1);
 
         Entity innerLevel1BottomPieceREntity = sm.createEntity("innerLevel1BottomPieceREntity", objName);
         innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1248,7 +1290,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1BottomPieceRNode.attachObject(innerLevel1BottomPieceREntity);
         innerLevel1BottomPieceRNode.moveBackward(LRfwdPos * 3);
         innerLevel1BottomPieceRNode.moveRight(LRpos * 3 + 2);
-        innerLevel1BottomPieceRNode.scale(1f,1f,LRscale * 4 + 1);
+        innerLevel1BottomPieceRNode.scale(1f, 1f, LRscale * 4 + 1);
 
 
         // set up outer level
@@ -1258,41 +1300,40 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode outerLevelTNode = outerLevelNode.createChildSceneNode("outerLevelTNode");
         outerLevelTNode.attachObject(outerLevelTEntity);
         outerLevelTNode.moveForward(MfwdPos * 4);
-        outerLevelTNode.scale(Mscale * 4,1f,1f);
+        outerLevelTNode.scale(Mscale * 4, 1f, 1f);
 
         Entity outerLevelBEntity = sm.createEntity("outerLevelBEntity", objName);
         outerLevelBEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelBNode = outerLevelNode.createChildSceneNode("outerLevelBNode");
         outerLevelBNode.attachObject(outerLevelBEntity);
         outerLevelBNode.moveBackward(MfwdPos * 4);
-        outerLevelBNode.scale(Mscale * 4,1f,1f);
+        outerLevelBNode.scale(Mscale * 4, 1f, 1f);
 
         Entity outerLevelLEntity = sm.createEntity("outerLevelLEntity", objName);
         outerLevelLEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelLNode = outerLevelNode.createChildSceneNode("outerLevelLNode");
         outerLevelLNode.attachObject(outerLevelLEntity);
         outerLevelLNode.moveLeft(MfwdPos * 4);
-        outerLevelLNode.scale(1f,1f,Mscale * 4);
+        outerLevelLNode.scale(1f, 1f, Mscale * 4);
 
         Entity outerLevelREntity = sm.createEntity("outerLevelREntity", objName);
         outerLevelREntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelRNode = outerLevelNode.createChildSceneNode("outerLevelRNode");
         outerLevelRNode.attachObject(outerLevelREntity);
         outerLevelRNode.moveRight(MfwdPos * 4);
-        outerLevelRNode.scale(1f,1f,Mscale * 4);
+        outerLevelRNode.scale(1f, 1f, Mscale * 4);
 
 
         // Scale height of maze. Uses hierarchy to apply it to all maze pieces
-        wholeMazeNode.scale(1f, height,1f);
+        wholeMazeNode.scale(1f, height, 1f);
         wholeMazeNode.moveUp(UpPos);
 
         // make the outermost maze walls taller
-        outerLevelNode.scale(1f, height * 2,1f);
+        outerLevelNode.scale(1f, height * 2, 1f);
         outerLevelNode.moveUp(UpPos * 2 - 0.5f);
     }
 
-    public boolean checkDistanceFromWall(SceneNode obj)
-    {
+    public boolean checkDistanceFromWall(SceneNode obj) {
         // get player's pos
         // check if loc is inside innerLevel3
         // if yes, only compare to those wall objects
@@ -1321,19 +1362,16 @@ public class MyGame extends VariableFrameRateGame {
         */
 
         // check for case 1: player inside InnerLevel3
-        if ((x > -8f && x < 8f) && (z > -8f && z < 8f))
-        {
+        if ((x > -8f && x < 8f) && (z > -8f && z < 8f)) {
             // detailed check for innerLevel3 wall collisions
             // only 6 cube objects to check distance to
             // can narrow down even further by checking the sign of the x z values
             // this way only 2 objects to compare distance to
             // using this same method for the other levels would mean 4 objects to compare distance to
 ///*
-            if (x > 0)
-            {
+            if (x > 0) {
 
-                if (z < 0)
-                {
+                if (z < 0) {
                     // need lowerPiece L and M
                     SceneNode innerLevel3BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceLNode");
                     SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
@@ -1352,9 +1390,7 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getZdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold + 6);
                     }
-                }
-
-                else // z > 0
+                } else // z > 0
                 {
                     // need upperPiece L and M
                     SceneNode innerLevel3TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceLNode");
@@ -1371,12 +1407,9 @@ public class MyGame extends VariableFrameRateGame {
                             tooClose = getZdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
                     }
                 }
-            }
-
-            else // x > 0
+            } else // x > 0
             {
-                if (z < 0)
-                {
+                if (z < 0) {
                     // need lowerPiece R and M
                     SceneNode innerLevel3BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceRNode");
                     SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
@@ -1395,9 +1428,7 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getZdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
                     }
-                }
-
-                else // z > 0
+                } else // z > 0
                 {
                     // need UpperPiece R and M
                     SceneNode innerLevel3TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceRNode");
@@ -1421,18 +1452,15 @@ public class MyGame extends VariableFrameRateGame {
 
 
         // check for case 2: player between InnerLevel2 and 3
-        else if ((x > -16f && x < 16f) && (z > -16f && z < 16f))
-        {
+        else if ((x > -16f && x < 16f) && (z > -16f && z < 16f)) {
 
             // check for left and right sides first
             // ALSO NEED to check for the innerLevel3 outer walls. Do this later
             // PROBABLY should add another separate else if statement for this. Check btwn 8f and 10f or something similar
 
 
-            if (x > 0)
-            {
-                if (z < 0)
-                {
+            if (x > 0) {
+                if (z < 0) {
                     // need leftPiece B and M
                     SceneNode innerLevel2LeftPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceBNode");
                     SceneNode innerLevel2LeftPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceMNode");
@@ -1448,9 +1476,7 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getXdistance(obj1, innerLevel2LeftPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
-                }
-
-                else // z > 0
+                } else // z > 0
                 {
                     // need leftPiece T and M
                     SceneNode innerLevel2LeftPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceTNode");
@@ -1467,12 +1493,9 @@ public class MyGame extends VariableFrameRateGame {
                             tooClose = getXdistance(obj1, innerLevel2LeftPieceTNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
                 }
-            }
-
-            else // x < 0
+            } else // x < 0
             {
-                if (z < 0)
-                {
+                if (z < 0) {
                     // need rightPiece B and M
                     SceneNode innerLevel2RightPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceBNode");
                     SceneNode innerLevel2RightPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceMNode");
@@ -1491,9 +1514,7 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getXdistance(obj1, innerLevel2RightPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
-                }
-
-                else // z > 0
+                } else // z > 0
                 {
                     // need rightPiece T and M
                     SceneNode innerLevel2RightPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceTNode");
@@ -1511,7 +1532,7 @@ public class MyGame extends VariableFrameRateGame {
                     }
                 }
             }
-  //*/
+            //*/
         }
 
 /*
@@ -1612,10 +1633,10 @@ public class MyGame extends VariableFrameRateGame {
 
         // just check if within the values of innerLevel2. already checked if in range for IL3 so don't need to do so again.
         // we would already know it's between these two walls
-      //  else if ()
-      //  {
+        //  else if ()
+        //  {
 
-      //  }
+        //  }
 
         return tooClose;
     }
@@ -1649,13 +1670,14 @@ public class MyGame extends VariableFrameRateGame {
 
         return tooClose;
     }
+
     //used from his notes for extra activity object
     protected ManualObject makePyramid(Engine eng, SceneManager sm) throws IOException {
         ManualObject pyr = sm.createManualObject("Pyramid");
         ManualObjectSection pyrSec = pyr.createManualSection("PyramidSection");
         pyr.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
         float[] vertices = new float[]
-                { -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //front
+                {-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //front
                         1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //right
                         1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //back
                         -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //left
@@ -1664,9 +1686,8 @@ public class MyGame extends VariableFrameRateGame {
                 };
 
 
-
         float[] texcoords = new float[]
-                { 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
+                {0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
                         0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
                         0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
                         0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
@@ -1674,14 +1695,14 @@ public class MyGame extends VariableFrameRateGame {
                         1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
                 };
         float[] normals = new float[]
-                { 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                {0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
                         1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
                         0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f,
                         -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f,
                         0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f,
                         0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f
                 };
-        int[] indices = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+        int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
 
         FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
         FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
@@ -1692,7 +1713,7 @@ public class MyGame extends VariableFrameRateGame {
         pyrSec.setNormalsBuffer(normBuf);
         pyrSec.setIndexBuffer(indexBuf);
         Texture tex = eng.getTextureManager().getAssetByPath("chain-fence.jpeg");
-        TextureState texState = (TextureState)sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        TextureState texState = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
         texState.setTexture(tex);
         FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
         pyr.setDataSource(DataSource.INDEX_BUFFER);
@@ -1700,53 +1721,49 @@ public class MyGame extends VariableFrameRateGame {
         pyr.setRenderState(faceState);
         return pyr;
     }
+
     protected ManualObject makeShape(Engine eng, SceneManager sm) throws IOException {
         ManualObject shape = sm.createManualObject("Shape");
         ManualObjectSection shapeSec = shape.createManualSection("ShapeSection");
         shape.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
         //shape
         float[] vertices = new float[]
-                {-1.0f,1.0f,0.5f,1.0f,1.0f,0.5f,0.0f,2.0f,0.0f,//topfront
-                        1.0f,1.0f,0.5f,1.0f,1.0f,-0.5f,0.0f,2.0f,0.0f,//topright
-                        1.0f,1.0f,-0.5f, -1.0f,1.0f,-0.5f,0.0f,2.0f,0.0f,//top back
-                        -1.0f,1.0f,-0.5f,-1.0f,1.0f,0.5f,0.0f,2.0f, 0.0f,//topLeft
-                        1.0f,1.0f,0.5f,-1.0f,1.0f,0.5f,0.0f,-2.0f,0.0f,//bottomfront
-                        1.0f,1.0f,-0.5f,1.0f,1.0f,0.5f,0.0f,-2.0f,0.0f,//bottomright
-                        -1.0f,1.0f,-0.5f,1.0f,1.0f,-0.5f,0.0f,-2.0f,0.0f,//bottom back
-                        -1.0f,1.0f,0.5f,-1.0f,1.0f,-0.5f,0.0f,-2.0f, 0.0f//bottomLeft
+                {-1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 0.5f, 0.0f, 2.0f, 0.0f,//topfront
+                        1.0f, 1.0f, 0.5f, 1.0f, 1.0f, -0.5f, 0.0f, 2.0f, 0.0f,//topright
+                        1.0f, 1.0f, -0.5f, -1.0f, 1.0f, -0.5f, 0.0f, 2.0f, 0.0f,//top back
+                        -1.0f, 1.0f, -0.5f, -1.0f, 1.0f, 0.5f, 0.0f, 2.0f, 0.0f,//topLeft
+                        1.0f, 1.0f, 0.5f, -1.0f, 1.0f, 0.5f, 0.0f, -2.0f, 0.0f,//bottomfront
+                        1.0f, 1.0f, -0.5f, 1.0f, 1.0f, 0.5f, 0.0f, -2.0f, 0.0f,//bottomright
+                        -1.0f, 1.0f, -0.5f, 1.0f, 1.0f, -0.5f, 0.0f, -2.0f, 0.0f,//bottom back
+                        -1.0f, 1.0f, 0.5f, -1.0f, 1.0f, -0.5f, 0.0f, -2.0f, 0.0f//bottomLeft
 
 
                 };
         float[] texcoords = new float[]
-                { 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topfront
-                        0.25f, 0.0f, 0.75f,0.0f,0.5f,1.0f, //topright
+                {0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topfront
+                        0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //topright
                         0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topback
-                        0.25f, 0.0f, 0.75f,0.0f,0.5f,1.0f, //topleft
+                        0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //topleft
                         0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //bottomfront
-                        0.4f, 0.0f, 0.6f,0.0f,0.5f,1.0f, //bottomright
+                        0.4f, 0.0f, 0.6f, 0.0f, 0.5f, 1.0f, //bottomright
                         0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //bottomback
-                        0.4f, 0.0f, 0.6f,0.0f,0.5f,1.0f //boottomleft
-
-
-
+                        0.4f, 0.0f, 0.6f, 0.0f, 0.5f, 1.0f //boottomleft
 
 
                 };
         float[] normals = new float[]
-                {         0.0f,2.0f,0.5f,0.0f,2.0f,0.5f,0.0f,2.0f,0.5f,//topfront
-                        1.0f,2.0f,0.0f,1.0f,2.0f,0.0f,1.0f,2.0f,0.0f,//topright
-                        0.0f,2.0f,-0.5f,0.0f,2.0f,-0.5f,0.0f,2.0f,-0.5f,//topback
-                        -1.0f,2.0f,0.0f,-1.0f,2.0f,0.0f,-1.0f,2.0f,0.0f, //topleft
-                        0.0f,0.0f,0.5f,0.0f,0.0f,0.5f,0.0f,0.0f,0.5f,//bottomfront
-                        1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,//bottomright
-                        0.0f,0.0f,-0.5f,0.0f,0.0f,-0.5f,0.0f,0.0f,-0.5f,//bottomback
-                        -1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f //bottomleft
-
-
+                {0.0f, 2.0f, 0.5f, 0.0f, 2.0f, 0.5f, 0.0f, 2.0f, 0.5f,//topfront
+                        1.0f, 2.0f, 0.0f, 1.0f, 2.0f, 0.0f, 1.0f, 2.0f, 0.0f,//topright
+                        0.0f, 2.0f, -0.5f, 0.0f, 2.0f, -0.5f, 0.0f, 2.0f, -0.5f,//topback
+                        -1.0f, 2.0f, 0.0f, -1.0f, 2.0f, 0.0f, -1.0f, 2.0f, 0.0f, //topleft
+                        0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.5f,//bottomfront
+                        1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,//bottomright
+                        0.0f, 0.0f, -0.5f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, -0.5f,//bottomback
+                        -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f //bottomleft
 
 
                 };
-        int[] indices = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23};//,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41};
+        int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};//,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41};
 
         FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
         FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
@@ -1757,10 +1774,10 @@ public class MyGame extends VariableFrameRateGame {
         shapeSec.setNormalsBuffer(normBuf);
         shapeSec.setIndexBuffer(indexBuf);
         Texture tex = eng.getTextureManager().getAssetByPath("hexagons.jpeg");
-        TextureState texState = (TextureState)sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+        TextureState texState = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
         texState.setTexture(tex);
-        Material mat1 = sm.getMaterialManager().getAssetByPath("default.mtl");
-        //mat1.setEmissive(Color.WHITE);
+        Material mat1 = sm.getMaterialManager().getAssetByPath("moon.mtl");
+        mat1.setEmissive(Color.WHITE);
         shapeSec.setMaterial(mat1);
         FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
         shape.setDataSource(DataSource.INDEX_BUFFER);

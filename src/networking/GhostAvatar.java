@@ -11,12 +11,14 @@ public class GhostAvatar {
     private Entity entity;
     private Vector3f ghostPosition; //ghost position
     private Matrix3 ghostRotation;
+    private boolean ghostAvatarWins;
 
     public GhostAvatar(UUID id, Vector3f position, Matrix3 rotation) {
 
         this.id = id;
         this.ghostPosition = position;
         this.ghostRotation = rotation;
+        ghostAvatarWins = false;
     }
 
     public UUID getId() {
@@ -59,5 +61,9 @@ public class GhostAvatar {
 
     public Matrix3 getGhostRotation() {
         return ghostRotation;
+    }
+
+    public boolean getGhostAvatarWins(){
+        return ghostAvatarWins;
     }
 }
