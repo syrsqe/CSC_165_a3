@@ -934,16 +934,20 @@ public class MyGame extends VariableFrameRateGame {
 
     public void addGhostAvatarToGameWorld(GhostAvatar avatar, String model) throws IOException {
         if (avatar != null) {
+            System.out.println(model);
             //Entity ghostE = getEngine().getSceneManager().createEntity("ghost" + avatar.getId().toString(), model);
-            String ghostSkeleton;
+            String ghostSkeleton = "";
+            String ghostTexture = "";
             if(model.equals("robo.rkm")){
                 ghostSkeleton = "robo.rks";
+                ghostTexture = "cTxt.png";
             }else if(model.equals("robo2.rkm")){
                 ghostSkeleton = "robo2.rks";
+                ghostTexture = "robot.png";
             }
 
-            SkeletalEntity ghostE = getEngine().getSceneManager().createSkeletalEntity("ghost" + avatar.getId().toString(), model, playerSkeleton);
-            Texture tex = getEngine().getSceneManager().getTextureManager().getAssetByPath(playerTexture);
+            SkeletalEntity ghostE = getEngine().getSceneManager().createSkeletalEntity("ghost" + avatar.getId().toString(), model, ghostSkeleton);
+            Texture tex = getEngine().getSceneManager().getTextureManager().getAssetByPath(ghostTexture);
             TextureState tstate = (TextureState) getEngine().getSceneManager().getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
             tstate.setTexture(tex);
             ghostE.setRenderState(tstate);
@@ -956,6 +960,7 @@ public class MyGame extends VariableFrameRateGame {
             avatar.setEntity(ghostE);
             ghostAvatars.push(avatar); // Used in update to tell if ghost wins or not
             // avatar.setPosition(node’s position...maybe redundant);
+            ghostN.scale(0.2f, 0.2f, 0.2f);
 
 
         }

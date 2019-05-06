@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/meshes/robot.obj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/GhostAvatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GhostAvatar.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,20 +23,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/compile-server.bat">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.class">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -46,12 +30,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="939" column="41" selection-start-line="939" selection-start-column="41" selection-end-line="939" selection-end-column="41" />
+            <state relative-caret-position="782">
+              <caret line="962" column="18" selection-start-line="962" selection-start-column="18" selection-end-line="962" selection-end-column="18" />
               <folding>
                 <element signature="e#36895#36896#0" expanded="true" />
-                <element signature="e#41235#41236#0" expanded="true" />
+                <element signature="e#41446#41447#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="61" selection-start-line="61" selection-end-line="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/networking/client/GameConnectionClient.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="93" selection-start-line="93" selection-end-line="93" />
             </state>
           </provider>
         </entry>
@@ -82,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+            <state relative-caret-position="306">
+              <caret line="54" column="97" lean-forward="true" selection-start-line="54" selection-start-column="97" selection-end-line="54" selection-end-column="97" />
             </state>
           </provider>
         </entry>
@@ -117,9 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>specialitem</find>
-      <find>setu</find>
-      <find>specialItem</find>
       <find>makepyramid</find>
       <find>shapen</find>
       <find>specialitemN</find>
@@ -143,10 +142,13 @@
       <find>ghost</find>
       <find>avatar</find>
       <find>ghostWon</find>
-      <find>update</find>
-      <find>playerModel</find>
       <find>Skeletal</find>
       <find>ghostAvatar</find>
+      <find>update</find>
+      <find>playerModel</find>
+      <find>playerText</find>
+      <find>playerT</find>
+      <find>player1Node</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -251,7 +253,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557175207179" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557176112687" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -455,17 +457,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../A1/src/myGame/MyGame.java" />
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/math/Transform.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="e#2320#2321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rml/Vector3f.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -763,13 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -780,13 +764,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/networking/client/GameConnectionClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="54" column="97" lean-forward="true" selection-start-line="54" selection-start-column="97" selection-end-line="54" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="939" column="41" selection-start-line="939" selection-start-column="41" selection-end-line="939" selection-end-column="41" />
+        <state relative-caret-position="782">
+          <caret line="962" column="18" selection-start-line="962" selection-start-column="18" selection-end-line="962" selection-end-column="18" />
           <folding>
             <element signature="e#36895#36896#0" expanded="true" />
-            <element signature="e#41235#41236#0" expanded="true" />
+            <element signature="e#41446#41447#0" expanded="true" />
           </folding>
         </state>
       </provider>
