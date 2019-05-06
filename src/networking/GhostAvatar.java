@@ -8,7 +8,7 @@ import ray.rml.*;
 public class GhostAvatar {
     private UUID id;
     private SceneNode node;
-    private Entity entity;
+    private SkeletalEntity entity;
     private Vector3f ghostPosition; //ghost position
     private Matrix3 ghostRotation;
     private boolean ghostAvatarWins;
@@ -46,7 +46,7 @@ public class GhostAvatar {
         return ghostPosition;
     }
 
-    public void setEntity(Entity entity) {
+    public void setEntity(SkeletalEntity entity) {
         this.entity = entity;
     }
 

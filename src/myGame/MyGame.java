@@ -198,7 +198,7 @@ public class MyGame extends VariableFrameRateGame {
             e.printStackTrace(System.err);
         } finally {
             protClient.sendByeMessage();
-            game.shutdown();
+            //game.shutdown();
             game.exit();
         }
     }
@@ -934,7 +934,19 @@ public class MyGame extends VariableFrameRateGame {
 
     public void addGhostAvatarToGameWorld(GhostAvatar avatar, String model) throws IOException {
         if (avatar != null) {
-            Entity ghostE = getEngine().getSceneManager().createEntity("ghost" + avatar.getId().toString(), model);
+            //Entity ghostE = getEngine().getSceneManager().createEntity("ghost" + avatar.getId().toString(), model);
+            String ghostSkeleton;
+            if(model.equals("robo.rkm")){
+                ghostSkeleton = "robo.rks";
+            }else if(model.equals("robo2.rkm")){
+                ghostSkeleton = "robo2.rks";
+            }
+
+            SkeletalEntity ghostE = getEngine().getSceneManager().createSkeletalEntity("ghost" + avatar.getId().toString(), model, playerSkeleton);
+            Texture tex = getEngine().getSceneManager().getTextureManager().getAssetByPath(playerTexture);
+            TextureState tstate = (TextureState) getEngine().getSceneManager().getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
+            tstate.setTexture(tex);
+            ghostE.setRenderState(tstate);
             ghostE.setPrimitive(Primitive.TRIANGLES);
             SceneNode ghostN = getEngine().getSceneManager().getRootSceneNode().createChildSceneNode(avatar.getId().toString());
             ghostN.attachObject(ghostE);

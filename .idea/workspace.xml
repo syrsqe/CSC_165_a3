@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/meshes/robot.obj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/GhostAvatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GhostAvatar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/ProtocolClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,18 +25,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/networking/NPC.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1020">
@@ -57,24 +43,29 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2584">
-              <caret line="221" column="22" selection-start-line="221" selection-start-column="22" selection-end-line="221" selection-end-column="22" />
+            <state relative-caret-position="221">
+              <caret line="939" column="41" selection-start-line="939" selection-start-column="41" selection-end-line="939" selection-end-column="41" />
               <folding>
-                <element signature="e#36893#36894#0" expanded="true" />
-                <element signature="e#40526#40527#0" expanded="true" />
+                <element signature="e#36895#36896#0" expanded="true" />
+                <element signature="e#41235#41236#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
+            <state relative-caret-position="595">
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -88,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
@@ -126,9 +117,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>manual object</find>
-      <find>mygame</find>
-      <find>setupscene</find>
       <find>specialitem</find>
       <find>setu</find>
       <find>specialItem</find>
@@ -156,6 +144,9 @@
       <find>avatar</find>
       <find>ghostWon</find>
       <find>update</find>
+      <find>playerModel</find>
+      <find>Skeletal</find>
+      <find>ghostAvatar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,8 +193,8 @@
         <option value="$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java" />
         <option value="$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/DisplaySettingDialog.java" />
-        <option value="$PROJECT_DIR$/src/networking/GhostAvatar.java" />
         <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
+        <option value="$PROJECT_DIR$/src/networking/GhostAvatar.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
       </list>
     </option>
@@ -260,7 +251,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557172688603" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557175207179" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -359,7 +350,7 @@
     <frame x="1280" y="0" width="1280" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.2532787" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -368,14 +359,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4909836" visible="true" weight="0.23623854" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65081966" visible="true" weight="0.23623854" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49918032" weight="0.3975535" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32930514" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32721713" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5090164" side_tool="true" visible="true" weight="0.23623854" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3288889" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34918034" side_tool="true" weight="0.23623854" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3288889" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.32721713" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.3180428" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -464,7 +455,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../A2/src/myGame/MyGame.java" />
     <entry file="file://$PROJECT_DIR$/../A1/src/myGame/MyGame.java" />
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/math/Transform.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -752,13 +742,6 @@
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3706">
@@ -780,21 +763,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2584">
-          <caret line="221" column="22" selection-start-line="221" selection-start-column="22" selection-end-line="221" selection-end-column="22" />
-          <folding>
-            <element signature="e#36893#36894#0" expanded="true" />
-            <element signature="e#40526#40527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="939" column="41" selection-start-line="939" selection-start-column="41" selection-end-line="939" selection-end-column="41" />
+          <folding>
+            <element signature="e#36895#36896#0" expanded="true" />
+            <element signature="e#41235#41236#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
