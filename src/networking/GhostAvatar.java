@@ -55,7 +55,7 @@ public class GhostAvatar {
         this.entity = entity;
     }
 
-    public Entity getEntity() {
+    public SkeletalEntity getEntity() {
         return entity;
     }
     // accessors and setters for id, node, entity, and position

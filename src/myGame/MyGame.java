@@ -583,11 +583,20 @@ public class MyGame extends VariableFrameRateGame {
 
     @Override
     protected void update(Engine engine) {
+
         processNetworking(elapsTime);
         if (networkType.equals("c") || networkType.compareTo("m") == 0) {
-            SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
-            player1E.update();
+            if(playerTexture.contains("cTxt.png")){
+                SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
+                player1E.update();
+            }
+
+            for(GhostAvatar ghost: ghostAvatars){
+                ghost.getEntity().update();
+            }
+
         }
+
 
 
         // if scripting is turned on, read any scripts and update appropriate variables
