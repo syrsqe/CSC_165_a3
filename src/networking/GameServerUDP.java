@@ -254,7 +254,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
         }
     }
     private void sendDanceMessage(UUID clientID){
-        String message = new String("dance");
+        String message = new String("dance," + clientID.toString() );
         clientList = getClients();
         clientEnum = clientList.keys();
         while (clientEnum.hasMoreElements()) {

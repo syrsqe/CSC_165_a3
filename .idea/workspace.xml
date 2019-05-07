@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/networking/GameServerUDP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/networking/GameServerUDP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GameServerUDP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/GhostAvatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GhostAvatar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/ProtocolClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +21,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
@@ -97,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="247" column="51" selection-start-line="247" selection-start-column="51" selection-end-line="247" selection-end-column="51" />
+            <state relative-caret-position="815">
+              <caret line="256" column="66" selection-start-line="256" selection-start-column="66" selection-end-line="256" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -109,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="231" column="36" selection-start-line="231" selection-start-column="36" selection-end-line="231" selection-end-column="36" />
+            <state relative-caret-position="323">
+              <caret line="150" column="40" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
               <folding>
                 <element signature="e#10125#10126#0" expanded="true" />
                 <element signature="e#10191#10192#0" expanded="true" />
@@ -161,10 +152,10 @@
       <find>playerT</find>
       <find>player1Node</find>
       <find>addGhost</find>
-      <find>update</find>
       <find>load</find>
       <find>GhostAvatar</find>
       <find>catch</find>
+      <find>update</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,10 +201,10 @@
         <option value="$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/DisplaySettingDialog.java" />
         <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
-        <option value="$PROJECT_DIR$/src/networking/GameServerUDP.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" />
         <option value="$PROJECT_DIR$/src/networking/GhostAvatar.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
+        <option value="$PROJECT_DIR$/src/networking/GameServerUDP.java" />
       </list>
     </option>
   </component>
@@ -269,7 +260,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557189877862" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557199565706" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -291,7 +282,7 @@
     <configuration name="MyGame" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="myGame.MyGame" />
       <module name="A3" />
-      <option name="PROGRAM_PARAMETERS" value="192.168.1.106 700 c" />
+      <option name="PROGRAM_PARAMETERS" value="192.168.1.106 700 s" />
       <option name="VM_PARAMETERS" value="-Dsun.java2d.noddraw=true -Dsun.java2d.d3d=false" />
       <extension name="coverage">
         <pattern>
@@ -368,7 +359,7 @@
     <frame x="1280" y="0" width="1280" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -377,15 +368,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65081966" weight="0.23623854" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65081966" visible="true" weight="0.23623854" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49918032" weight="0.3975535" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32930514" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32874617" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34918034" side_tool="true" weight="0.23623854" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3288889" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32874617" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.32721713" />
-      <window_info active="true" anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" visible="true" weight="0.3180428" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.3180428" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -766,28 +757,10 @@
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="231" column="36" selection-start-line="231" selection-start-column="36" selection-end-line="231" selection-end-column="36" />
-          <folding>
-            <element signature="e#10125#10126#0" expanded="true" />
-            <element signature="e#10191#10192#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="560">
           <caret line="173" column="46" selection-start-line="173" selection-start-column="46" selection-end-line="173" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="247" column="51" selection-start-line="247" selection-start-column="51" selection-end-line="247" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -810,6 +783,24 @@
             <element signature="e#36940#36941#0" expanded="true" />
             <element signature="e#41541#41542#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="150" column="40" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
+          <folding>
+            <element signature="e#10125#10126#0" expanded="true" />
+            <element signature="e#10191#10192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="815">
+          <caret line="256" column="66" selection-start-line="256" selection-start-column="66" selection-end-line="256" selection-end-column="66" />
         </state>
       </provider>
     </entry>
