@@ -169,6 +169,11 @@ public class PlayerController {
                 player1E.playAnimation("danceAnimation", 0.5f, LOOP, 50);
                 danceStarted = true;
             }
+            if (protClient != null) {
+
+                protClient.sendDanceMessage();
+
+            }
 
 
 

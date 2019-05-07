@@ -659,6 +659,7 @@ public class MyGame extends VariableFrameRateGame {
             }
             if(player.getWorldPosition().x() < 4.30f && player.getWorldPosition().x() > -4.30f && player.getWorldPosition().z() < 3.4f && player.getWorldPosition().z() > -3.4f && NPCWins == false && ghostWon == false){
                 playerOneWins = true;
+                protClient.sendWinMessage();
                 player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " congratulations, you won!" +"   Javascripts Enabled = " + allowJavascripts;
             }
             if(npc!= null){
@@ -958,6 +959,7 @@ public class MyGame extends VariableFrameRateGame {
             ghostN.setLocalRotation(avatar.getGhostRotation());
             avatar.setNode(ghostN);
             avatar.setEntity(ghostE);
+            avatar.setGhostTexture(ghostTexture);
             ghostAvatars.push(avatar); // Used in update to tell if ghost wins or not
             // avatar.setPosition(node’s position...maybe redundant);
             ghostN.scale(0.2f, 0.2f, 0.2f);
@@ -1802,6 +1804,11 @@ public class MyGame extends VariableFrameRateGame {
         shape.setRenderState(faceState);
         shape.setMaterial(mat1);
         return shape;
+    }
+    public void setGhostWonTrue (){
+        if(playerOneWins == false && NPCWins == false){
+            ghostWon = true;
+        }
     }
 
 }

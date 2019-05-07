@@ -91,6 +91,20 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             if (msgTokens[0].compareTo("startNPC") == 0) {
                 startNPCController();
             }
+            if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
+            {
+                UUID clientID = UUID.fromString(msgTokens[1]);
+                sendWinMessage(clientID);
+
+                //find proper ghost avatar
+            }
+            if (msgTokens[0].compareTo("dance") == 0) // rec. �move...�
+            {
+                UUID clientID = UUID.fromString(msgTokens[1]);
+                sendDanceMessage(clientID);
+
+                //find proper ghost avatar
+            }
         }
     }
 
@@ -213,6 +227,43 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             if (nextClientID.compareTo(clientID) != 0) {
                 try {
                     System.out.println("sending by to: " + nextClientID);
+                    sendPacket(message, nextClientID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    private void sendWinMessage(UUID clientID){
+            // System.out.println("sending move message to server");
+            String message = new String("win");
+        clientList = getClients();
+        clientEnum = clientList.keys();
+        while (clientEnum.hasMoreElements()) {
+            System.out.println("sending win messege for: " + clientID);
+            UUID nextClientID = (UUID) clientEnum.nextElement();
+
+            if (nextClientID.compareTo(clientID) != 0) {
+                try {
+                    System.out.println("sending win to: " + nextClientID);
+                    sendPacket(message, nextClientID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    private void sendDanceMessage(UUID clientID){
+        String message = new String("dance");
+        clientList = getClients();
+        clientEnum = clientList.keys();
+        while (clientEnum.hasMoreElements()) {
+            System.out.println("sending dance message for : " + clientID);
+            UUID nextClientID = (UUID) clientEnum.nextElement();
+
+            if (nextClientID.compareTo(clientID) != 0) {
+                try {
+                    System.out.println("sending dance to: " + nextClientID);
                     sendPacket(message, nextClientID);
                 } catch (IOException e) {
                     e.printStackTrace();
