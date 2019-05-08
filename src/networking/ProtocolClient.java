@@ -89,7 +89,7 @@ public class ProtocolClient extends GameConnectionClient {
             }
             if (messageTokens[0].compareTo("move") == 0) // rec. �move...�
             {
-                System.out.println("client recieved move message");
+                //System.out.println("client recieved move message");
                 UUID ghostID = UUID.fromString(messageTokens[1]);
                 Vector3f ghostPosition = (Vector3f) Vector3f.createFrom(Float.parseFloat(messageTokens[2]), Float.parseFloat(messageTokens[3]), Float.parseFloat(messageTokens[4]));
                 Quaternion ghostRotation = Quaternionf.createFrom(Float.parseFloat(messageTokens[5]), Float.parseFloat(messageTokens[6]), Float.parseFloat(messageTokens[7]), Float.parseFloat(messageTokens[8]));
@@ -243,7 +243,7 @@ public class ProtocolClient extends GameConnectionClient {
 
     public void sendStartNPCMessage() {
         try {
-            System.out.println("sending move message to server");
+           // System.out.println("sending move message to server");
             String message = new String("startNPC,");
             sendPacket(message);
         } catch (IOException e) {
