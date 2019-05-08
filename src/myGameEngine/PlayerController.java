@@ -24,7 +24,7 @@ public class PlayerController {
     private float rotationMultiplier = 7.0f; // turning is too slow if just using movementSpeed. Multiply it with this value.
     private ProtocolClient protClient;
     private MyGame game;
-    private boolean danceStarted = false;
+    private boolean danceStarted = false, flashlightOff = false;
 
 
     public PlayerController(SceneNode playerN, String controllerName, InputManager im, float speed, MyGame g) {
@@ -68,6 +68,8 @@ public class PlayerController {
             // j to dance
             DanceAnimation danceAnimation = new DanceAnimation();
             im.associateAction(cn, net.java.games.input.Component.Identifier.Key.J, danceAnimation, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+            ToggleFlashlight toggleFlashlight= new ToggleFlashlight();
+            im.associateAction(cn, net.java.games.input.Component.Identifier.Key.B, toggleFlashlight, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
 
         } else if (cn.toLowerCase().contains("controller") || cn.toLowerCase().contains("gamepad")) {
             // NOTE: due to sensitivity issues when using the left and right sticks on a PS4 controller, movement is controlled with the directional buttons
@@ -179,6 +181,20 @@ public class PlayerController {
 
         }
     }
+    private class ToggleFlashlight extends AbstractInputAction {
+        public void performAction(float time, Event e) {
+
+            if(flashlightOff == false){
+                game.getSpotLight().setRange(0.0001f);
+                flashlightOff = true;
+            }else{
+                game.getSpotLight().setRange(100);
+                flashlightOff = false;
+            }
+
+
+        }
+    }
 
     private class MoveBackwardAction extends AbstractInputAction {
         public void performAction(float time, Event e) {
@@ -227,6 +243,11 @@ public class PlayerController {
                 player.moveForward(movementSpeed);
 
             game.updateVerticalPosition();
+            if (protClient != null) {
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+            }
         }
     }
 
@@ -254,6 +275,11 @@ public class PlayerController {
                 player.moveForward(movementSpeed);
 
             game.updateVerticalPosition();
+            if (protClient != null) {
+                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
+
+                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+            }
         }
     }
 

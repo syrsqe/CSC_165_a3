@@ -140,6 +140,8 @@ public class MyGame extends VariableFrameRateGame {
     private LinkedList<GhostAvatar> ghostAvatars = new LinkedList<GhostAvatar>();
     private LinkedList<Boolean> ghostAvatarWin = new LinkedList<Boolean>();
 
+    private Light spotlight;
+
 
     public MyGame(String serverAddr, int sPort) {
         super();
@@ -152,6 +154,7 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println("arrow keys to rotate the camera");
             System.out.println("Z and X keys to zoom the camera");
             System.out.println("Press SPACEBAR to toggle javascripts");
+            System.out.println("press J for dance animation(only on black robot)");
             System.out.println("When connected to server, press n from any client to start NPCs");
         }
 
@@ -174,8 +177,8 @@ public class MyGame extends VariableFrameRateGame {
         if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
             Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Choose your character:");
-            System.out.println("press d for the dolphin");
-            System.out.println("press c for the cone");
+            System.out.println("press d for the The black robot");
+            System.out.println("press c for the purple robot");
             playerChoice = modelScanner.nextLine();
         }
 
@@ -422,7 +425,7 @@ public class MyGame extends VariableFrameRateGame {
 
 
         if (networkType.equals("c")) {
-            Light spotlight = sm.createLight("spotlight", Light.Type.SPOT);
+            spotlight = sm.createLight("spotlight", Light.Type.SPOT);
             //spotlight.setAmbient(new Color(0.1f, 0.1f, 0.1f));
             spotlight.setDiffuse(new Color(1.0f, 1.0f, 1.0f));
             spotlight.setSpecular(new Color(1.0f, 1.0f, 1.0f));
@@ -1835,5 +1838,9 @@ public class MyGame extends VariableFrameRateGame {
             ghostWon = true;
         }
     }
+    public Light getSpotLight(){
+        return spotlight;
+    }
+
 
 }
