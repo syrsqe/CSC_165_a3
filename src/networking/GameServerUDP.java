@@ -45,7 +45,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
                     System.out.println("Client Info: " + ci);
                     addClient(ci, clientID);
                     sendJoinedMessage(clientID, true);
-                    sendNPCinfoMessage(clientID);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -59,6 +59,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
                 String playerModel = msgTokens[9];
                 sendCreateMessages(clientID, pos, rot, playerModel);
                 sendWantsDetailsForNewClientMessages(clientID);
+                sendNPCinfoMessage(clientID);
             }
 // case where server receives a BYE message
 // format: bye,localid
