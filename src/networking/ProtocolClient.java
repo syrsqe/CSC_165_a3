@@ -142,7 +142,9 @@ public class ProtocolClient extends GameConnectionClient {
 
             }
             if (messageTokens[0].compareTo("win") == 0) {
+                String time = messageTokens[1];
                 game.setGhostWonTrue();
+
 
 
             }
@@ -218,10 +220,10 @@ public class ProtocolClient extends GameConnectionClient {
         }
     }
 
-    public void sendWinMessage() {
+    public void sendWinMessage(String time) {
         try {
             // System.out.println("sending move message to server");
-            String message = new String("win," + id.toString());
+            String message = new String("win," + time + "," + id.toString());
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();

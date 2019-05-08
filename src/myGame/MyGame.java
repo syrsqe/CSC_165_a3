@@ -131,8 +131,8 @@ public class MyGame extends VariableFrameRateGame {
     private static String playerModel;
     private static String playerTexture;
     public static String playerSkeleton;
-    private boolean playerOneWins = false, NPCWins = false, ghostWon = false;
-    private String winGameTime;
+    private boolean playerOneWins = false, NPCWins = false, ghostWon = false, gameLoaded = false, gameOver = false;
+    private String winGameTime, currentTimeStr = "-";
 
     private SceneNode wholeMazeNode;
 
@@ -655,8 +655,13 @@ public class MyGame extends VariableFrameRateGame {
         if(networkType.equals("c")){
             for(GhostAvatar ghost: ghostAvatars){
                 if(ghost.getNode().getWorldPosition().x() < 4.30f && ghost.getNode().getWorldPosition().x() > -4.30f && ghost.getNode().getWorldPosition().z() < 3.4f && ghost.getNode().getWorldPosition().z() > -3.4f && NPCWins == false && playerOneWins == false){
+
+                    if(gameOver == false){
+                        currentTimeStr = elapsTimeStr;
+                    }
                     ghostWon = true;
-                    player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " Another player won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
+                    gameOver = true;
+                    player1HUD = "Maze Time = " + currentTimeStr + "   Score = 100"  + " Another player won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
 
                 }
             }
@@ -667,14 +672,22 @@ public class MyGame extends VariableFrameRateGame {
                 npc = engine.getSceneManager().getSceneNode("npc0");
             }
             if(player.getWorldPosition().x() < 4.30f && player.getWorldPosition().x() > -4.30f && player.getWorldPosition().z() < 3.4f && player.getWorldPosition().z() > -3.4f && NPCWins == false && ghostWon == false){
+                if(gameOver == false){
+                    currentTimeStr = elapsTimeStr;
+                }
                 playerOneWins = true;
-                protClient.sendWinMessage();
-                player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " congratulations, you won!" +"   Javascripts Enabled = " + allowJavascripts;
+                gameOver = true;
+                protClient.sendWinMessage(currentTimeStr);
+                player1HUD = "Maze Time = " + currentTimeStr + "   Score = 100"  + " congratulations, you won!" +"   Javascripts Enabled = " + allowJavascripts;
             }
             if(npc!= null){
+                if(gameOver == false){
+                    currentTimeStr = elapsTimeStr;
+                }
                 if(npc.getWorldPosition().x() < 4.30f && npc.getWorldPosition().x() > -4.30f&& npc.getWorldPosition().z() < 3.4f && npc.getWorldPosition().z() > -3.4f && playerOneWins == false && ghostWon == false){
                     NPCWins = true;
-                    player1HUD = "Maze Time = " + elapsTimeStr + "   Score = 100"  + " The NPC won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
+                    gameOver = true;
+                    player1HUD = "Maze Time = " + currentTimeStr + "   Score = 100"  + " The NPC won, better luck next time" +"   Javascripts Enabled = " + allowJavascripts;
                 }
 
             }
@@ -1815,7 +1828,7 @@ public class MyGame extends VariableFrameRateGame {
         return shape;
     }
     public void setGhostWonTrue (){
-        if(playerOneWins == false && NPCWins == false){
+        if(playerOneWins == false && NPCWins == false && gameLoaded == true){
             ghostWon = true;
         }
     }

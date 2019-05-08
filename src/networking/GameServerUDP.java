@@ -93,8 +93,10 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
             if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
             {
-                UUID clientID = UUID.fromString(msgTokens[1]);
-                sendWinMessage(clientID);
+                String time = msgTokens[1]
+                UUID clientID = UUID.fromString(msgTokens[2]);
+
+                sendWinMessage(clientID. time);
 
                 //find proper ghost avatar
             }
@@ -234,9 +236,9 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
         }
     }
-    private void sendWinMessage(UUID clientID){
+    private void sendWinMessage(UUID clientID, String time){
             // System.out.println("sending move message to server");
-            String message = new String("win");
+            String message = new String("win," + time);
         clientList = getClients();
         clientEnum = clientList.keys();
         while (clientEnum.hasMoreElements()) {
