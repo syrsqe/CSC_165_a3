@@ -155,6 +155,7 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println("Z and X keys to zoom the camera");
             System.out.println("Press SPACEBAR to toggle javascripts");
             System.out.println("press J for dance animation(only on black robot)");
+            System.out.println("press B to toggle flashlight");
             System.out.println("When connected to server, press n from any client to start NPCs");
         }
 
