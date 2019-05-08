@@ -1827,8 +1827,11 @@ public class MyGame extends VariableFrameRateGame {
         shape.setMaterial(mat1);
         return shape;
     }
-    public void setGhostWonTrue (){
+    public void setGhostWonTrue (String time){
+        currentTimeStr = time;
         if(playerOneWins == false && NPCWins == false && gameLoaded == true){
+
+            //gameOver = true;
             ghostWon = true;
         }
     }

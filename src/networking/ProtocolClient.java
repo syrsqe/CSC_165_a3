@@ -143,7 +143,7 @@ public class ProtocolClient extends GameConnectionClient {
             }
             if (messageTokens[0].compareTo("win") == 0) {
                 String time = messageTokens[1];
-                game.setGhostWonTrue();
+                game.setGhostWonTrue(time);
 
 
 
