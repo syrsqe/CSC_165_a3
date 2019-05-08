@@ -93,10 +93,10 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
             if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
             {
-                String time = msgTokens[1]
+                String time = msgTokens[1];
                 UUID clientID = UUID.fromString(msgTokens[2]);
 
-                sendWinMessage(clientID. time);
+                sendWinMessage(clientID, time);
 
                 //find proper ghost avatar
             }
