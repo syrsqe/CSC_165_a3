@@ -297,13 +297,13 @@ public class MyGame extends VariableFrameRateGame {
         Configuration conf = eng.getConfiguration();
         TextureManager txm = getEngine().getTextureManager();
         //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
-        txm.setBaseDirectoryPath("assets/skyboxes/grassyHill/");
-        Texture front = txm.getAssetByPath("Side2New.jpg");
-        Texture back = txm.getAssetByPath("Side4New.jpg");
-        Texture left = txm.getAssetByPath("Side1New.jpg");
-        Texture right = txm.getAssetByPath("Side3New.jpg");
-        Texture top = txm.getAssetByPath("topNew.jpg");
-        Texture bottom = txm.getAssetByPath("bottomNew.jpg");
+        txm.setBaseDirectoryPath("assets/skyboxes/alienSky/");
+        Texture front = txm.getAssetByPath("AlienSky3_LeftHalf.png");
+        Texture back = txm.getAssetByPath("AlienSky3_LeftHalf.png");
+        Texture left = txm.getAssetByPath("AlienSky3_RightHalf.png");
+        Texture right = txm.getAssetByPath("AlienSky3_RightHalf.png");
+        Texture top = txm.getAssetByPath("AlienSky3_Top.png");
+        Texture bottom = txm.getAssetByPath("AlienSky3_Bottom.png");
         txm.setBaseDirectoryPath(conf.valueOf("assets.textures.path"));
 
         // cubemap textures are flipped upside-down.
@@ -1194,7 +1194,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel3TopPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3TopPieceMNode");
         innerLevel3TopPieceMNode.attachObject(innerLevel3TopPieceMEntity);
         innerLevel3TopPieceMNode.moveForward(MfwdPos);
-        innerLevel3TopPieceMNode.scale(Mscale, 1f, 1f);
+        innerLevel3TopPieceMNode.scale(Mscale,1f,1f);
 
         Entity innerLevel3TopPieceLEntity = sm.createEntity("innerLevel3TopPieceLEntity", objName);
         innerLevel3TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1202,7 +1202,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3TopPieceLNode.attachObject(innerLevel3TopPieceLEntity);
         innerLevel3TopPieceLNode.moveForward(LRfwdPos);
         innerLevel3TopPieceLNode.moveLeft(LRpos);
-        innerLevel3TopPieceLNode.scale(1f, 1f, LRscale);
+        innerLevel3TopPieceLNode.scale(1f,1f, LRscale);
 
         Entity innerLevel3TopPieceREntity = sm.createEntity("innerLevel3TopPieceREntity", objName);
         innerLevel3TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1210,7 +1210,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3TopPieceRNode.attachObject(innerLevel3TopPieceREntity);
         innerLevel3TopPieceRNode.moveForward(LRfwdPos);
         innerLevel3TopPieceRNode.moveRight(LRpos);
-        innerLevel3TopPieceRNode.scale(1f, 1f, LRscale);
+        innerLevel3TopPieceRNode.scale(1f,1f, LRscale);
 
 
         // set up innerLevel3 bottom piece
@@ -1219,7 +1219,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel3BottomPieceMNode = innerLevel3Node.createChildSceneNode("innerLevel3BottomPieceMNode");
         innerLevel3BottomPieceMNode.attachObject(innerLevel3BottomPieceMEntity);
         innerLevel3BottomPieceMNode.moveBackward(MfwdPos);
-        innerLevel3BottomPieceMNode.scale(Mscale, 1f, 1f);
+        innerLevel3BottomPieceMNode.scale(Mscale,1f,1f);
 
         Entity innerLevel3BottomPieceLEntity = sm.createEntity("innerLevel3BottomPieceLEntity", objName);
         innerLevel3BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1227,7 +1227,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3BottomPieceLNode.attachObject(innerLevel3BottomPieceLEntity);
         innerLevel3BottomPieceLNode.moveBackward(LRfwdPos);
         innerLevel3BottomPieceLNode.moveLeft(LRpos);
-        innerLevel3BottomPieceLNode.scale(1f, 1f, LRscale);
+        innerLevel3BottomPieceLNode.scale(1f,1f,LRscale);
 
         Entity innerLevel3BottomPieceREntity = sm.createEntity("innerLevel3BottomPieceREntity", objName);
         innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1235,7 +1235,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel3BottomPieceRNode.attachObject(innerLevel3BottomPieceREntity);
         innerLevel3BottomPieceRNode.moveBackward(LRfwdPos);
         innerLevel3BottomPieceRNode.moveRight(LRpos);
-        innerLevel3BottomPieceRNode.scale(1f, 1f, LRscale);
+        innerLevel3BottomPieceRNode.scale(1f,1f,LRscale);
 
 
         // set up innerLevel2 left piece
@@ -1244,7 +1244,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel2LeftPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2LeftPieceMNode");
         innerLevel2LeftPieceMNode.attachObject(innerLevel2LeftPieceMEntity);
         innerLevel2LeftPieceMNode.moveLeft(MfwdPos * 2);
-        innerLevel2LeftPieceMNode.scale(1f, 1f, Mscale * 2);
+        innerLevel2LeftPieceMNode.scale(1f,1f, Mscale * 2);
 
         Entity innerLevel2LeftPieceTEntity = sm.createEntity("innerLevel2LeftPieceTEntity", objName);
         innerLevel2LeftPieceTEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1252,7 +1252,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2LeftPieceTNode.attachObject(innerLevel2LeftPieceTEntity);
         innerLevel2LeftPieceTNode.moveForward(LRpos * 2 + 1);
         innerLevel2LeftPieceTNode.moveLeft(LRpos + 1);
-        innerLevel2LeftPieceTNode.scale(LRscale * 2 + 1, 1f, 1f);
+        innerLevel2LeftPieceTNode.scale(LRscale * 2 + 1,1f,1f);
 
         Entity innerLevel2LeftPieceBEntity = sm.createEntity("innerLevel2LeftPieceBEntity", objName);
         innerLevel2LeftPieceBEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1260,7 +1260,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2LeftPieceBNode.attachObject(innerLevel2LeftPieceBEntity);
         innerLevel2LeftPieceBNode.moveBackward(LRpos * 2 + 1);
         innerLevel2LeftPieceBNode.moveLeft(LRpos + 1);
-        innerLevel2LeftPieceBNode.scale(LRscale * 2 + 1, 1f, 1f);
+        innerLevel2LeftPieceBNode.scale(LRscale * 2 + 1,1f,1f);
 
 
         // set up innerLevel2 right piece
@@ -1269,7 +1269,7 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode innerLevel2RightPieceMNode = innerLevel2Node.createChildSceneNode("innerLevel2RightPieceMNode");
         innerLevel2RightPieceMNode.attachObject(innerLevel2RightPieceMEntity);
         innerLevel2RightPieceMNode.moveRight(MfwdPos * 2);
-        innerLevel2RightPieceMNode.scale(1f, 1f, Mscale * 2);
+        innerLevel2RightPieceMNode.scale(1f,1f, Mscale * 2);
 
         Entity innerLevel2RightPieceTEntity = sm.createEntity("innerLevel2RightPieceTEntity", objName);
         innerLevel2RightPieceTEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1277,7 +1277,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2RightPieceTNode.attachObject(innerLevel2RightPieceTEntity);
         innerLevel2RightPieceTNode.moveForward(LRpos * 2 + 1);
         innerLevel2RightPieceTNode.moveRight(LRpos + 1);
-        innerLevel2RightPieceTNode.scale(LRscale * 2 + 1f, 1f, 1f);
+        innerLevel2RightPieceTNode.scale(LRscale * 2 + 1f,1f,1f);
 
         Entity innerLevel2RightPieceBEntity = sm.createEntity("innerLevel2RightPieceBEntity", objName);
         innerLevel2RightPieceBEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1285,7 +1285,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel2RightPieceBNode.attachObject(innerLevel2RightPieceBEntity);
         innerLevel2RightPieceBNode.moveBackward(LRpos * 2 + 1);
         innerLevel2RightPieceBNode.moveRight(LRpos + 1);
-        innerLevel2RightPieceBNode.scale(LRscale * 2 + 1, 1f, 1f);
+        innerLevel2RightPieceBNode.scale(LRscale * 2 + 1,1f,1f);
 
 
         // set up innerLevel1 top piece
@@ -1293,8 +1293,8 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1TopPieceMEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode innerLevel1TopPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1TopPieceMNode");
         innerLevel1TopPieceMNode.attachObject(innerLevel1TopPieceMEntity);
-        innerLevel1TopPieceMNode.moveForward(MfwdPos * 3);
-        innerLevel1TopPieceMNode.scale(Mscale * 3, 1f, 1f);
+        innerLevel1TopPieceMNode.moveForward(MfwdPos * 3 + 1);
+        innerLevel1TopPieceMNode.scale(Mscale * 3,1f,1f);
 
         Entity innerLevel1TopPieceLEntity = sm.createEntity("innerLevel1TopPieceLEntity", objName);
         innerLevel1TopPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1302,7 +1302,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1TopPieceLNode.attachObject(innerLevel1TopPieceLEntity);
         innerLevel1TopPieceLNode.moveForward(LRfwdPos * 3);
         innerLevel1TopPieceLNode.moveLeft(LRpos * 3 + 2);
-        innerLevel1TopPieceLNode.scale(1f, 1f, LRscale * 4 + 1);
+        innerLevel1TopPieceLNode.scale(1f,1f, LRscale * 4 + 1);
 
         Entity innerLevel1TopPieceREntity = sm.createEntity("innerLevel1TopPieceREntity", objName);
         innerLevel1TopPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1310,7 +1310,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1TopPieceRNode.attachObject(innerLevel1TopPieceREntity);
         innerLevel1TopPieceRNode.moveForward(LRfwdPos * 3);
         innerLevel1TopPieceRNode.moveRight(LRpos * 3 + 2);
-        innerLevel1TopPieceRNode.scale(1f, 1f, LRscale * 4 + 1);
+        innerLevel1TopPieceRNode.scale(1f,1f,LRscale * 4 + 1);
 
 
         // set up innerLevel1 bottom piece
@@ -1318,8 +1318,8 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1BottomPieceMEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode innerLevel1BottomPieceMNode = innerLevel1Node.createChildSceneNode("innerLevel1BottomPieceMNode");
         innerLevel1BottomPieceMNode.attachObject(innerLevel1BottomPieceMEntity);
-        innerLevel1BottomPieceMNode.moveBackward(MfwdPos * 3);
-        innerLevel1BottomPieceMNode.scale(Mscale * 3, 1f, 1f);
+        innerLevel1BottomPieceMNode.moveBackward(MfwdPos * 3 + 1);
+        innerLevel1BottomPieceMNode.scale(Mscale * 3,1f,1f);
 
         Entity innerLevel1BottomPieceLEntity = sm.createEntity("innerLevel1BottomPieceLEntity", objName);
         innerLevel1BottomPieceLEntity.setPrimitive(Primitive.TRIANGLES);
@@ -1327,7 +1327,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1BottomPieceLNode.attachObject(innerLevel1BottomPieceLEntity);
         innerLevel1BottomPieceLNode.moveBackward(LRfwdPos * 3);
         innerLevel1BottomPieceLNode.moveLeft(LRpos * 3 + 2);
-        innerLevel1BottomPieceLNode.scale(1f, 1f, LRscale * 4 + 1);
+        innerLevel1BottomPieceLNode.scale(1f,1f,LRscale * 4 + 1);
 
         Entity innerLevel1BottomPieceREntity = sm.createEntity("innerLevel1BottomPieceREntity", objName);
         innerLevel3BottomPieceREntity.setPrimitive(Primitive.TRIANGLES);
@@ -1335,7 +1335,7 @@ public class MyGame extends VariableFrameRateGame {
         innerLevel1BottomPieceRNode.attachObject(innerLevel1BottomPieceREntity);
         innerLevel1BottomPieceRNode.moveBackward(LRfwdPos * 3);
         innerLevel1BottomPieceRNode.moveRight(LRpos * 3 + 2);
-        innerLevel1BottomPieceRNode.scale(1f, 1f, LRscale * 4 + 1);
+        innerLevel1BottomPieceRNode.scale(1f,1f,LRscale * 4 + 1);
 
 
         // set up outer level
@@ -1345,37 +1345,39 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode outerLevelTNode = outerLevelNode.createChildSceneNode("outerLevelTNode");
         outerLevelTNode.attachObject(outerLevelTEntity);
         outerLevelTNode.moveForward(MfwdPos * 4);
-        outerLevelTNode.scale(Mscale * 4, 1f, 1f);
+        outerLevelTNode.scale(Mscale * 4,1f,1f);
 
         Entity outerLevelBEntity = sm.createEntity("outerLevelBEntity", objName);
         outerLevelBEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelBNode = outerLevelNode.createChildSceneNode("outerLevelBNode");
         outerLevelBNode.attachObject(outerLevelBEntity);
         outerLevelBNode.moveBackward(MfwdPos * 4);
-        outerLevelBNode.scale(Mscale * 4, 1f, 1f);
+        outerLevelBNode.scale(Mscale * 4,1f,1f);
 
         Entity outerLevelLEntity = sm.createEntity("outerLevelLEntity", objName);
         outerLevelLEntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelLNode = outerLevelNode.createChildSceneNode("outerLevelLNode");
         outerLevelLNode.attachObject(outerLevelLEntity);
         outerLevelLNode.moveLeft(MfwdPos * 4);
-        outerLevelLNode.scale(1f, 1f, Mscale * 4);
+        outerLevelLNode.scale(1f,1f,Mscale * 4);
 
         Entity outerLevelREntity = sm.createEntity("outerLevelREntity", objName);
         outerLevelREntity.setPrimitive(Primitive.TRIANGLES);
         SceneNode outerLevelRNode = outerLevelNode.createChildSceneNode("outerLevelRNode");
         outerLevelRNode.attachObject(outerLevelREntity);
         outerLevelRNode.moveRight(MfwdPos * 4);
-        outerLevelRNode.scale(1f, 1f, Mscale * 4);
+        outerLevelRNode.scale(1f,1f,Mscale * 4);
 
 
         // Scale height of maze. Uses hierarchy to apply it to all maze pieces
-        wholeMazeNode.scale(1f, height, 1f);
+        wholeMazeNode.scale(1f, height,1f);
         wholeMazeNode.moveUp(UpPos);
 
         // make the outermost maze walls taller
-        outerLevelNode.scale(1f, height * 2, 1f);
+        outerLevelNode.scale(1f, height * 2,1f);
         outerLevelNode.moveUp(UpPos * 2 - 0.5f);
+
+        //wholeMazeNode.moveDown(20); // TEMP
     }
 
     public boolean checkDistanceFromWall(SceneNode obj) {
@@ -1407,16 +1409,19 @@ public class MyGame extends VariableFrameRateGame {
         */
 
         // check for case 1: player inside InnerLevel3
-        if ((x > -8f && x < 8f) && (z > -8f && z < 8f)) {
+        if ((x > -8f && x < 8f) && (z > -8f && z < 8f))
+        {
             // detailed check for innerLevel3 wall collisions
             // only 6 cube objects to check distance to
             // can narrow down even further by checking the sign of the x z values
             // this way only 2 objects to compare distance to
             // using this same method for the other levels would mean 4 objects to compare distance to
 ///*
-            if (x > 0) {
+            if (x > 0)
+            {
 
-                if (z < 0) {
+                if (z < 0)
+                {
                     // need lowerPiece L and M
                     SceneNode innerLevel3BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceLNode");
                     SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
@@ -1435,7 +1440,9 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getZdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold + 6);
                     }
-                } else // z > 0
+                }
+
+                else // z > 0
                 {
                     // need upperPiece L and M
                     SceneNode innerLevel3TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceLNode");
@@ -1452,9 +1459,12 @@ public class MyGame extends VariableFrameRateGame {
                             tooClose = getZdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
                     }
                 }
-            } else // x > 0
+            }
+
+            else // x < 0
             {
-                if (z < 0) {
+                if (z < 0)
+                {
                     // need lowerPiece R and M
                     SceneNode innerLevel3BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceRNode");
                     SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
@@ -1473,7 +1483,9 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getZdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
                     }
-                } else // z > 0
+                }
+
+                else // z > 0
                 {
                     // need UpperPiece R and M
                     SceneNode innerLevel3TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceRNode");
@@ -1491,21 +1503,110 @@ public class MyGame extends VariableFrameRateGame {
                     }
                 }
             }
-
-
         }
 
+/* Code was introducing more bugs so I'm leaving it out for now
+//===========================================================================================================================
+        // check for case 2: player between InnerLevel2 and 3
+        // player is closer to InnerLevel3 (check for distance to backside of InnerLevel3
+        if ((x > -10f && x < 10f) && (z > -10f && z < 10f))
+        {
+            if (x > 0)
+            {
+                if (z < 0)
+                {
+                    // need lowerPiece L and M
+                    SceneNode innerLevel3BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceLNode");
+                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold - 2);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold + 4);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need upperPiece L and M
+                    SceneNode innerLevel3TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceLNode");
+                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+
+            else // x < 0
+            {
+                if (z < 0)
+                {
+                    // need lowerPiece R and M
+                    SceneNode innerLevel3BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceRNode");
+                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // need to check both x and z distance
+                        // first check x
+                        tooClose = getXdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
+                        // if player is past the xDistance threshold it may be because they are passing through an opening
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need UpperPiece R and M
+                    SceneNode innerLevel3TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceRNode");
+                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
+
+                    // for M piece, just need to check z distance
+                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        tooClose = getXdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold);
+
+                        if (tooClose)
+                            tooClose = getZdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                    }
+                }
+            }
+        }
+  */
 
         // check for case 2: player between InnerLevel2 and 3
-        else if ((x > -16f && x < 16f) && (z > -16f && z < 16f)) {
-
-            // check for left and right sides first
-            // ALSO NEED to check for the innerLevel3 outer walls. Do this later
-            // PROBABLY should add another separate else if statement for this. Check btwn 8f and 10f or something similar
-
-
-            if (x > 0) {
-                if (z < 0) {
+        // player is closer to InnerLevel2
+        else if ((x > -16f && x < 16f) && (z > -16f && z < 16f))
+        {
+            if (x > 0)
+            {
+                if (z < 0)
+                {
                     // need leftPiece B and M
                     SceneNode innerLevel2LeftPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceBNode");
                     SceneNode innerLevel2LeftPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceMNode");
@@ -1521,7 +1622,9 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getXdistance(obj1, innerLevel2LeftPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
-                } else // z > 0
+                }
+
+                else // z > 0
                 {
                     // need leftPiece T and M
                     SceneNode innerLevel2LeftPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2LeftPieceTNode");
@@ -1538,9 +1641,12 @@ public class MyGame extends VariableFrameRateGame {
                             tooClose = getXdistance(obj1, innerLevel2LeftPieceTNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
                 }
-            } else // x < 0
+            }
+
+            else // x < 0
             {
-                if (z < 0) {
+                if (z < 0)
+                {
                     // need rightPiece B and M
                     SceneNode innerLevel2RightPieceBNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceBNode");
                     SceneNode innerLevel2RightPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceMNode");
@@ -1559,7 +1665,9 @@ public class MyGame extends VariableFrameRateGame {
                         if (tooClose)
                             tooClose = getXdistance(obj1, innerLevel2RightPieceBNode.getWorldPosition(), (distanceThreshold + 18) * 2);
                     }
-                } else // z > 0
+                }
+
+                else // z > 0
                 {
                     // need rightPiece T and M
                     SceneNode innerLevel2RightPieceTNode = getEngine().getSceneManager().getSceneNode("innerLevel2RightPieceTNode");
@@ -1580,9 +1688,9 @@ public class MyGame extends VariableFrameRateGame {
             //*/
         }
 
-/*
+///*
         // check for case 3: player between InnerLevel1 and 2
-        else if ((x > -32f && x < 32f) && (z > -32f && z < 32f))
+        else if ((x > -24f && x < 24f) && (z > -24f && z < 24f))
         {
 
             if (x > 0)
@@ -1606,7 +1714,7 @@ public class MyGame extends VariableFrameRateGame {
                         // if we are tooClose on the x axis, we need to check if we are not too close on z axis
                         // if player is past the xDistance threshold it may be because they are passing through an opening
                         if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel1BottomPieceLNode.getWorldPosition(), distanceThreshold + 26);
+                            tooClose = getZdistance(obj1, innerLevel1BottomPieceLNode.getWorldPosition(), distanceThreshold + 70);
                     }
                 }
 
@@ -1624,7 +1732,7 @@ public class MyGame extends VariableFrameRateGame {
                         tooClose = getXdistance(obj1, innerLevel1TopPieceLNode.getWorldPosition(), distanceThreshold);
 
                         if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel1TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
+                            tooClose = getZdistance(obj1, innerLevel1TopPieceLNode.getWorldPosition(), distanceThreshold + 70);
                     }
                 }
             }
@@ -1649,7 +1757,7 @@ public class MyGame extends VariableFrameRateGame {
                         // if we are tooClose on the x axis, we need to check if we are not too close on z axis
                         // if player is past the xDistance threshold it may be because they are passing through an opening
                         if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel1BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                            tooClose = getZdistance(obj1, innerLevel1BottomPieceRNode.getWorldPosition(), distanceThreshold + 70);
                     }
                 }
 
@@ -1667,24 +1775,94 @@ public class MyGame extends VariableFrameRateGame {
                         tooClose = getXdistance(obj1, innerLevel1TopPieceRNode.getWorldPosition(), distanceThreshold);
 
                         if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel1TopPieceRNode.getWorldPosition(), distanceThreshold + 6);
+                            tooClose = getZdistance(obj1, innerLevel1TopPieceRNode.getWorldPosition(), distanceThreshold + 70);
                     }
                 }
             }
 
         }
-        */
+        //  */
 
+        // check for case 4: player between OuterLevel and InnerLevel1
+        else if ((x > -32f && x < 32f) && (z > -32f && z < 32f)) // this is for the outerLevel
+        {
 
-        // just check if within the values of innerLevel2. already checked if in range for IL3 so don't need to do so again.
-        // we would already know it's between these two walls
-        //  else if ()
-        //  {
+            if (x > 0)
+            {
 
-        //  }
+                if (z < 0)
+                {
+                    // need outerlevel pieces L and B
+                    SceneNode outerLevelLNode = getEngine().getSceneManager().getSceneNode("outerLevelLNode");
+                    SceneNode outerLevelBNode = getEngine().getSceneManager().getSceneNode("outerLevelBNode");
+
+                    // check z distance for B piece
+                    tooClose = getZdistance(obj1, outerLevelBNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // check x distance for L piece
+                        tooClose = getXdistance(obj1, outerLevelLNode.getWorldPosition(), distanceThreshold);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need outerlevel pieces L and T
+                    SceneNode outerLevelLNode = getEngine().getSceneManager().getSceneNode("outerLevelLNode");
+                    SceneNode outerLevelTNode = getEngine().getSceneManager().getSceneNode("outerLevelTNode");
+
+                    // check z distance for T piece
+                    tooClose = getZdistance(obj1, outerLevelTNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // check x distance for L piece
+                        tooClose = getXdistance(obj1, outerLevelLNode.getWorldPosition(), distanceThreshold);
+                    }
+                }
+            }
+
+            else // x < 0
+            {
+                if (z < 0)
+                {
+                    // need outerlevel pieces R and B
+                    SceneNode outerLevelRNode = getEngine().getSceneManager().getSceneNode("outerLevelRNode");
+                    SceneNode outerLevelBNode = getEngine().getSceneManager().getSceneNode("outerLevelBNode");
+
+                    // check z distance for B piece
+                    tooClose = getZdistance(obj1, outerLevelBNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // check x distance for L piece
+                        tooClose = getXdistance(obj1, outerLevelRNode.getWorldPosition(), distanceThreshold);
+                    }
+                }
+
+                else // z > 0
+                {
+                    // need outerlevel pieces R and T
+                    SceneNode outerLevelRNode = getEngine().getSceneManager().getSceneNode("outerLevelRNode");
+                    SceneNode outerLevelTNode = getEngine().getSceneManager().getSceneNode("outerLevelTNode");
+
+                    // check z distance for T piece
+                    tooClose = getZdistance(obj1, outerLevelTNode.getWorldPosition(), distanceThreshold);
+
+                    if (!tooClose) // if not already too close, check the next wall segment
+                    {
+                        // check x distance for L piece
+                        tooClose = getXdistance(obj1, outerLevelRNode.getWorldPosition(), distanceThreshold);
+                    }
+                }
+            }
+
+        }
 
         return tooClose;
     }
+
 
     private boolean getZdistance(Vector3 obj1, Vector3 obj2, float distanceThreshold) {
         // checks the distance on the z axis between two vectors
