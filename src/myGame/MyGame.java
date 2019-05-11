@@ -299,8 +299,8 @@ public class MyGame extends VariableFrameRateGame {
         //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
         txm.setBaseDirectoryPath("assets/skyboxes/alienSky/");
         Texture front = txm.getAssetByPath("AlienSky3_LeftHalf.png");
-        Texture back = txm.getAssetByPath("AlienSky3_LeftHalf.png");
-        Texture left = txm.getAssetByPath("AlienSky3_RightHalf.png");
+        Texture back = txm.getAssetByPath("AlienSky3_RightHalf_Reversed.png");
+        Texture left = txm.getAssetByPath("AlienSky3_LeftHalf_Reversed.png");
         Texture right = txm.getAssetByPath("AlienSky3_RightHalf.png");
         Texture top = txm.getAssetByPath("AlienSky3_Top.png");
         Texture bottom = txm.getAssetByPath("AlienSky3_Bottom.png");
