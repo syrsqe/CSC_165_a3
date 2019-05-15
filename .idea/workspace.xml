@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/textures/robot.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/textures/robot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$QuitGameAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$QuitGameAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateLeftAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateRightAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$StartNPCsAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$StartNPCsAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,15 +37,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="157" column="60" selection-start-line="157" selection-start-column="60" selection-end-line="157" selection-end-column="60" />
+            <state relative-caret-position="421">
+              <caret line="739" column="10" selection-start-line="739" selection-start-column="10" selection-end-line="739" selection-end-column="10" />
               <folding>
-                <element signature="e#37092#37093#0" expanded="true" />
-                <element signature="e#37126#37127#0" expanded="true" />
-                <element signature="e#41696#41697#0" expanded="true" />
-                <element signature="e#41727#41728#0" expanded="true" />
-                <element signature="e#82979#82980#0" expanded="true" />
-                <element signature="e#83011#83012#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/NetworkingServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+            <state relative-caret-position="483">
+              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -50,7 +58,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
+            <state relative-caret-position="693">
               <caret line="61" selection-start-line="61" selection-end-line="61" />
             </state>
           </provider>
@@ -59,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
+            <state relative-caret-position="110">
+              <caret line="244" column="38" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -68,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+            <state relative-caret-position="567">
+              <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -82,7 +90,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="630">
               <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
             </state>
           </provider>
@@ -104,16 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>LightFade</find>
-      <find>skybox</find>
-      <find>spo</find>
-      <find>hu</find>
-      <find>robo</find>
-      <find>player1</find>
-      <find>playerTexture</find>
-      <find>HUD</find>
-      <find>npc</find>
-      <find>ghost</find>
       <find>avatar</find>
       <find>ghostWon</find>
       <find>Skeletal</find>
@@ -128,12 +126,22 @@
       <find>catch</find>
       <find>setGhost</find>
       <find>move</find>
-      <find>update</find>
       <find>spotlight</find>
       <find>dfm</find>
       <find>walls</find>
       <find>innerLevel2LeftPieceBNode</find>
       <find>objName</find>
+      <find>build</find>
+      <find>skybo</find>
+      <find>makeshap</find>
+      <find>setupinputs</find>
+      <find>gndnode.setlo</find>
+      <find>initau</find>
+      <find>ball1PhysObj</find>
+      <find>setupo</find>
+      <find>initAudio</find>
+      <find>setEarParameters</find>
+      <find>update</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,8 +183,8 @@
         <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
         <option value="$PROJECT_DIR$/src/networking/SideEight.java" />
         <option value="$PROJECT_DIR$/src/networking/NPC.java" />
-        <option value="$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java" />
-        <option value="$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java" />
+        <option value="$USER_HOME$/Dolphin Rover 2/a2/MyGame.java" />
+        <option value="$USER_HOME$/DisplaySettingsDialog/DisplaySettingsDialog.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/DisplaySettingDialog.java" />
         <option value="$PROJECT_DIR$/src/networking/GhostAvatar.java" />
         <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
@@ -186,10 +194,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1280" />
-    <option name="width" value="1280" />
-    <option name="height" value="1440" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -199,46 +208,34 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="myGame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="myGameEngine" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSC_165_a3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSC_165_a3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="networking" type="462c0819:PsiDirectoryNode" />
+              <item name="A3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A3" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="sounds" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557293490364" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557889386982" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -321,7 +318,21 @@
       <option name="project" value="LOCAL" />
       <updated>1556515527279</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added new skybox texture. Added more collision detection for the walls.">
+      <created>1557379062064</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1557379062064</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixed skybox to be seamless">
+      <created>1557618260790</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1557618260790</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -334,10 +345,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="1280" height="1440" extended-state="0" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.25409836" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.17239527" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -346,14 +356,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65081966" weight="0.23853211" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65081966" visible="true" weight="0.23841807" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49918032" weight="0.3975535" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32874617" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34918034" side_tool="true" weight="0.23623854" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32874617" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" visible="true" weight="0.32721713" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32768363" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.3423729" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.3141994" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -439,7 +449,9 @@
     <MESSAGE value="Added 1 character" />
     <MESSAGE value="Added first maze" />
     <MESSAGE value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
-    <option name="LAST_COMMIT_MESSAGE" value="Built maze in RAGE out of cube objects. Changed JS enabled to false on load." />
+    <MESSAGE value="Added new skybox texture. Added more collision detection for the walls." />
+    <MESSAGE value="Fixed skybox to be seamless" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed skybox to be seamless" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSceneNode.class">
@@ -452,7 +464,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java" />
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/myGameEngine/Controllers/MotionStateController.java" />
     <entry file="file://$PROJECT_DIR$/src/myGameEngine/BounceController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -464,7 +476,7 @@
       </provider>
     </entry>
     <entry file="file://D:/Games/Star.Wars.Episode.I.Racer.GOG/Star.Wars.Episode.I.Racer.GOG/README.txt" />
-    <entry file="file://$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.class" />
+    <entry file="file://$USER_HOME$/Dolphin Rover 2/a2/MyGame.class" />
     <entry file="file://$PROJECT_DIR$/src/networking/SideOneRotCond.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -574,30 +586,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../physics mygame/MyGame.java" />
-    <entry file="file://$PROJECT_DIR$/../../Dolphin Rover 2/a2/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="284" column="28" selection-start-line="284" selection-start-column="28" selection-end-line="284" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/Launcher/src/Launcher/DisplayPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../DisplaySettingsDialog/DisplaySettingsDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5644">
-          <caret line="339" column="30" selection-start-line="339" selection-start-column="30" selection-end-line="339" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Dolphin Rover 2/a2/MyGame.java" />
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/Launcher/src/Launcher/DisplayPanel.java" />
+    <entry file="file://$USER_HOME$/DisplaySettingsDialog/DisplaySettingsDialog.java" />
     <entry file="file://$PROJECT_DIR$/src/myGameEngine/DisplaySettingsDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -608,13 +599,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Dolphin Starship/a1/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
-          <caret line="233" column="24" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Dolphin Starship/a1/MyGame.java" />
     <entry file="file://$PROJECT_DIR$/src/networking/SideEight.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -636,34 +621,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/a3/GameEntities/AIPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/a3/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1055">
-          <caret line="157" column="14" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/a3/GameEntities/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="42" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../rhl-master/rhl-master/src/myGameEngine/GameEntities/LightFade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/a3/GameEntities/AIPlayer.java" />
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/a3/MyGame.java" />
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/a3/GameEntities/Player.java" />
+    <entry file="file://$USER_HOME$/rhl-master/rhl-master/src/myGameEngine/GameEntities/LightFade.java" />
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/asset/AbstractAssetManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -712,26 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame$MoveForwardAction.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/NetworkingServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -742,38 +683,53 @@
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/NetworkingServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
+        <state relative-caret-position="693">
           <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+        <state relative-caret-position="567">
+          <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame$MoveForwardAction.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
+        <state relative-caret-position="110">
+          <caret line="244" column="38" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="157" column="60" selection-start-line="157" selection-start-column="60" selection-end-line="157" selection-end-column="60" />
+        <state relative-caret-position="421">
+          <caret line="739" column="10" selection-start-line="739" selection-start-column="10" selection-end-line="739" selection-end-column="10" />
           <folding>
-            <element signature="e#37092#37093#0" expanded="true" />
-            <element signature="e#37126#37127#0" expanded="true" />
-            <element signature="e#41696#41697#0" expanded="true" />
-            <element signature="e#41727#41728#0" expanded="true" />
-            <element signature="e#82979#82980#0" expanded="true" />
-            <element signature="e#83011#83012#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

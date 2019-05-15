@@ -67,6 +67,10 @@ import ray.physics.PhysicsEngine;
 import ray.physics.PhysicsObject;
 import ray.physics.PhysicsEngineFactory;
 
+// sound
+import ray.audio.*;
+import com.jogamp.openal.ALFactory;
+
 
 public class MyGame extends VariableFrameRateGame {
     // to minimize variable allocation in update()
@@ -122,10 +126,9 @@ public class MyGame extends VariableFrameRateGame {
     private PhysicsEngine physicsEng;
     private PhysicsObject ball1PhysObj, ball2PhysObj, gndPlaneP; // TESTING
 
-    private SceneNode cubeTestNode, roundNode; // my test
-    private PhysicsObject cubeTestPhysObj, roundNodePhysObj;
-
-    private PhysicsObject playerPhysObj;
+    // sound
+    IAudioManager audioMgr;
+    Sound twinkleSound;
 
 
     private static String playerModel;
@@ -506,22 +509,17 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode rootNode = sm.getRootSceneNode();
 
 
-        /*
         // Ball 1
-        Entity ball1Entity = sm.createEntity("ball1", "earth.obj");
+        Entity ball1Entity = sm.createEntity("Ball1", "sphere.obj");
         ball1Node = rootNode.createChildSceneNode("Ball1Node");
         ball1Node.attachObject(ball1Entity);
-        ball1Node.setLocalPosition(0, 0, 0);
-        //ball1Node.setLocalPosition(0,-20,0);
-        */
+        ball1Node.setLocalPosition(-19, 5, 19);
 
-        ///*
         // Ball 2
         Entity ball2Entity = sm.createEntity("Ball2", "sphere.obj");
         ball2Node = rootNode.createChildSceneNode("Ball2Node");
         ball2Node.attachObject(ball2Entity);
-        //ball2Node.scale(0.4f, 0.4f, 0.4f);
-        ball2Node.setLocalPosition(-1, 5, -2);
+        ball2Node.setLocalPosition(26, 5, 26);
 
 
         //tm = getEngine().getTextureManager();
@@ -534,13 +532,14 @@ public class MyGame extends VariableFrameRateGame {
         TextureState state2 = (TextureState) rs2.createRenderState(RenderState.Type.TEXTURE);
         state2.setTexture(redTexture);
         ball2Entity.setRenderState(state2);
+        ball1Entity.setRenderState(state2);
 
 
         // Ground plane
         Entity groundEntity = sm.createEntity(GROUND_E, "cube.obj");
         gndNode = rootNode.createChildSceneNode(GROUND_N);
         gndNode.attachObject(groundEntity);
-        gndNode.setLocalPosition(0, 1, -2);
+        gndNode.setLocalPosition(0, 0, -2);
 
         //END of TESTING
         //
@@ -556,6 +555,9 @@ public class MyGame extends VariableFrameRateGame {
         createRagePhysicsWorld();
 
 
+        // sound
+        initAudio(sm);
+
         buildMaze(eng, sm);
     }
 
@@ -567,21 +569,15 @@ public class MyGame extends VariableFrameRateGame {
 
         // set up for Player 1
         if (networkType.equals("c") || networkType.compareTo("m") == 0) {
-            SceneNode player1N = sm.getSceneNode("player1Node");
             SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
-            orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1N, kbName, im, rotationAmount);
+            orbitController1 = new Camera3Pcontroller(camera1, camera1N, player1Node, kbName, im, rotationAmount);
         }
 
-
-        /*
         if (gpName != null) // only do if there is a gamepad connected
         {
-            // set up for Player 2
-            SceneNode player2N = sm.getSceneNode("player2Node");
-            SceneNode camera2N = sm.getSceneNode("MainCamera2Node");
-            orbitController2 = new Camera3Pcontroller(camera2, camera2N, player2N, gpName, im, rotationAmount);
+            SceneNode camera1N = sm.getSceneNode("MainCamera1Node");
+            orbitController2 = new Camera3Pcontroller(camera1, camera1N, player1Node, gpName, im, rotationAmount);
         }
-        */
     }
 
 
@@ -610,6 +606,9 @@ public class MyGame extends VariableFrameRateGame {
             ScriptEngine jsEngine = factory.getEngineByName("js"); // get the JavaScript engine
             movementSpeed = executeScript(jsEngine, scriptFileName, "speed"); // run the script
             playerController1.updateSpeed(movementSpeed);
+
+            if (playerController2 != null)
+                playerController2.updateSpeed(movementSpeed);
         }
 
 
@@ -655,6 +654,9 @@ public class MyGame extends VariableFrameRateGame {
         im.update(elapsTime); // tell the input manager to process the inputs
         if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
             orbitController1.updateCameraPosition();
+
+            if (orbitController2 != null)
+                orbitController2.updateCameraPosition();
         }
         if(networkType.equals("c")){
             for(GhostAvatar ghost: ghostAvatars){
@@ -699,7 +701,6 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
-///*
         // physics
         float time = engine.getElapsedTimeMillis();
 
@@ -714,15 +715,30 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
+        /*
         // reset ball
         Vector3 vf = ball2Node.getLocalPosition();
         if (vf.x() >= 50 || vf.y() >= 50 || vf.y() >= 50)
-            ball2Node.setLocalPosition(-1, 5, -2);
+            ball2Node.setLocalPosition(-1, 4, -2);
+        */
 
-        ball2PhysObj.applyForce(10, 0, 0, 0, 0, 0);
-        ball2PhysObj.applyTorque(100, 1000, 0); // doesn't seem to have any effect
+        ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
+        ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
+        //ball2PhysObj.applyForce(10, 0, 0, 0, 0, 0);
+        //ball2PhysObj.applyTorque(100, 1000, 0); // skews the direction it moves. Avoid using this
 
         // */
+
+
+        ///*
+        //sound
+        SceneManager sm = engine.getSceneManager();
+        SceneNode robotN = sm.getSceneNode("ShapeNode");
+
+        twinkleSound.setLocation(robotN.getWorldPosition());
+        setEarParameters(sm);
+        //*/
+
 
     }
 
@@ -735,23 +751,28 @@ public class MyGame extends VariableFrameRateGame {
         //System.out.println("gamepad name: " + gpName);
 
         // set up for Player 1
-        if (networkType.compareTo("c") == 0) {
+        if (networkType.compareTo("c") == 0){
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, protClient, game);
             System.out.println("client movement setup");
-        } else if (!(networkType.compareTo("c") == 0) && !(networkType.compareTo("s") == 0)) {
+        }else{
             playerController1 = new PlayerController(player1Node, kbName, im, movementSpeed, game);
-            //physController1 = new PlayerController(gndNode, kbName, im, movementSpeed, game);
-            //physController1 = new PlayerController(ball2Node, kbName, im, movementSpeed, game);
         }
 
 
-//        if (gpName != null) // only do if there is a gamepad connected
-//        {
-//            if (networkType.compareTo("c") == 0) {
-//                playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, protClient, game);
-//            }
-//            playerController2 = new PlayerController(player2Node, gpName, im, movementSpeed, game);
-//        }
+        if (gpName != null) // only do if there is a gamepad connected
+        {
+            if (networkType.compareTo("c") == 0){
+                playerController2 = new PlayerController(player1Node, gpName, im, movementSpeed, protClient, game);
+            }else{
+                playerController2 = new PlayerController(player1Node, gpName, im, movementSpeed, game);
+            }
+
+            System.out.println("PS4 controller detected:");
+            System.out.println("press the directional buttons to move");
+            System.out.println("L1 and R1 to turn");
+            System.out.println("use L2, R2, Triangle and X buttons to rotate the camera");
+            System.out.println("Square and Circle buttons to zoom the camera");
+        }
 
         // Set up additional inputs below
 
@@ -1078,21 +1099,17 @@ public class MyGame extends VariableFrameRateGame {
         double[] temptf;
 
 
-        /*
-        ball1Node.scale(.4f, .4f, .4f);
-        //ball1Node.setLocalPosition(0,-10,0); // gone completely if negative value
         temptf = toDoubleArray(ball1Node.getLocalTransform().toFloatArray());
-        ball1PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(),mass, temptf, 2.0f);
-        //ball1PhysObj.setBounciness(0f);
+        ball1PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(), mass, temptf, 2.0f);
+        ball1PhysObj.setBounciness(1.0f);
         ball1Node.setPhysicsObject(ball1PhysObj);
-        */
 
-        ///*
+
         temptf = toDoubleArray(ball2Node.getLocalTransform().toFloatArray());
         ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(), mass, temptf, 2.0f);
         ball2PhysObj.setBounciness(1.0f);
         ball2Node.setPhysicsObject(ball2PhysObj);
-        //*/
+
 
         temptf = toDoubleArray(gndNode.getLocalTransform().toFloatArray());
         gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(), temptf, up, 0.0f);
@@ -2019,6 +2036,39 @@ public class MyGame extends VariableFrameRateGame {
     }
     public Light getSpotLight(){
         return spotlight;
+    }
+
+    public void setEarParameters(SceneManager sm) {
+        Vector3 avDir = player1Node.getWorldForwardAxis();
+
+        //  note - should get the camera's forward direction
+        //     - avatar direction plus azimuth
+
+        audioMgr.getEar().setLocation(player1Node.getWorldPosition());
+        audioMgr.getEar().setOrientation(avDir, Vector3f.createFrom(0,1,0));
+    }
+
+    public void initAudio(SceneManager sm) {
+        AudioResource resource1;
+        audioMgr = AudioManagerFactory.createAudioManager("ray.audio.joal.JOALAudioManager");
+
+        if (!audioMgr.initialize()) {
+            System.out.println("Audio Manager failed to initialize!");
+            return;
+        }
+
+        resource1 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
+        twinkleSound = new Sound(resource1,SoundType.SOUND_EFFECT, 100, true);
+
+        twinkleSound.initialize(audioMgr);
+        twinkleSound.setMaxDistance(10.0f); // May need to change these
+        twinkleSound.setMinDistance(0.5f);
+        twinkleSound.setRollOff(5.0f);
+
+        SceneNode shapeN = sm.getSceneNode("ShapeNode");
+        twinkleSound.setLocation(shapeN.getWorldPosition());
+        setEarParameters(sm);
+        twinkleSound.play();
     }
 
 

@@ -220,8 +220,6 @@ public class PlayerController {
 
 
 
-    /* THE GAMEPAD CLASSES NEED TO BE UPDATED if they are going to be used */
-
     private class GamepadMovementAction extends AbstractInputAction {
         // intended for use with Playstation 4 controller. Uses the 4 directional buttons on the left side of the controller.
         public void performAction(float time, Event e) {
@@ -233,21 +231,48 @@ public class PlayerController {
             // These values do not change no matter how hard the button is pressed.
 
             float value = e.getValue();
-            if (value == 1f)
+            if (value == 1f) {
                 player.moveLeft(-movementSpeed);
-            else if (value == 0.5f)
+
+                // make sure this doesn't move the player too close to the wall
+                boolean tooCloseToWall = game.checkDistanceFromWall(player);
+                while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                    player.moveLeft(movementSpeed + 0.1f);
+                    tooCloseToWall = game.checkDistanceFromWall(player);
+                }
+            }
+            else if (value == 0.5f) {
                 player.moveRight(-movementSpeed);
-            else if (value == 0.75f)
+
+                // make sure this doesn't move the player too close to the wall
+                boolean tooCloseToWall = game.checkDistanceFromWall(player);
+                while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                    player.moveRight(movementSpeed + 0.1f);
+                    tooCloseToWall = game.checkDistanceFromWall(player);
+                }
+            }
+            else if (value == 0.75f) {
                 player.moveForward(-movementSpeed);
-            else if (value == 0.25f)
+
+                // make sure this doesn't move the player too close to the wall
+                boolean tooCloseToWall = game.checkDistanceFromWall(player);
+                while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                    player.moveForward(movementSpeed + 0.1f);
+                    tooCloseToWall = game.checkDistanceFromWall(player);
+                }
+            }
+            else if (value == 0.25f) {
                 player.moveForward(movementSpeed);
 
-            game.updateVerticalPosition();
-            if (protClient != null) {
-                Quaternion playerRotation = player.getWorldRotation().toQuaternion();
-
-                protClient.sendMoveMessage((Vector3f) player.getWorldPosition(), playerRotation);
+                // make sure this doesn't move the player too close to the wall
+                boolean tooCloseToWall = game.checkDistanceFromWall(player);
+                while (tooCloseToWall) { // if it does, correct it by moving the player in the opposite direction
+                    player.moveForward(-(movementSpeed + 0.1f));
+                    tooCloseToWall = game.checkDistanceFromWall(player);
+                }
             }
+
+            game.updateVerticalPosition();
         }
     }
 
