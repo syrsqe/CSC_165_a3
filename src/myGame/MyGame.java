@@ -76,26 +76,21 @@ public class MyGame extends VariableFrameRateGame {
     // to minimize variable allocation in update()
     private GL4RenderSystem rs;
     private float elapsTime = 0.0f;
-    private String elapsTimeStr, player1HUD, player2HUD;
+    private String elapsTimeStr, player1HUD;
     private int elapsTimeSec;
 
     private Camera camera1;
-    private Camera camera2;
-
     private SceneNode player1Node;
-    private SceneNode player2Node;
 
     private InputManager im;
     private Action quitGameAction, toggleJSAction;
 
-    private int player1PlanetsVisited, player1Score = 0;
-    private int player2PlanetsVisited, player2Score = 0;
+    private int player1Score = 0;
 
-    private int scoreIncrement = 100;
     private float movementSpeed = 0.08f, rotationAmount = 1.0f;
 
     private Camera3Pcontroller orbitController1, orbitController2;
-    private PlayerController playerController1, playerController2, physController1, physController2;
+    private PlayerController playerController1, playerController2;
 
 
     private static final String SKYBOX_NAME = "SkyBox";
@@ -120,12 +115,11 @@ public class MyGame extends VariableFrameRateGame {
 
 
     // physics
-    private SceneNode ball1Node, ball2Node, gndNode;// TESTING
-    private SceneNode cameraPositionNode;// TESTING
-    private final static String GROUND_E = "Ground";// TESTING
-    private final static String GROUND_N = "GroundNode"; // TESTING
+    private SceneNode ball1Node, ball2Node, gndNode;
+    private final static String GROUND_E = "Ground";
+    private final static String GROUND_N = "GroundNode";
     private PhysicsEngine physicsEng;
-    private PhysicsObject ball1PhysObj, ball2PhysObj, gndPlaneP; // TESTING
+    private PhysicsObject ball1PhysObj, ball2PhysObj, gndPlaneP;
 
     // sound
     IAudioManager audioMgr;
@@ -161,22 +155,14 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println("press J for dance animation(only on black robot)");
             System.out.println("press B to toggle flashlight");
             System.out.println("When connected to server, press n from any client to start NPCs");
+            System.out.println("press ESC to quit game");
         }
 
-
-        /*
-        System.out.println("PLAYER 2: (PS4 controller)");
-        System.out.println("press the directional buttons to move");
-        System.out.println("L1 and R1 to turn");
-        System.out.println("use L2, R2, Triangle and X buttons to rotate the camera");
-        System.out.println("Square and Circle buttons to zoom the camera");
-        System.out.println("press ESC to quit game");
-        */
         myEngine = getEngine();
     }
 
     public static void main(String[] args) {
-        //ask about which player
+        // ask player which robot model they want to use
         String playerChoice = "";
         Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
         networkType = args[2]; // s for server, c for client
@@ -198,6 +184,7 @@ public class MyGame extends VariableFrameRateGame {
             playerSkeleton = "robo.rks";
         }
 
+        // ask if player wants to use JavaScript to set their starting location
         System.out.println("Use JavaScript file for player starting location?");
         System.out.println("y/n");
         playerChoice = modelScanner.nextLine();
@@ -231,49 +218,8 @@ public class MyGame extends VariableFrameRateGame {
             dsd.showIt();
             RenderWindow rw = rs.createRenderWindow(dsd.getSelectedDisplayMode(), dsd.isFullScreenModeSelected());
         }
-
-
     }
-//    private void tryFullScreenMode(GraphicsDevice gd, DisplayMode dispMode)
-//    { if (gd.isFullScreenSupported())
-//
-//    { gd.setUndecorated(true);
-//        frame.setResizable(false);
-//        // AWT repaint events unecessary – we manage render loop
-//        frame.setIgnoreRepaint(true);
-//        gd.setFullScreenWindow(frame);
-//        if (gd.isDisplayChangeSupported())
-//        { try
-//        { gd.setDisplayMode(dispMode);
-//            frame.setSize(dispMode.getWidth(), dispMode.getHeight());
-//            isInFullScreenMode = true;
-//        } catch (IllegalArgumentException e)
-//        { frame.setUndecorated(false);
-//            frame.setResizable(true);
-//        }} else {
-//            logger.fine("FSEM not supported");
-//        }} else {
-//        frame.setUndecorated(false);
-//        frame.setResizable(true);
-//        frame.setSize(dispMode.getWidth(), dispMode.getHeight());
-//        frame.setLocationRelativeTo(null);
-//    }
-//    }
 
-	/*
-    //  now we add setting up viewports in the window
-    protected void setupWindowViewports(RenderWindow rw)
-    {
-        rw.addKeyListener(this);
-        Viewport topViewport = rw.getViewport(0);
-        topViewport.setDimensions(.04f, .01f, .99f, .49f);// B,L,W,H
-        topViewport.setClearColor(new Color(.04f, .3f, .5f));
-        //Viewport botViewport = rw.createViewport(.01f, .01f, .99f, .49f);
-        //botViewport.setClearColor(new Color(.04f, .3f, .5f));
-    }
-    */
-
-    //  we need a camera for each viewport
     @Override
     protected void setupCameras(SceneManager sm, RenderWindow rw) {
         SceneNode rootNode = sm.getRootSceneNode();
@@ -287,19 +233,6 @@ public class MyGame extends VariableFrameRateGame {
         cameraN1.attachObject(camera1);
         camera1.setMode('n');
         camera1.getFrustum().setFarClipDistance(1000.0f);
-
-        /*
-        camera2 = sm.createCamera("MainCamera2",Projection.PERSPECTIVE);
-        rw.getViewport(1).setCamera(camera2);
-        camera2.setRt((Vector3f)Vector3f.createFrom(1.0f, 0.0f, 0.0f));
-        camera2.setUp((Vector3f)Vector3f.createFrom(0.0f, 1.0f, 0.0f));
-        camera2.setFd((Vector3f)Vector3f.createFrom(0.0f, 0.0f, -1.0f));
-        camera2.setPo((Vector3f)Vector3f.createFrom(0.0f, 0.0f, 0.0f));
-        SceneNode cameraN2 = rootNode.createChildSceneNode("MainCamera2Node");
-        cameraN2.attachObject(camera2);
-        camera2.setMode('n');
-        camera2.getFrustum().setFarClipDistance(1000.0f);
-        */
     }
 
     @Override
@@ -310,7 +243,6 @@ public class MyGame extends VariableFrameRateGame {
         // set up sky box
         Configuration conf = eng.getConfiguration();
         TextureManager txm = getEngine().getTextureManager();
-        //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
         txm.setBaseDirectoryPath("assets/skyboxes/alienSky/");
         Texture front = txm.getAssetByPath("AlienSky3_LeftHalf.png");
         Texture back = txm.getAssetByPath("AlienSky3_RightHalf_Reversed.png");
@@ -319,10 +251,6 @@ public class MyGame extends VariableFrameRateGame {
         Texture top = txm.getAssetByPath("AlienSky3_Top.png");
         Texture bottom = txm.getAssetByPath("AlienSky3_Bottom.png");
         txm.setBaseDirectoryPath(conf.valueOf("assets.textures.path"));
-
-        // cubemap textures are flipped upside-down.
-        // All  textures must have the same dimensions, so any image’s
-        // heights will work since they are all the same height
 
         AffineTransform xform = new AffineTransform();
         xform.translate(0, front.getImage().getHeight());
@@ -345,25 +273,8 @@ public class MyGame extends VariableFrameRateGame {
         sm.setActiveSkyBox(sb);
 
 
-        // create Player 1 dolphin
-//
-//        Entity player1E = sm.createEntity("player1E", playerModel);
-//        player1E.setPrimitive(Primitive.TRIANGLES);
         TextureManager tm = eng.getTextureManager();
-//        Texture moonTexture = tm.getAssetByPath(playerTexture);
-//        RenderSystem rs = sm.getRenderSystem();
-//        TextureState state = (TextureState) rs.createRenderState(RenderState.Type.TEXTURE);
-//        state.setTexture(moonTexture);
-//        player1E.setRenderState(state);
-//        Material mat1 = sm.getMaterialManager().getAssetByPath("cone.mtl");
-//        mat1.setShininess(100);
-//
-//        player1E.setMaterial(mat1);
-//
-//        player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
-//        player1Node.moveBackward(5.0f);
-//        player1Node.moveRight(2f);
-//        player1Node.attachObject(player1E);
+
 
         //animation
         if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
@@ -372,10 +283,7 @@ public class MyGame extends VariableFrameRateGame {
             TextureState tstate = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
             tstate.setTexture(tex);
             player1E.setRenderState(tstate);
-// attach the entity to a scene node
             player1Node = sm.getRootSceneNode().createChildSceneNode("player1Node");
-//            player1Node.moveBackward(5.0f);
-//            player1Node.moveRight(2f);
 
             if (useJavascriptLoc) {
                 // retrieve the location variables for the player's starting location from JS file
@@ -395,7 +303,7 @@ public class MyGame extends VariableFrameRateGame {
             player1Node.scale(0.2f, 0.2f, 0.2f);
 
 
-// load animations
+            // load animations
             if(playerTexture.contains("cTxt")){
                 player1E.loadAnimation("danceAnimation", "dance2.rka");
 
@@ -406,26 +314,6 @@ public class MyGame extends VariableFrameRateGame {
 //            if (playerModel.contains("robot"))
 //                player1Node.scale(0.25f, 0.25f, 0.25f);
 //        }
-
-
-
-
-        /*
-        // create Player 2 dolphin
-        Entity player2E = sm.createEntity("player2E", "dolphinHighPoly.obj");
-        player2E.setPrimitive(Primitive.TRIANGLES);
-        player2Node = sm.getRootSceneNode().createChildSceneNode("player2Node");
-        player2Node.moveBackward(5.0f);
-        player2Node.moveLeft(2f);
-        player2Node.attachObject(player2E);
-        // set render state for Player 2
-        TextureManager tm = eng.getTextureManager();
-        Texture redTexture = tm.getAssetByPath("blue-snow.jpeg");
-        RenderSystem rs = sm.getRenderSystem();
-        TextureState state = (TextureState)rs.createRenderState(RenderState.Type.TEXTURE);
-        state.setTexture(redTexture);
-        player2E.setRenderState(state);
-        */
 
 
         // set up lights
@@ -486,7 +374,6 @@ public class MyGame extends VariableFrameRateGame {
         setupInputs();
         setupOrbitCamera(eng, sm);
 
-        //ISSUE: camera also moves up and down with the playerNode. Need to fix later
         HoverController hc = new HoverController(); // makes player appear as if they are hovering
         if (networkType.equals("c") || networkType.compareTo("m") == 0) {
             sm.addController(hc);
@@ -504,26 +391,9 @@ public class MyGame extends VariableFrameRateGame {
         SceneNode tessN = sm.getRootSceneNode().createChildSceneNode("tessN");
         tessN.attachObject(tessE);
 
-        // to move it, note that X and Z must BOTH be positive OR negative
-        // tessN.translate(Vector3f.createFrom(-6.2f, -2.2f, 2.7f));
-        // tessN.yaw(Degreef.createFrom(37.2f));
-
         tessN.scale(60, 80, 60);
         tessE.setHeightMap(this.getEngine(), "terrainMap4.png");
-        //assets/scripts/" + scriptFileName
         tessE.setTexture(this.getEngine(), "bottom.jpg");
-        // tessE.setNormalMap(. . .)
-
-
-
-        /*
-        // add maze object
-        Entity mazeE = sm.createEntity("mazeE", "maze1.obj");
-        mazeE.setPrimitive(Primitive.TRIANGLES);
-        SceneNode mazeNode = sm.getRootSceneNode().createChildSceneNode("mazeNode");
-        mazeNode.attachObject(mazeE);
-        mazeNode.scale(1f, .10f, 1f);
-        */
 
 
         if (networkType.equals("c") || networkType.compareTo("m") == 0) {
@@ -531,10 +401,9 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
-///*
-        //TESTING
-        SceneNode rootNode = sm.getRootSceneNode();
 
+        // add nodes that will have physics objects attached
+        SceneNode rootNode = sm.getRootSceneNode();
 
         // Ball 1
         Entity ball1Entity = sm.createEntity("Ball1", "sphere.obj");
@@ -548,12 +417,6 @@ public class MyGame extends VariableFrameRateGame {
         ball2Node.attachObject(ball2Entity);
         ball2Node.setLocalPosition(26, 5, 26);
 
-
-        //tm = getEngine().getTextureManager();
-        //txm.setBaseDirectoryPath(conf.valueOf("assets.skyboxes.path"));
-        //tm.setBaseDirectoryPath("assets/textures/");
-
-        //TextureManager tm2 = eng.getTextureManager();
         Texture redTexture = eng.getTextureManager().getAssetByPath("ground.jpeg");
         RenderSystem rs2 = sm.getRenderSystem();
         TextureState state2 = (TextureState) rs2.createRenderState(RenderState.Type.TEXTURE);
@@ -561,20 +424,20 @@ public class MyGame extends VariableFrameRateGame {
         ball2Entity.setRenderState(state2);
         ball1Entity.setRenderState(state2);
 
-
-        // Ground plane
+        // Ground plane for physics
         Entity groundEntity = sm.createEntity(GROUND_E, "cube.obj");
         gndNode = rootNode.createChildSceneNode(GROUND_N);
         gndNode.attachObject(groundEntity);
         gndNode.setLocalPosition(0, 0, -2);
 
-        //END of TESTING
-        //
+
+        // add gem to the center of the maze
         ManualObject shape = makeShape(eng, sm);
         SceneNode shapeN = sm.getRootSceneNode().createChildSceneNode("ShapeNode");
         shapeN.scale(1.0f, 1.0f, 1.0f);
         shapeN.attachObject(shape);
         shapeN.setLocalPosition(Vector3f.createFrom(-1.05f, 5.65f, 0));
+
 
         if(networkType.equals('c')){
             //spotlight 2
@@ -591,16 +454,18 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println(spotLightNode2.getWorldPosition());
             spotLightNode2.moveUp(1f);
         }
+
         //specialItemN.attachObject(specialItem);
         System.out.println(shapeN.getWorldPosition());
+
         // physics
         initPhysicsSystem();
         createRagePhysicsWorld();
 
-
         // sound
         initAudio(sm);
 
+        //create maze walls
         buildMaze(eng, sm);
     }
 
@@ -629,20 +494,17 @@ public class MyGame extends VariableFrameRateGame {
 
         processNetworking(elapsTime);
         if (networkType.equals("c") || networkType.compareTo("m") == 0) {
-            if(playerTexture.contains("cTxt.png")){
+            if (playerTexture.contains("cTxt.png")) {
                 SkeletalEntity player1E = (SkeletalEntity) engine.getSceneManager().getEntity("player1E");
                 player1E.update();
             }
 
-            for(GhostAvatar ghost: ghostAvatars){
+            for (GhostAvatar ghost : ghostAvatars) {
                 ghost.getEntity().update();
             }
-
         }
 
-
-
-        setDefaults();
+        setDefaults(); // reset default player movement speed
 
         // if scripting is turned on, read any scripts and update appropriate variables
         if (allowJavascripts) {
@@ -652,11 +514,9 @@ public class MyGame extends VariableFrameRateGame {
             movementSpeed = executeScript(jsEngine, scriptFileName, "speed"); // run the script
         }
 
-
         // build and set HUD
         rs = (GL4RenderSystem) engine.getRenderSystem();
 
-        //if (!allPlanetsVisited) // only tick clock while not game over
         elapsTime += engine.getElapsedTimeMillis();
 
         elapsTimeSec = Math.round(elapsTime / 1000.0f);
@@ -666,31 +526,12 @@ public class MyGame extends VariableFrameRateGame {
         int view1Left = rs.getRenderWindow().getViewport(0).getActualLeft();
         int view1Bottom = rs.getRenderWindow().getViewport(0).getActualBottom();
 
-
-
-
         if(playerOneWins == false && NPCWins == false && ghostWon == false){
             player1HUD = "Time = " + elapsTimeStr + "   Score = " + player1Score + "   Javascripts Enabled = " + allowJavascripts;
             winGameTime = elapsTimeStr;
         }
 
-
-        //if (allPlanetsVisited)
-        //    player1HUD += "   GAME OVER";
         rs.setHUD(player1HUD, view1Left + 15, view1Bottom + 15);
-
-        //System.out.println(specialItemN.getWorldPosition());
-        /*
-        if (orbitController2 != null)
-        {
-            player2HUD = "Time = " + elapsTimeStr + "   Planets Visited = " + player2PlanetsVisited + " / " + totalPlanets + "   Score = " + player2Score;
-            if (allPlanetsVisited)
-                player2HUD += "   GAME OVER";
-        }
-        else
-            player2HUD = "No controller is connected";
-		rs.setHUD2(player2HUD, 15, 15);
-        */
 
         im.update(elapsTime); // tell the input manager to process the inputs
         if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
@@ -764,37 +605,21 @@ public class MyGame extends VariableFrameRateGame {
         if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold))
             movementSpeed = 0.02f; // reduce speed while touching boulder
 
-        /*
-        // reset ball
-        Vector3 vf = ball2Node.getLocalPosition();
-        if (vf.x() >= 50 || vf.y() >= 50 || vf.y() >= 50)
-            ball2Node.setLocalPosition(-1, 4, -2);
-        */
-
         ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
         ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
-        //ball2PhysObj.applyForce(10, 0, 0, 0, 0, 0);
-        //ball2PhysObj.applyTorque(100, 1000, 0); // skews the direction it moves. Avoid using this
-
-        // */
 
 
-        ///*
         //sound
         SceneManager sm = engine.getSceneManager();
         SceneNode robotN = sm.getSceneNode("ShapeNode");
-
         twinkleSound.setLocation(robotN.getWorldPosition());
         setEarParameters(sm);
-        //*/
 
 
         // update player movement speed
         playerController1.updateSpeed(movementSpeed);
-
         if (playerController2 != null)
             playerController2.updateSpeed(movementSpeed);
-
 
     }
 
@@ -841,69 +666,6 @@ public class MyGame extends VariableFrameRateGame {
         im.associateAction(kbName, net.java.games.input.Component.Identifier.Key.SPACE, toggleJSAction, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
     }
 
-
-    protected void planetVisited(SceneNode playerNode, SceneNode planetNode) {
-        if (playerNode.getName().contains("1")) {
-            player1Score += scoreIncrement; // increase score
-            player1PlanetsVisited++; // increment count of planets visited
-            BounceController bc = (BounceController) getEngine().getSceneManager().getController(1); // gets the bounceController
-            bc.addNode(planetNode); // add Node controller to planet
-        } else {
-            player2Score += scoreIncrement; // increase score
-            player2PlanetsVisited++; // increment count of planets visited
-            RotationController rc = (RotationController) getEngine().getSceneManager().getController(0); // gets the RotationController
-            rc.addNode(planetNode); // add Node controller to planet
-        }
-    }
-
-
-    protected ManualObject makeGroundPlane(Engine eng, SceneManager sm) throws IOException {
-        ManualObject groundPlane = sm.createManualObject("GroundPlane");
-        ManualObjectSection groundPlaneSec = groundPlane.createManualSection("GroundPlaneSection");
-        groundPlane.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
-
-        float[] vertices = new float[]
-                {
-                        -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f,
-                        1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f,
-                };
-
-        float[] texcoords = new float[]
-                {
-                        1.0f, 0.0f, 1.0f, 1.0f, 0.5f, 1.0f,
-                        0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 1.0f,
-                };
-
-        float[] normals = new float[]
-                {
-                        0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-                        0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f
-                };
-
-        int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6};//,7,8,9,10,11,12,13,14,15,16,17 };
-
-        FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
-        FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
-        FloatBuffer normBuf = BufferUtil.directFloatBuffer(normals);
-        IntBuffer indexBuf = BufferUtil.directIntBuffer(indices);
-
-        groundPlaneSec.setVertexBuffer(vertBuf);
-        groundPlaneSec.setTextureCoordsBuffer(texBuf);
-        groundPlaneSec.setNormalsBuffer(normBuf);
-        groundPlaneSec.setIndexBuffer(indexBuf);
-
-        Texture tex = eng.getTextureManager().getAssetByPath("bottom.jpg");
-        TextureState texState = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
-        texState.setTexture(tex);
-        FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
-        groundPlane.setDataSource(DataSource.INDEX_BUFFER);
-        groundPlane.setRenderState(texState);
-        groundPlane.setRenderState(faceState);
-
-        return groundPlane;
-    }
-
-
     private float getDistance(Vector3 obj1, Vector3 obj2) {
         // calculates and returns the distance between two vectors
         Vector3 dLoc = obj1;
@@ -917,23 +679,6 @@ public class MyGame extends VariableFrameRateGame {
 
         float distance = ((dx - cx) * (dx - cx)) + ((dz - cz) * (dz - cz));
         return distance;
-    }
-
-
-    private void executeScript(ScriptEngine engine, String scriptFileName) {
-        try {
-            FileReader fileReader = new FileReader("assets/scripts/" + scriptFileName);
-            engine.eval(fileReader);    //execute the script statements in the file
-            fileReader.close();
-        } catch (FileNotFoundException e1) {
-            System.out.println(scriptFileName + " not found " + e1);
-        } catch (IOException e2) {
-            System.out.println("IO problem with " + scriptFileName + e2);
-        } catch (ScriptException e3) {
-            System.out.println("ScriptException in " + scriptFileName + e3);
-        } catch (NullPointerException e4) {
-            System.out.println("Null ptr exception in " + scriptFileName + e4);
-        }
     }
 
     private float executeScript(ScriptEngine engine, String scriptFileName, String varName) {
@@ -958,7 +703,6 @@ public class MyGame extends VariableFrameRateGame {
 
     private void setDefaults() {
         // reset any values changed by the javascripts to their default values
-        scoreIncrement = 100;
         movementSpeed = 0.08f;
         rotationAmount = 1.0f;
     }
@@ -973,8 +717,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
 
-//networking
-
+    // networking
     private void setupNetworking() {
         gameObjectsToRemove = new LinkedList<UUID>();
         if (networkType.compareTo("s") == 0) { //server
@@ -1009,7 +752,7 @@ public class MyGame extends VariableFrameRateGame {
     protected void processNetworking(float elapsTime) { // Process packets received by the client from the server
         if (protClient != null)
             protClient.processPackets();
-// remove ghost avatars for players who have left the game
+        // remove ghost avatars for players who have left the game
         Iterator<UUID> it = gameObjectsToRemove.iterator();
         while (it.hasNext()) {
             getEngine().getSceneManager().destroySceneNode(it.next().toString());
@@ -1020,13 +763,11 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public Vector3 getPlayerPosition() {
-        SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
-        return dolphinN.getWorldPosition();
+        return player1Node.getWorldPosition();
     }
 
     public Quaternion getPlayerRotation() {
-        SceneNode dolphinN = getEngine().getSceneManager().getSceneNode("player1Node");
-        return dolphinN.getWorldRotation().toQuaternion();
+        return player1Node.getWorldRotation().toQuaternion();
     }
 
     public String getPlayerModel() {
@@ -1064,11 +805,8 @@ public class MyGame extends VariableFrameRateGame {
             ghostAvatars.push(avatar); // Used in update to tell if ghost wins or not
             // avatar.setPosition(node’s position...maybe redundant);
             ghostN.scale(0.2f, 0.2f, 0.2f);
-
-
         }
     }
-
 
 //    public void updateGhostAvatarPosition(GhostAvatar avatar, Vector3f newPosition){
 //        if(avatar!= null){
@@ -1113,7 +851,6 @@ public class MyGame extends VariableFrameRateGame {
 
 
     public void updateVerticalPosition() {
-        //SceneNode dolphinN = this.getEngine().getSceneManager().getSceneNode("dolphinNode");
         SceneNode tessN = this.getEngine().getSceneManager().getSceneNode("tessN");
         Tessellation tessE = ((Tessellation) tessN.getAttachedObject("tessE"));
 
@@ -1122,9 +859,7 @@ public class MyGame extends VariableFrameRateGame {
         Vector3 localAvatarPosition = player1Node.getLocalPosition();
 
         // use avatar World coordinates to get coordinates for height
-        // Keep the X coordinate
-        // The Y coordinate is the varying height
-        // Keep the Z coordinate
+        // Keep the X coordinate. The Y coordinate is the varying height. Keep the Z coordinate
         Vector3 newAvatarPosition = Vector3f.createFrom(localAvatarPosition.x(),
                 tessE.getWorldHeight(worldAvatarPosition.x(), worldAvatarPosition.z()) + 0.5f,
                 localAvatarPosition.z());
@@ -1152,29 +887,24 @@ public class MyGame extends VariableFrameRateGame {
         float up[] = {0, 1, 0};
         double[] temptf;
 
-
+        // ball 1
         temptf = toDoubleArray(ball1Node.getLocalTransform().toFloatArray());
         ball1PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(), mass, temptf, 2.0f);
         ball1PhysObj.setBounciness(1.0f);
         ball1Node.setPhysicsObject(ball1PhysObj);
 
-
+        // ball 2
         temptf = toDoubleArray(ball2Node.getLocalTransform().toFloatArray());
         ball2PhysObj = physicsEng.addSphereObject(physicsEng.nextUID(), mass, temptf, 2.0f);
         ball2PhysObj.setBounciness(1.0f);
         ball2Node.setPhysicsObject(ball2PhysObj);
 
-
+        // ground plane
         temptf = toDoubleArray(gndNode.getLocalTransform().toFloatArray());
         gndPlaneP = physicsEng.addStaticPlaneObject(physicsEng.nextUID(), temptf, up, 0.0f);
-        //gndPlaneP.setBounciness(0f);
         gndNode.scale(3f, .05f, 3f);
         gndNode.setLocalPosition(0, -2, -2);
         gndNode.setPhysicsObject(gndPlaneP);
-
-        // can also set damping, friction, etc.
-        //ball2PhysObj.applyTorque(1000,0,0);
-        //ball2PhysObj.applyForce(500,0,0,0,0,0);
     }
 
     private float[] toFloatArray(double[] arr) {
@@ -1208,15 +938,20 @@ public class MyGame extends VariableFrameRateGame {
         // build maze out of 22 cube/rectangle objects
         // use a scene node hierarchy to group them
 
-        /*
+        /* roughly looks like this
         ------------------------------------
         |
         |  -------------------------------
         |  |
-        |  |  |---------   --------------
-        |     |  ______________________
-        |  |  |  |
-        |  |  |   _____________________
+        |  |  |---------   ------------
+        |  |  |                       |
+        |  |  |  __________________   |
+        |  |  |  |                 |  |
+        |  |  |  |                 |  |
+        |     |                       |
+        |     |  |                 |  |
+        |  |  |  |_________________|  |
+        |  |  |                       |
         |  |  |---------   --------------
         |  |
         |  -------------------------------
@@ -1452,13 +1187,17 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public boolean checkDistanceFromWall(SceneNode obj) {
-        // get player's pos
-        // check if loc is inside innerLevel3
-        // if yes, only compare to those wall objects
+        /*
+        get player's pos
+        check for certain cases
+        for each case only need to compare to a few maze wall objects
 
-        // only need to check x and z? coords
-        // maybe use gridlike system?
-        // ie) player is less than 10f on x axis away from center, which means they are in checking distance for inner lev 3 and 2
+        Cases:
+        1: player inside InnerLevel3
+        2: player between InnerLevel2 and 3
+        3: player between InnerLevel 1 and 2
+        4: player between OuterLevel and InnerLevel1
+        */
 
         boolean tooClose = false;
         float distanceThreshold = 2f;
@@ -1467,17 +1206,6 @@ public class MyGame extends VariableFrameRateGame {
         float x = obj1.x();
         float z = obj1.z();
 
-
-        // innerLevel3 range: x = +- 8f, z = +- 7.5f (not worrying about the maze openings yet.
-        // innerLevel2 range: x = 15f, z = 16f
-
-        /*
-        Cases:
-        1: player inside InnerLevel3
-        2: player between InnerLevel2 and 3
-        3: player between InnerLevel 1 and 2
-        4: player between OuterLevel and InnerLevel1
-        */
 
         // check for case 1: player inside InnerLevel3
         if ((x > -8f && x < 8f) && (z > -8f && z < 8f))
@@ -1576,100 +1304,7 @@ public class MyGame extends VariableFrameRateGame {
             }
         }
 
-/* Code was introducing more bugs so I'm leaving it out for now
-//===========================================================================================================================
-        // check for case 2: player between InnerLevel2 and 3
-        // player is closer to InnerLevel3 (check for distance to backside of InnerLevel3
-        if ((x > -10f && x < 10f) && (z > -10f && z < 10f))
-        {
-            if (x > 0)
-            {
-                if (z < 0)
-                {
-                    // need lowerPiece L and M
-                    SceneNode innerLevel3BottomPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceLNode");
-                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
-
-                    // for M piece, just need to check z distance
-                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
-
-                    if (!tooClose) // if not already too close, check the next wall segment
-                    {
-                        // need to check both x and z distance
-                        // first check x
-                        tooClose = getXdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold - 2);
-
-                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
-                        // if player is past the xDistance threshold it may be because they are passing through an opening
-                        if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel3BottomPieceLNode.getWorldPosition(), distanceThreshold + 4);
-                    }
-                }
-
-                else // z > 0
-                {
-                    // need upperPiece L and M
-                    SceneNode innerLevel3TopPieceLNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceLNode");
-                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
-
-                    // for M piece, just need to check z distance
-                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
-
-                    if (!tooClose) // if not already too close, check the next wall segment
-                    {
-                        tooClose = getXdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold);
-
-                        if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel3TopPieceLNode.getWorldPosition(), distanceThreshold + 6);
-                    }
-                }
-            }
-
-            else // x < 0
-            {
-                if (z < 0)
-                {
-                    // need lowerPiece R and M
-                    SceneNode innerLevel3BottomPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceRNode");
-                    SceneNode innerLevel3BottomPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3BottomPieceMNode");
-
-                    // for M piece, just need to check z distance
-                    tooClose = getZdistance(obj1, innerLevel3BottomPieceMNode.getWorldPosition(), distanceThreshold);
-
-                    if (!tooClose) // if not already too close, check the next wall segment
-                    {
-                        // need to check both x and z distance
-                        // first check x
-                        tooClose = getXdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold);
-
-                        // if we are tooClose on the x axis, we need to check if we are not too close on z axis
-                        // if player is past the xDistance threshold it may be because they are passing through an opening
-                        if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel3BottomPieceRNode.getWorldPosition(), distanceThreshold + 6);
-                    }
-                }
-
-                else // z > 0
-                {
-                    // need UpperPiece R and M
-                    SceneNode innerLevel3TopPieceRNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceRNode");
-                    SceneNode innerLevel3TopPieceMNode = getEngine().getSceneManager().getSceneNode("innerLevel3TopPieceMNode");
-
-                    // for M piece, just need to check z distance
-                    tooClose = getZdistance(obj1, innerLevel3TopPieceMNode.getWorldPosition(), distanceThreshold);
-
-                    if (!tooClose) // if not already too close, check the next wall segment
-                    {
-                        tooClose = getXdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold);
-
-                        if (tooClose)
-                            tooClose = getZdistance(obj1, innerLevel3TopPieceRNode.getWorldPosition(), distanceThreshold + 6);
-                    }
-                }
-            }
-        }
-  */
-
+        
         // check for case 2: player between InnerLevel2 and 3
         // player is closer to InnerLevel2
         else if ((x > -16f && x < 16f) && (z > -16f && z < 16f))
@@ -1965,56 +1600,6 @@ public class MyGame extends VariableFrameRateGame {
         return tooClose;
     }
 
-    //used from his notes for extra activity object
-    protected ManualObject makePyramid(Engine eng, SceneManager sm) throws IOException {
-        ManualObject pyr = sm.createManualObject("Pyramid");
-        ManualObjectSection pyrSec = pyr.createManualSection("PyramidSection");
-        pyr.setGpuShaderProgram(sm.getRenderSystem().getGpuShaderProgram(GpuShaderProgram.Type.RENDERING));
-        float[] vertices = new float[]
-                {-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //front
-                        1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //right
-                        1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //back
-                        -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //left
-                        -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, //LF
-                        1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f //RR
-                };
-
-
-        float[] texcoords = new float[]
-                {0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-                        0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-                        0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-                        1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
-                };
-        float[] normals = new float[]
-                {0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-                        1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-                        0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f,
-                        -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-                        0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f,
-                        0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f
-                };
-        int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
-
-        FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
-        FloatBuffer texBuf = BufferUtil.directFloatBuffer(texcoords);
-        FloatBuffer normBuf = BufferUtil.directFloatBuffer(normals);
-        IntBuffer indexBuf = BufferUtil.directIntBuffer(indices);
-        pyrSec.setVertexBuffer(vertBuf);
-        pyrSec.setTextureCoordsBuffer(texBuf);
-        pyrSec.setNormalsBuffer(normBuf);
-        pyrSec.setIndexBuffer(indexBuf);
-        Texture tex = eng.getTextureManager().getAssetByPath("chain-fence.jpeg");
-        TextureState texState = (TextureState) sm.getRenderSystem().createRenderState(RenderState.Type.TEXTURE);
-        texState.setTexture(tex);
-        FrontFaceState faceState = (FrontFaceState) sm.getRenderSystem().createRenderState(RenderState.Type.FRONT_FACE);
-        pyr.setDataSource(DataSource.INDEX_BUFFER);
-        pyr.setRenderState(texState);
-        pyr.setRenderState(faceState);
-        return pyr;
-    }
 
     protected ManualObject makeShape(Engine eng, SceneManager sm) throws IOException {
         ManualObject shape = sm.createManualObject("Shape");
@@ -2030,9 +1615,8 @@ public class MyGame extends VariableFrameRateGame {
                         1.0f, 1.0f, -0.5f, 1.0f, 1.0f, 0.5f, 0.0f, -2.0f, 0.0f,//bottomright
                         -1.0f, 1.0f, -0.5f, 1.0f, 1.0f, -0.5f, 0.0f, -2.0f, 0.0f,//bottom back
                         -1.0f, 1.0f, 0.5f, -1.0f, 1.0f, -0.5f, 0.0f, -2.0f, 0.0f//bottomLeft
-
-
                 };
+
         float[] texcoords = new float[]
                 {0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, //topfront
                         0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //topright
@@ -2042,9 +1626,8 @@ public class MyGame extends VariableFrameRateGame {
                         0.4f, 0.0f, 0.6f, 0.0f, 0.5f, 1.0f, //bottomright
                         0.25f, 0.0f, 0.75f, 0.0f, 0.5f, 1.0f, //bottomback
                         0.4f, 0.0f, 0.6f, 0.0f, 0.5f, 1.0f //boottomleft
-
-
                 };
+
         float[] normals = new float[]
                 {0.0f, 2.0f, 0.5f, 0.0f, 2.0f, 0.5f, 0.0f, 2.0f, 0.5f,//topfront
                         1.0f, 2.0f, 0.0f, 1.0f, 2.0f, 0.0f, 1.0f, 2.0f, 0.0f,//topright
@@ -2054,9 +1637,8 @@ public class MyGame extends VariableFrameRateGame {
                         1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,//bottomright
                         0.0f, 0.0f, -0.5f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, -0.5f,//bottomback
                         -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f //bottomleft
-
-
                 };
+
         int[] indices = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23};//,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41};
 
         FloatBuffer vertBuf = BufferUtil.directFloatBuffer(vertices);
@@ -2080,10 +1662,10 @@ public class MyGame extends VariableFrameRateGame {
         shape.setMaterial(mat1);
         return shape;
     }
+
     public void setGhostWonTrue (String time){
         currentTimeStr = time;
         if(playerOneWins == false && NPCWins == false && gameLoaded == true){
-
             //gameOver = true;
             ghostWon = true;
         }
@@ -2124,6 +1706,5 @@ public class MyGame extends VariableFrameRateGame {
         setEarParameters(sm);
         twinkleSound.play();
     }
-
 
 }
