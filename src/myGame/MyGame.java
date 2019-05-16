@@ -599,16 +599,14 @@ public class MyGame extends VariableFrameRateGame {
 
 
 
+        setDefaults();
+
         // if scripting is turned on, read any scripts and update appropriate variables
         if (allowJavascripts) {
             ScriptEngineManager factory = new ScriptEngineManager();
             String scriptFileName = "updateSpeed.js";
             ScriptEngine jsEngine = factory.getEngineByName("js"); // get the JavaScript engine
             movementSpeed = executeScript(jsEngine, scriptFileName, "speed"); // run the script
-            playerController1.updateSpeed(movementSpeed);
-
-            if (playerController2 != null)
-                playerController2.updateSpeed(movementSpeed);
         }
 
 
@@ -715,6 +713,14 @@ public class MyGame extends VariableFrameRateGame {
         }
 
 
+        // check if player has been hit by a boulder
+        float ball1 = getDistance(player1Node.getWorldPosition(), ball1Node.getWorldPosition());
+        float ball2 = getDistance(player1Node.getLocalPosition(), ball2Node.getLocalPosition());
+
+        float distanceThreshold = 3.5f;
+        if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold))
+            movementSpeed = 0.02f; // reduce speed while touching boulder
+
         /*
         // reset ball
         Vector3 vf = ball2Node.getLocalPosition();
@@ -738,6 +744,13 @@ public class MyGame extends VariableFrameRateGame {
         twinkleSound.setLocation(robotN.getWorldPosition());
         setEarParameters(sm);
         //*/
+
+
+        // update player movement speed
+        playerController1.updateSpeed(movementSpeed);
+
+        if (playerController2 != null)
+            playerController2.updateSpeed(movementSpeed);
 
 
     }
@@ -854,14 +867,12 @@ public class MyGame extends VariableFrameRateGame {
         Vector3 cLoc = obj2;
 
         float dx = dLoc.x();
-        float dy = dLoc.y();
         float dz = dLoc.z();
 
         float cx = cLoc.x();
-        float cy = cLoc.y();
         float cz = cLoc.z();
 
-        float distance = ((dx - cx) * (dx - cx)) + ((dy - cy) * (dy - cy)) + ((dz - cz) * (dz - cz));
+        float distance = ((dx - cx) * (dx - cx)) + ((dz - cz) * (dz - cz));
         return distance;
     }
 
