@@ -143,7 +143,7 @@ public class MyGame extends VariableFrameRateGame {
     private LinkedList<GhostAvatar> ghostAvatars = new LinkedList<GhostAvatar>();
     private LinkedList<Boolean> ghostAvatarWin = new LinkedList<Boolean>();
 
-    private Light spotlight;
+    private Light spotlight, spotlight2;
 
 
     public MyGame(String serverAddr, int sPort) {
@@ -444,6 +444,9 @@ public class MyGame extends VariableFrameRateGame {
             spotLightNode.pitch(Degreef.createFrom(10.0f));
             System.out.println(spotLightNode.getWorldPosition());
             spotLightNode.moveUp(2f);
+
+
+
         }
 
         //Vector3f spotlightPos = (Vector3f) spotLightNode.getWorldPosition();
@@ -548,6 +551,22 @@ public class MyGame extends VariableFrameRateGame {
         shapeN.scale(1.0f, 1.0f, 1.0f);
         shapeN.attachObject(shape);
         shapeN.setLocalPosition(Vector3f.createFrom(-1.05f, 5.65f, 0));
+
+        if(networkType.equals('c')){
+            //spotlight 2
+            spotlight2 = sm.createLight("spotlight2", Light.Type.SPOT);
+            spotlight2.setDiffuse(new Color(1.0f, 1.0f, 1.0f));
+            spotlight2.setSpecular(new Color(1.0f, 1.0f, 1.0f));
+            spotlight2.setConeCutoffAngle(Degreef.createFrom(20.0f));
+            spotlight2.setLinearAttenuation(0.01f);
+            spotlight2.setFalloffExponent(0.1f);
+            spotlight2.setRange(100f);
+            SceneNode spotLightNode2 = sm.getSceneNode("ShapeNode").createChildSceneNode("spotLightNode2");
+            spotLightNode2.attachObject(spotlight);
+            spotLightNode2.pitch(Degreef.createFrom(-90.0f));
+            System.out.println(spotLightNode2.getWorldPosition());
+            spotLightNode2.moveUp(1f);
+        }
         //specialItemN.attachObject(specialItem);
         System.out.println(shapeN.getWorldPosition());
         // physics

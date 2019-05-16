@@ -185,10 +185,12 @@ public class PlayerController {
         public void performAction(float time, Event e) {
 
             if(flashlightOff == false){
-                game.getSpotLight().setRange(0.0001f);
+                //game.getSpotLight().setRange(0.0001f);
+                game.getSpotLight().setVisible(false);
                 flashlightOff = true;
             }else{
-                game.getSpotLight().setRange(100);
+                //game.getSpotLight().setRange(100);
+                game.getSpotLight().setVisible(true);
                 flashlightOff = false;
             }
 
