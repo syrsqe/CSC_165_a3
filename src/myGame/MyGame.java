@@ -100,6 +100,7 @@ public class MyGame extends VariableFrameRateGame {
 
     private static final String SKYBOX_NAME = "SkyBox";
     private boolean allowJavascripts = false; // javascripts can be enabled/disabled
+    private static boolean useJavascriptLoc = false; // use javascript to get player starting coordinates
 
     //Networking
 
@@ -177,9 +178,10 @@ public class MyGame extends VariableFrameRateGame {
     public static void main(String[] args) {
         //ask about which player
         String playerChoice = "";
+        Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
         networkType = args[2]; // s for server, c for client
+
         if (networkType.compareTo("c") == 0 || networkType.compareTo("m") == 0) {
-            Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Choose your character:");
             System.out.println("press d for the The black robot");
             System.out.println("press c for the purple robot");
@@ -194,6 +196,15 @@ public class MyGame extends VariableFrameRateGame {
             playerModel = "robo.rkm";
             playerTexture = "cTxt.png";
             playerSkeleton = "robo.rks";
+        }
+
+        System.out.println("Use JavaScript file for player starting location?");
+        System.out.println("y/n");
+        playerChoice = modelScanner.nextLine();
+        if(playerChoice.equals("y")){
+            useJavascriptLoc = true;
+        }else {
+            useJavascriptLoc = false;
         }
 
         game = new MyGame(args[0], Integer.parseInt(args[1]));
@@ -366,7 +377,20 @@ public class MyGame extends VariableFrameRateGame {
 //            player1Node.moveBackward(5.0f);
 //            player1Node.moveRight(2f);
 
-            player1Node.setLocalPosition(Vector3f.createFrom(26.0f, 1.65f, -28.0f));
+            if (useJavascriptLoc) {
+                // retrieve the location variables for the player's starting location from JS file
+                ScriptEngineManager factory = new ScriptEngineManager();
+                String scriptFileName = "setPlayerStartLocation.js";
+                ScriptEngine jsEngine = factory.getEngineByName("js"); // get the JavaScript engine
+                float x = executeScript(jsEngine, scriptFileName, "locX"); // run the script to get variables
+                float z = executeScript(jsEngine, scriptFileName, "locZ");
+                float y = executeScript(jsEngine, scriptFileName, "rotY");
+                player1Node.setLocalPosition(Vector3f.createFrom(x, 1.65f, z));
+                player1Node.yaw(Degreef.createFrom(y));
+            }
+            else
+                player1Node.setLocalPosition(Vector3f.createFrom(26.0f, 1.65f, -28.0f));
+
             player1Node.attachObject(player1E);
             player1Node.scale(0.2f, 0.2f, 0.2f);
 
