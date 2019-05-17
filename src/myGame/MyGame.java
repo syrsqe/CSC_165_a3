@@ -123,7 +123,7 @@ public class MyGame extends VariableFrameRateGame {
 
     // sound
     IAudioManager audioMgr;
-    Sound twinkleSound;
+    Sound twinkleSound, ambiance, malfunction;
 
 
     private static String playerModel;
@@ -453,12 +453,12 @@ public class MyGame extends VariableFrameRateGame {
             SceneNode spotLightNode2 = sm.getSceneNode("ShapeNode").createChildSceneNode("spotLightNode2");
             spotLightNode2.attachObject(spotlight);
             spotLightNode2.pitch(Degreef.createFrom(-90.0f));
-            System.out.println(spotLightNode2.getWorldPosition());
+            //System.out.println(spotLightNode2.getWorldPosition());
             spotLightNode2.moveUp(1f);
         }
 
         //specialItemN.attachObject(specialItem);
-        System.out.println(shapeN.getWorldPosition());
+        //System.out.println(shapeN.getWorldPosition());
 
         // physics
         initPhysicsSystem();
@@ -614,10 +614,9 @@ public class MyGame extends VariableFrameRateGame {
             ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
 
 
-            //sound
+            // malfunction sound
             SceneManager sm = engine.getSceneManager();
-            SceneNode robotN = sm.getSceneNode("ShapeNode");
-            twinkleSound.setLocation(robotN.getWorldPosition());
+            malfunction.setLocation(player1Node.getWorldPosition());
             setEarParameters(sm);
         }
 
@@ -1697,7 +1696,7 @@ public class MyGame extends VariableFrameRateGame {
 
     public void initAudio(SceneManager sm) {
         if(networkType.equals('c')){
-            AudioResource resource1;
+            AudioResource resource1, resource2, resource3;
             audioMgr = AudioManagerFactory.createAudioManager("ray.audio.joal.JOALAudioManager");
 
             if (!audioMgr.initialize()) {
@@ -1708,15 +1707,35 @@ public class MyGame extends VariableFrameRateGame {
             resource1 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
             twinkleSound = new Sound(resource1,SoundType.SOUND_EFFECT, 100, true);
 
+            resource2 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
+            ambiance = new Sound(resource2,SoundType.SOUND_EFFECT, 80, true);
+
+            resource3 = audioMgr.createAudioResource("assets/sounds/255374__opticreep__malfunctioningrobot1.wav", AudioResourceType.AUDIO_SAMPLE);
+            malfunction = new Sound(resource3,SoundType.SOUND_EFFECT, 50, false);
+
             twinkleSound.initialize(audioMgr);
-            twinkleSound.setMaxDistance(10.0f); // May need to change these
+            twinkleSound.setMaxDistance(10.0f);
             twinkleSound.setMinDistance(0.5f);
             twinkleSound.setRollOff(5.0f);
 
+            ambiance.initialize(audioMgr);
+            ambiance.setMaxDistance(10.0f);
+            ambiance.setMinDistance(0.5f);
+            ambiance.setRollOff(5.0f);
+
+            malfunction.initialize(audioMgr);
+            malfunction.setMaxDistance(3.5f);
+            malfunction.setMinDistance(0.01f);
+            malfunction.setRollOff(5.0f);
+
             SceneNode shapeN = sm.getSceneNode("ShapeNode");
             twinkleSound.setLocation(shapeN.getWorldPosition());
-            setEarParameters(sm);
             twinkleSound.play();
+
+            ambiance.setLocation(player1Node.getWorldPosition());
+            ambiance.play();
+
+            setEarParameters(sm);
         }
 
     }
