@@ -90,9 +90,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
 
             if (msgTokens[0].compareTo("startNPC") == 0) {
-                UUID clientID = UUID.fromString(msgTokens[1]);
                 startNPCController();
-                sendStartPhysicsMessage(clientID);
             }
             if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
             {

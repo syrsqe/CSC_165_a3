@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/networking/GameServerUDP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/networking/GameServerUDP.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/networking/ProtocolClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GameServerUDP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/ProtocolClient.java" afterDir="false" />
     </list>
@@ -25,15 +30,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1544">
-              <caret line="343" lean-forward="true" selection-start-line="343" selection-end-line="343" />
+            <state relative-caret-position="-2972">
+              <caret line="700" column="72" selection-start-line="700" selection-start-column="72" selection-end-line="700" selection-end-column="72" />
               <folding>
                 <element signature="e#3854#3867#0" expanded="true" />
                 <element signature="e#3934#3943#0" expanded="true" />
-                <element signature="e#30765#30766#0" expanded="true" />
-                <element signature="e#30878#30879#0" expanded="true" />
-                <element signature="e#30950#30951#0" expanded="true" />
-                <element signature="e#35433#35434#0" expanded="true" />
+                <element signature="e#29950#29951#0" expanded="true" />
+                <element signature="e#30063#30064#0" expanded="true" />
+                <element signature="e#30135#30136#0" expanded="true" />
+                <element signature="e#34618#34619#0" expanded="true" />
                 <element signature="e#75753#75754#0" expanded="true" />
                 <element signature="e#75785#75786#0" expanded="true" />
                 <element signature="e#78223#78224#0" expanded="true" />
@@ -78,17 +83,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="354" column="12" lean-forward="true" selection-start-line="354" selection-start-column="12" selection-end-line="354" selection-end-column="37" />
+            <state relative-caret-position="723">
+              <caret line="354" column="17" selection-start-line="354" selection-start-column="17" selection-end-line="354" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="342" column="5" lean-forward="true" selection-start-line="342" selection-start-column="5" selection-end-line="342" selection-end-column="5" />
+            <state relative-caret-position="213">
+              <caret line="91" column="58" selection-start-line="91" selection-start-column="58" selection-end-line="91" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -98,11 +103,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="250" column="67" selection-start-line="250" selection-start-column="67" selection-end-line="250" selection-end-column="67" />
+            <state relative-caret-position="578">
+              <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -146,13 +151,13 @@
       <find>ball2</find>
       <find>AM</find>
       <find>n</find>
-      <find>StartNPCsAction</find>
       <find>am</find>
       <find>ambian</find>
-      <find>light</find>
       <find>shapeN</find>
-      <find>npc</find>
+      <find>light</find>
       <find>start</find>
+      <find>StartNPCsAction</find>
+      <find>npc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,8 +205,8 @@
         <option value="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" />
         <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
-        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/src/networking/GameServerUDP.java" />
+        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
       </list>
     </option>
   </component>
@@ -268,7 +273,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558077678434" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558078692276" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -397,8 +402,8 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32858837" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34918034" side_tool="true" weight="0.23623854" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32740214" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.33610272" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.31042296" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.3356269" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.31039757" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -706,9 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame$MoveForwardAction.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -726,34 +728,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="354" column="12" lean-forward="true" selection-start-line="354" selection-start-column="12" selection-end-line="354" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGame/run-server.bat">
+    <entry file="file://$PROJECT_DIR$/src/networking/GhostAvatar.class">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1544">
-          <caret line="343" lean-forward="true" selection-start-line="343" selection-end-line="343" />
-          <folding>
-            <element signature="e#3854#3867#0" expanded="true" />
-            <element signature="e#3934#3943#0" expanded="true" />
-            <element signature="e#30765#30766#0" expanded="true" />
-            <element signature="e#30878#30879#0" expanded="true" />
-            <element signature="e#30950#30951#0" expanded="true" />
-            <element signature="e#35433#35434#0" expanded="true" />
-            <element signature="e#75753#75754#0" expanded="true" />
-            <element signature="e#75785#75786#0" expanded="true" />
-            <element signature="e#78223#78224#0" expanded="true" />
-            <element signature="e#78252#78253#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Final_A3/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -762,17 +738,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+    <entry file="file://$PROJECT_DIR$/src/myGame/run-server.bat">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="250" column="67" selection-start-line="250" selection-start-column="67" selection-end-line="250" selection-end-column="67" />
+        <state relative-caret-position="-2972">
+          <caret line="700" column="72" selection-start-line="700" selection-start-column="72" selection-end-line="700" selection-end-column="72" />
+          <folding>
+            <element signature="e#3854#3867#0" expanded="true" />
+            <element signature="e#3934#3943#0" expanded="true" />
+            <element signature="e#29950#29951#0" expanded="true" />
+            <element signature="e#30063#30064#0" expanded="true" />
+            <element signature="e#30135#30136#0" expanded="true" />
+            <element signature="e#34618#34619#0" expanded="true" />
+            <element signature="e#75753#75754#0" expanded="true" />
+            <element signature="e#75785#75786#0" expanded="true" />
+            <element signature="e#78223#78224#0" expanded="true" />
+            <element signature="e#78252#78253#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="723">
+          <caret line="354" column="17" selection-start-line="354" selection-start-column="17" selection-end-line="354" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="342" column="5" lean-forward="true" selection-start-line="342" selection-start-column="5" selection-end-line="342" selection-end-column="5" />
+        <state relative-caret-position="213">
+          <caret line="91" column="58" selection-start-line="91" selection-start-column="58" selection-end-line="91" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
         </state>
       </provider>
     </entry>

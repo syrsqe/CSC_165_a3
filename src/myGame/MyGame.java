@@ -444,22 +444,6 @@ public class MyGame extends VariableFrameRateGame {
         rcon.addNode(shapeN);
 
 
-        if(networkType.equals("c")){
-            //spotlight 2
-            spotlight2 = sm.createLight("spotlight2", Light.Type.SPOT);
-            spotlight2.setDiffuse(new Color(1.0f, 1.0f, 1.0f));
-            spotlight2.setSpecular(new Color(1.0f, 1.0f, 1.0f));
-            spotlight2.setConeCutoffAngle(Degreef.createFrom(20.0f));
-            spotlight2.setLinearAttenuation(0.01f);
-            spotlight2.setFalloffExponent(0.1f);
-            spotlight2.setRange(100f);
-            SceneNode spotLightNode2 = sm.getSceneNode("ShapeNode").createChildSceneNode("spotLightNode2");
-            spotLightNode2.attachObject(spotlight);
-            spotLightNode2.pitch(Degreef.createFrom(-90.0f));
-            //System.out.println(spotLightNode2.getWorldPosition());
-            spotLightNode2.moveUp(1f);
-        }
-
         //specialItemN.attachObject(specialItem);
         //System.out.println(shapeN.getWorldPosition());
 

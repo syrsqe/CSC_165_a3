@@ -17,6 +17,7 @@ public class ProtocolClient extends GameConnectionClient {
     private UUID id;
     private LinkedList<GhostAvatar> ghostAvatars;
     private LinkedList<GhostNPC> ghostNPCs;
+    private boolean physicsStarted = false;
 
     public ProtocolClient(InetAddress remAddr, int remPort, ProtocolType pType, MyGame game) throws IOException { //initializeds in main
         super(remAddr, remPort, pType);
@@ -137,6 +138,10 @@ public class ProtocolClient extends GameConnectionClient {
 
                         }
                     }
+                    if(physicsStarted == false){
+                        game.setNpcStarted(true);
+                        physicsStarted = true;
+                    }
                 }
 
 
@@ -157,10 +162,6 @@ public class ProtocolClient extends GameConnectionClient {
                     }
                 }
 
-
-            }
-            if (messageTokens[0].compareTo("startPhysics") == 0) {
-                game.setNpcStarted(true);
 
             }
         }
@@ -248,7 +249,7 @@ public class ProtocolClient extends GameConnectionClient {
     public void sendStartNPCMessage() {
         try {
            // System.out.println("sending move message to server");
-            String message = new String("startNPC,"+ id.toString());
+            String message = new String("startNPC,");
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();
