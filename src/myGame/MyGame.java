@@ -441,7 +441,7 @@ public class MyGame extends VariableFrameRateGame {
         shapeN.setLocalPosition(Vector3f.createFrom(-1.05f, 5.65f, 0));
 
 
-        if(networkType.equals('c')){
+        if(networkType.equals("c")){
             //spotlight 2
             spotlight2 = sm.createLight("spotlight2", Light.Type.SPOT);
             spotlight2.setDiffuse(new Color(1.0f, 1.0f, 1.0f));
@@ -601,12 +601,12 @@ public class MyGame extends VariableFrameRateGame {
             }
         }
 
-        if(networkType.equals('c')){
+        if(networkType.equals("c")){
             // check if player has been hit by a boulder
             float ball1 = getDistance(player1Node.getWorldPosition(), ball1Node.getWorldPosition());
             float ball2 = getDistance(player1Node.getLocalPosition(), ball2Node.getLocalPosition());
 
-            float distanceThreshold = 3.5f;
+            float distanceThreshold = 2.5f;
             if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold)) {
                 movementSpeed = 0.02f; // reduce speed while touching boulder
 
@@ -615,11 +615,18 @@ public class MyGame extends VariableFrameRateGame {
                 SceneNode n = sm.getSceneNode("player1Node");
                 malfunction.setLocation(n.getWorldPosition());
                 setEarParameters(sm);
-                malfunction.play();
+                if(! malfunction.getIsPlaying()){
+                    malfunction.play();
+                }
+
             }
 
-            ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
-            ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
+            if(npcStarted == true){
+                ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
+                ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
+            }
+
+
 
         }
 
@@ -1684,7 +1691,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public void setEarParameters(SceneManager sm) {
-        if(networkType.equals('c')){
+        if(networkType.equals("c")){
             Vector3 avDir = player1Node.getWorldForwardAxis();
             //  note - should get the camera's forward direction
             //     - avatar direction plus azimuth
@@ -1698,7 +1705,7 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public void initAudio(SceneManager sm) {
-        if(networkType.equals('c')){
+        if(networkType.equals("c")){
             AudioResource resource1, resource2, resource3;
             audioMgr = AudioManagerFactory.createAudioManager("ray.audio.joal.JOALAudioManager");
 
@@ -1710,26 +1717,26 @@ public class MyGame extends VariableFrameRateGame {
             resource1 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
             twinkleSound = new Sound(resource1,SoundType.SOUND_EFFECT, 100, true);
 
-            resource2 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
-            ambiance = new Sound(resource2,SoundType.SOUND_EFFECT, 80, true);
+            resource2 = audioMgr.createAudioResource("assets/sounds/39048__ls__sparkles.wav", AudioResourceType.AUDIO_SAMPLE);
+            ambiance = new Sound(resource2,SoundType.SOUND_EFFECT, 10, true);
 
             resource3 = audioMgr.createAudioResource("assets/sounds/255374__opticreep__malfunctioningrobot1.wav", AudioResourceType.AUDIO_SAMPLE);
-            malfunction = new Sound(resource3,SoundType.SOUND_EFFECT, 50, false);
+            malfunction = new Sound(resource3,SoundType.SOUND_EFFECT, 10, false);
 
             twinkleSound.initialize(audioMgr);
             twinkleSound.setMaxDistance(10.0f);
             twinkleSound.setMinDistance(0.5f);
-            twinkleSound.setRollOff(5.0f);
+            twinkleSound.setRollOff(0.1f);
 
             ambiance.initialize(audioMgr);
-            ambiance.setMaxDistance(10.0f);
+            ambiance.setMaxDistance(1.0f);
             ambiance.setMinDistance(0.5f);
             ambiance.setRollOff(5.0f);
 
             malfunction.initialize(audioMgr);
             malfunction.setMaxDistance(3.5f);
             malfunction.setMinDistance(0.01f);
-            malfunction.setRollOff(5.0f);
+            malfunction.setRollOff(1.0f);
 
             SceneNode shapeN = sm.getSceneNode("ShapeNode");
             twinkleSound.setLocation(shapeN.getWorldPosition());
