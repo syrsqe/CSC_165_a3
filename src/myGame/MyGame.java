@@ -607,17 +607,20 @@ public class MyGame extends VariableFrameRateGame {
             float ball2 = getDistance(player1Node.getLocalPosition(), ball2Node.getLocalPosition());
 
             float distanceThreshold = 3.5f;
-            if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold))
+            if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold)) {
                 movementSpeed = 0.02f; // reduce speed while touching boulder
+
+                // play malfunction sound
+                SceneManager sm = engine.getSceneManager();
+                SceneNode n = sm.getSceneNode("player1Node");
+                malfunction.setLocation(n.getWorldPosition());
+                setEarParameters(sm);
+                malfunction.play();
+            }
 
             ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
             ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
 
-
-            // malfunction sound
-            SceneManager sm = engine.getSceneManager();
-            malfunction.setLocation(player1Node.getWorldPosition());
-            setEarParameters(sm);
         }
 
 
@@ -1732,7 +1735,8 @@ public class MyGame extends VariableFrameRateGame {
             twinkleSound.setLocation(shapeN.getWorldPosition());
             twinkleSound.play();
 
-            ambiance.setLocation(player1Node.getWorldPosition());
+            SceneNode n = sm.getSceneNode("player1Node");
+            ambiance.setLocation(n.getWorldPosition());
             ambiance.play();
 
             setEarParameters(sm);
