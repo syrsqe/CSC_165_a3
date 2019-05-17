@@ -1,1 +1,1 @@
-javac myGame\*.java myGameEngine\*.java
+javac myGame\*.java myGameEngine\*.java networking\*.java

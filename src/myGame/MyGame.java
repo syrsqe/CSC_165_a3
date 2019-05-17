@@ -129,7 +129,7 @@ public class MyGame extends VariableFrameRateGame {
     private static String playerModel;
     private static String playerTexture;
     public static String playerSkeleton;
-    private boolean playerOneWins = false, NPCWins = false, ghostWon = false, gameLoaded = false, gameOver = false;
+    private boolean playerOneWins = false, NPCWins = false, ghostWon = false, gameLoaded = false, gameOver = false, npcStarted = false;
     private String winGameTime, currentTimeStr = "-";
 
     private SceneNode wholeMazeNode;
@@ -164,6 +164,7 @@ public class MyGame extends VariableFrameRateGame {
     public static void main(String[] args) {
         // ask player which robot model they want to use
         String playerChoice = "";
+        String playerChoice2 = "";
         Scanner modelScanner = new Scanner(System.in);  // Create a Scanner object
         networkType = args[2]; // s for server, c for client
 
@@ -172,6 +173,15 @@ public class MyGame extends VariableFrameRateGame {
             System.out.println("press d for the The black robot");
             System.out.println("press c for the purple robot");
             playerChoice = modelScanner.nextLine();
+            // ask if player wants to use JavaScript to set their starting location
+            System.out.println("Use JavaScript file for player starting location?");
+            System.out.println("y/n");
+            playerChoice2 = modelScanner.nextLine();
+            if(playerChoice2.equals("y")){
+                useJavascriptLoc = true;
+            }else {
+                useJavascriptLoc = false;
+            }
         }
 
         if (playerChoice.equals("c")) {
@@ -184,15 +194,7 @@ public class MyGame extends VariableFrameRateGame {
             playerSkeleton = "robo.rks";
         }
 
-        // ask if player wants to use JavaScript to set their starting location
-        System.out.println("Use JavaScript file for player starting location?");
-        System.out.println("y/n");
-        playerChoice = modelScanner.nextLine();
-        if(playerChoice.equals("y")){
-            useJavascriptLoc = true;
-        }else {
-            useJavascriptLoc = false;
-        }
+
 
         game = new MyGame(args[0], Integer.parseInt(args[1]));
 
@@ -587,7 +589,10 @@ public class MyGame extends VariableFrameRateGame {
         float time = engine.getElapsedTimeMillis();
 
         Matrix4 mat;
-        physicsEng.update(time);
+        if(npcStarted == true){
+            physicsEng.update(time);
+        }
+
 
         for (SceneNode s : engine.getSceneManager().getSceneNodes()) {
             if (s.getPhysicsObject() != null) {
@@ -596,24 +601,26 @@ public class MyGame extends VariableFrameRateGame {
             }
         }
 
+        if(networkType.equals('c')){
+            // check if player has been hit by a boulder
+            float ball1 = getDistance(player1Node.getWorldPosition(), ball1Node.getWorldPosition());
+            float ball2 = getDistance(player1Node.getLocalPosition(), ball2Node.getLocalPosition());
 
-        // check if player has been hit by a boulder
-        float ball1 = getDistance(player1Node.getWorldPosition(), ball1Node.getWorldPosition());
-        float ball2 = getDistance(player1Node.getLocalPosition(), ball2Node.getLocalPosition());
+            float distanceThreshold = 3.5f;
+            if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold))
+                movementSpeed = 0.02f; // reduce speed while touching boulder
 
-        float distanceThreshold = 3.5f;
-        if ((ball1 <= distanceThreshold) || (ball2 <= distanceThreshold))
-            movementSpeed = 0.02f; // reduce speed while touching boulder
-
-        ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
-        ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
+            ball1PhysObj.applyForce(10, 0, 0, 0, 0, 0);
+            ball2PhysObj.applyForce(0, 10, 0, 0, 0, 10);
 
 
-        //sound
-        SceneManager sm = engine.getSceneManager();
-        SceneNode robotN = sm.getSceneNode("ShapeNode");
-        twinkleSound.setLocation(robotN.getWorldPosition());
-        setEarParameters(sm);
+            //sound
+            SceneManager sm = engine.getSceneManager();
+            SceneNode robotN = sm.getSceneNode("ShapeNode");
+            twinkleSound.setLocation(robotN.getWorldPosition());
+            setEarParameters(sm);
+        }
+
 
 
         // update player movement speed
@@ -1675,36 +1682,46 @@ public class MyGame extends VariableFrameRateGame {
     }
 
     public void setEarParameters(SceneManager sm) {
-        Vector3 avDir = player1Node.getWorldForwardAxis();
+        if(networkType.equals('c')){
+            Vector3 avDir = player1Node.getWorldForwardAxis();
+            //  note - should get the camera's forward direction
+            //     - avatar direction plus azimuth
 
-        //  note - should get the camera's forward direction
-        //     - avatar direction plus azimuth
+            audioMgr.getEar().setLocation(player1Node.getWorldPosition());
+            audioMgr.getEar().setOrientation(avDir, Vector3f.createFrom(0,1,0));
+        }
 
-        audioMgr.getEar().setLocation(player1Node.getWorldPosition());
-        audioMgr.getEar().setOrientation(avDir, Vector3f.createFrom(0,1,0));
+
+
     }
 
     public void initAudio(SceneManager sm) {
-        AudioResource resource1;
-        audioMgr = AudioManagerFactory.createAudioManager("ray.audio.joal.JOALAudioManager");
+        if(networkType.equals('c')){
+            AudioResource resource1;
+            audioMgr = AudioManagerFactory.createAudioManager("ray.audio.joal.JOALAudioManager");
 
-        if (!audioMgr.initialize()) {
-            System.out.println("Audio Manager failed to initialize!");
-            return;
+            if (!audioMgr.initialize()) {
+                System.out.println("Audio Manager failed to initialize!");
+                return;
+            }
+
+            resource1 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
+            twinkleSound = new Sound(resource1,SoundType.SOUND_EFFECT, 100, true);
+
+            twinkleSound.initialize(audioMgr);
+            twinkleSound.setMaxDistance(10.0f); // May need to change these
+            twinkleSound.setMinDistance(0.5f);
+            twinkleSound.setRollOff(5.0f);
+
+            SceneNode shapeN = sm.getSceneNode("ShapeNode");
+            twinkleSound.setLocation(shapeN.getWorldPosition());
+            setEarParameters(sm);
+            twinkleSound.play();
         }
 
-        resource1 = audioMgr.createAudioResource("assets/sounds/434599__wangzhuokun__shimmer-synth-2.wav", AudioResourceType.AUDIO_SAMPLE);
-        twinkleSound = new Sound(resource1,SoundType.SOUND_EFFECT, 100, true);
-
-        twinkleSound.initialize(audioMgr);
-        twinkleSound.setMaxDistance(10.0f); // May need to change these
-        twinkleSound.setMinDistance(0.5f);
-        twinkleSound.setRollOff(5.0f);
-
-        SceneNode shapeN = sm.getSceneNode("ShapeNode");
-        twinkleSound.setLocation(shapeN.getWorldPosition());
-        setEarParameters(sm);
-        twinkleSound.play();
     }
+   public void setNpcStarted(boolean t){
+        npcStarted = t;
+   }
 
 }

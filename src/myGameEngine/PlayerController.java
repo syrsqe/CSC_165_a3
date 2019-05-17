@@ -352,6 +352,7 @@ public class PlayerController {
                 protClient.sendStartNPCMessage();
 
             }
+            game.setNpcStarted(true);
         }
     }
 

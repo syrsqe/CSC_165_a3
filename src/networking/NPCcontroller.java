@@ -45,13 +45,13 @@ public class NPCcontroller {
         float elapMilSecs = (frameStartTime-lastUpdateTime)/(1000000.0f);
         float elapsedThinkMilliSecs = (currentTime-lastThinkUpdateTime)/(1000000.0f);
         float elapsedTickMilliSecs = (currentTime-lastTickUpdateTime)/(1000000.0f);
-        if (elapsedTickMilliSecs >= 50.0f) // “TICK”
+        if (elapsedTickMilliSecs >= 50.0f)
         { lastTickUpdateTime = currentTime;
             lastUpdateTime = frameStartTime;
             //updateNPCs();
             server.sendNPCUpdateinfo();
         }
-        if (elapsedThinkMilliSecs >= 50.0f) // “THINK”
+        if (elapsedThinkMilliSecs >= 50.0f)
         { lastThinkUpdateTime = currentTime;
             bt.update(elapMilSecs);
         }

@@ -3,19 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile.bat" beforeDir="false" afterPath="$PROJECT_DIR$/compile.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$GamepadMovementAndRotateAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$MoveBackwardAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$MoveBackwardAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$QuitGameAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$QuitGameAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateLeftAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateLeftAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateRightAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$RotateRightAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$StartNPCsAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$StartNPCsAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$ToggleFlashlight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController$ToggleFlashlight.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGameEngine/PlayerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-client.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run-client.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/NPCcontroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/NPCcontroller.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,18 +33,33 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="565" column="53" selection-start-line="565" selection-start-column="53" selection-end-line="565" selection-end-column="53" />
+            <state relative-caret-position="442">
+              <caret line="620" column="33" selection-start-line="620" selection-start-column="33" selection-end-line="620" selection-end-column="33" />
               <folding>
-                <element signature="e#4027#4040#0" expanded="true" />
-                <element signature="e#4107#4116#0" expanded="true" />
-                <element signature="e#38717#38718#0" expanded="true" />
-                <element signature="e#38751#38752#0" expanded="true" />
-                <element signature="e#43321#43322#0" expanded="true" />
-                <element signature="e#43352#43353#0" expanded="true" />
-                <element signature="e#92211#92212#0" expanded="true" />
-                <element signature="e#92243#92244#0" expanded="true" />
+                <element signature="e#3811#3824#0" expanded="true" />
+                <element signature="e#3891#3900#0" expanded="true" />
+                <element signature="e#30074#30075#0" expanded="true" />
+                <element signature="e#30127#30128#0" expanded="true" />
+                <element signature="e#30172#30173#0" expanded="true" />
+                <element signature="e#30240#30241#0" expanded="true" />
+                <element signature="e#30278#30279#0" expanded="true" />
+                <element signature="e#30312#30313#0" expanded="true" />
+                <element signature="e#34764#34765#0" expanded="true" />
+                <element signature="e#34795#34796#0" expanded="true" />
+                <element signature="e#75294#75295#0" expanded="true" />
+                <element signature="e#75326#75327#0" expanded="true" />
+                <element signature="e#76725#76726#0" expanded="true" />
+                <element signature="e#76754#76755#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="782">
+              <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -56,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../as3 - Copy/networking/NPCcontroller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
+            <state relative-caret-position="782">
               <caret line="47" column="43" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
             </state>
           </provider>
@@ -74,7 +85,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
+            <state relative-caret-position="561">
               <caret line="61" selection-start-line="61" selection-end-line="61" />
             </state>
           </provider>
@@ -83,8 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="188" column="16" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
+            <state relative-caret-position="379">
+              <caret line="354" column="17" selection-start-line="354" selection-start-column="17" selection-end-line="354" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -128,9 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>playerModel</find>
-      <find>playerText</find>
-      <find>playerT</find>
       <find>player1Node</find>
       <find>addGhost</find>
       <find>load</find>
@@ -158,6 +166,9 @@
       <find>light</find>
       <find>shape</find>
       <find>spotlight</find>
+      <find>n</find>
+      <find>physics</find>
+      <find>main</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,7 +207,6 @@
         <option value="$PROJECT_DIR$/src/networking/SideSevenTurn.java" />
         <option value="$PROJECT_DIR$/src/networking/SideSeven.java" />
         <option value="$PROJECT_DIR$/src/networking/SideEightTurn.java" />
-        <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
         <option value="$PROJECT_DIR$/src/networking/SideEight.java" />
         <option value="$PROJECT_DIR$/src/networking/NPC.java" />
         <option value="$USER_HOME$/Dolphin Rover 2/a2/MyGame.java" />
@@ -206,11 +216,12 @@
         <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/src/networking/GameServerUDP.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" />
+        <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1490" />
     <option name="width" value="1522" />
     <option name="height" value="1932" />
@@ -258,6 +269,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="myGameEngine" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="as3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="networking" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -266,7 +283,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558038731343" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558053356081" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -288,7 +305,7 @@
     <configuration name="MyGame" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="myGame.MyGame" />
       <module name="A3" />
-      <option name="PROGRAM_PARAMETERS" value="192.168.1.106 700 c" />
+      <option name="PROGRAM_PARAMETERS" value="192.168.1.106 700 s" />
       <option name="VM_PARAMETERS" value="-Dsun.java2d.noddraw=true -Dsun.java2d.d3d=false" />
       <extension name="coverage">
         <pattern>
@@ -379,7 +396,7 @@
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.28659794" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.29072165" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -674,13 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/compile-server.bat">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -742,33 +752,46 @@
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame$MoveForwardAction.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
+    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="188" column="16" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
+        <state relative-caret-position="561">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/javagaming/javagaming/rage165/ray.jar!/ray/rage/scene/generic/GenericSkeletalEntity.class">
+    <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="379">
+          <caret line="354" column="17" selection-start-line="354" selection-start-column="17" selection-end-line="354" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="565" column="53" selection-start-line="565" selection-start-column="53" selection-end-line="565" selection-end-column="53" />
+        <state relative-caret-position="442">
+          <caret line="620" column="33" selection-start-line="620" selection-start-column="33" selection-end-line="620" selection-end-column="33" />
           <folding>
-            <element signature="e#4027#4040#0" expanded="true" />
-            <element signature="e#4107#4116#0" expanded="true" />
-            <element signature="e#38717#38718#0" expanded="true" />
-            <element signature="e#38751#38752#0" expanded="true" />
-            <element signature="e#43321#43322#0" expanded="true" />
-            <element signature="e#43352#43353#0" expanded="true" />
-            <element signature="e#92211#92212#0" expanded="true" />
-            <element signature="e#92243#92244#0" expanded="true" />
+            <element signature="e#3811#3824#0" expanded="true" />
+            <element signature="e#3891#3900#0" expanded="true" />
+            <element signature="e#30074#30075#0" expanded="true" />
+            <element signature="e#30127#30128#0" expanded="true" />
+            <element signature="e#30172#30173#0" expanded="true" />
+            <element signature="e#30240#30241#0" expanded="true" />
+            <element signature="e#30278#30279#0" expanded="true" />
+            <element signature="e#30312#30313#0" expanded="true" />
+            <element signature="e#34764#34765#0" expanded="true" />
+            <element signature="e#34795#34796#0" expanded="true" />
+            <element signature="e#75294#75295#0" expanded="true" />
+            <element signature="e#75326#75327#0" expanded="true" />
+            <element signature="e#76725#76726#0" expanded="true" />
+            <element signature="e#76754#76755#0" expanded="true" />
           </folding>
         </state>
       </provider>

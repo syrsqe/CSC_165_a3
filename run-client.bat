@@ -1,1 +1,1 @@
-java myGame.MyGame 10.117.247.10 700 c
+java -Dsun.java2d.noddraw=true -Dsun.java2d.d3d=false myGame.MyGame 10.117.247.10 700 c
