@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/networking/GameServerUDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/GameServerUDP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/networking/ProtocolClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/networking/ProtocolClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -87,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="290" column="43" lean-forward="true" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
+            <state relative-caret-position="774">
+              <caret line="342" column="5" lean-forward="true" selection-start-line="342" selection-start-column="5" selection-end-line="342" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -101,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="162" column="24" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="24" />
+            <state relative-caret-position="666">
+              <caret line="250" column="67" selection-start-line="250" selection-start-column="67" selection-end-line="250" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -123,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>innerLevel2LeftPieceBNode</find>
-      <find>objName</find>
       <find>build</find>
       <find>skybo</find>
       <find>makeshap</find>
@@ -149,10 +147,12 @@
       <find>AM</find>
       <find>n</find>
       <find>StartNPCsAction</find>
-      <find>shapeN</find>
       <find>am</find>
       <find>ambian</find>
       <find>light</find>
+      <find>shapeN</find>
+      <find>npc</find>
+      <find>start</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,8 +199,8 @@
         <option value="$PROJECT_DIR$/src/networking/GhostAvatar.java" />
         <option value="$PROJECT_DIR$/src/myGameEngine/PlayerController.java" />
         <option value="$PROJECT_DIR$/src/networking/NPCcontroller.java" />
-        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/src/myGame/MyGame.java" />
+        <option value="$PROJECT_DIR$/src/networking/ProtocolClient.java" />
         <option value="$PROJECT_DIR$/src/networking/GameServerUDP.java" />
       </list>
     </option>
@@ -268,7 +268,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558077180844" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558077678434" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -733,13 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="162" column="24" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/run-server.bat">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -769,10 +762,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/networking/ProtocolClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="250" column="67" selection-start-line="250" selection-start-column="67" selection-end-line="250" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/GameServerUDP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="290" column="43" lean-forward="true" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
+        <state relative-caret-position="774">
+          <caret line="342" column="5" lean-forward="true" selection-start-line="342" selection-start-column="5" selection-end-line="342" selection-end-column="5" />
         </state>
       </provider>
     </entry>

@@ -248,7 +248,7 @@ public class ProtocolClient extends GameConnectionClient {
     public void sendStartNPCMessage() {
         try {
            // System.out.println("sending move message to server");
-            String message = new String("startNPC,");
+            String message = new String("startNPC,"+ id.toString());
             sendPacket(message);
         } catch (IOException e) {
             e.printStackTrace();

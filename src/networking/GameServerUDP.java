@@ -90,9 +90,9 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
 
             if (msgTokens[0].compareTo("startNPC") == 0) {
-
+                UUID clientID = UUID.fromString(msgTokens[1]);
                 startNPCController();
-                sendStartPhysicsMessage();
+                sendStartPhysicsMessage(clientID);
             }
             if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
             {
@@ -322,14 +322,24 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
 
     }
 
-    public void sendStartPhysicsMessage(){
+    public void sendStartPhysicsMessage(UUID clientID){
 
+        String message = new String("startPhysics");
+        clientList = getClients();
+        clientEnum = clientList.keys();
+        while (clientEnum.hasMoreElements()) {
+            System.out.println("sending start physics message message for : " + clientID);
+            UUID nextClientID = (UUID) clientEnum.nextElement();
+
+            if (nextClientID.compareTo(clientID) != 0) {
                 try {
-                    String message = new String("startPhysics");
-                    sendPacketToAll(message);
+                    System.out.println("sending dance to: " + nextClientID);
+                    sendPacket(message, nextClientID);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        }
     }
 
     private void startNPCController(){
