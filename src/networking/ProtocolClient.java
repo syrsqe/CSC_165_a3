@@ -159,6 +159,10 @@ public class ProtocolClient extends GameConnectionClient {
 
 
             }
+            if (messageTokens[0].compareTo("startPhysics") == 0) {
+                game.setNpcStarted(true);
+
+            }
         }
 
     }

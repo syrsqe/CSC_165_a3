@@ -90,6 +90,7 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
             }
 
             if (msgTokens[0].compareTo("startNPC") == 0) {
+                sendStartPhysicsMessage();
                 startNPCController();
             }
             if (msgTokens[0].compareTo("win") == 0) // rec. �move...�
@@ -318,6 +319,16 @@ public class GameServerUDP extends GameConnectionServer<UUID> {
         }
 
 
+    }
+
+    public void sendStartPhysicsMessage(){
+
+                try {
+                    String message = new String("startPhysics");
+                    sendPacketToAll(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
     }
 
     private void startNPCController(){
