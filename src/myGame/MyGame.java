@@ -319,7 +319,7 @@ public class MyGame extends VariableFrameRateGame {
 
 
         // set up lights
-        //sm.getAmbientLight().setIntensity(new Color(.1f, .1f, .1f));
+        sm.getAmbientLight().setIntensity(new Color(.05f, .05f, .05f));
 
         Light plight1 = sm.createLight("Lamp1", Light.Type.POINT);
         plight1.setAmbient(new Color(.1f, .1f, .1f));
