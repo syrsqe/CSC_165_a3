@@ -439,6 +439,9 @@ public class MyGame extends VariableFrameRateGame {
         shapeN.scale(1.0f, 1.0f, 1.0f);
         shapeN.attachObject(shape);
         shapeN.setLocalPosition(Vector3f.createFrom(-1.05f, 5.65f, 0));
+        RotationController rcon = new RotationController(Vector3f.createUnitVectorY(), .02f);
+        sm.addController(rcon);
+        rcon.addNode(shapeN);
 
 
         if(networkType.equals("c")){

@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0265841d-da9b-47a3-999c-da1abc7e2c0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame$SendCloseConnectionPacketAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A3/myGame/MyGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myGame/MyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myGame/MyGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,20 +25,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="1720" column="69" selection-start-line="1720" selection-start-column="69" selection-end-line="1720" selection-end-column="69" />
+            <state relative-caret-position="304">
+              <caret line="530" selection-start-line="530" selection-end-line="530" />
               <folding>
                 <element signature="e#3854#3867#0" expanded="true" />
                 <element signature="e#3934#3943#0" expanded="true" />
-                <element signature="e#30608#30609#0" expanded="true" />
-                <element signature="e#30721#30722#0" expanded="true" />
-                <element signature="e#30793#30794#0" expanded="true" />
-                <element signature="e#35276#35277#0" expanded="true" />
+                <element signature="e#30764#30765#0" expanded="true" />
+                <element signature="e#30877#30878#0" expanded="true" />
+                <element signature="e#30949#30950#0" expanded="true" />
+                <element signature="e#35432#35433#0" expanded="true" />
                 <element signature="e#75753#75754#0" expanded="true" />
                 <element signature="e#75785#75786#0" expanded="true" />
                 <element signature="e#78223#78224#0" expanded="true" />
                 <element signature="e#78252#78253#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-688">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -66,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5508">
-              <caret line="354" column="37" lean-forward="true" selection-start-line="354" selection-start-column="37" selection-end-line="354" selection-end-column="37" />
+            <state relative-caret-position="315">
+              <caret line="141" column="46" lean-forward="true" selection-start-line="141" selection-start-column="38" selection-end-line="141" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -111,8 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>catch</find>
-      <find>setGhost</find>
       <find>move</find>
       <find>dfm</find>
       <find>walls</find>
@@ -141,6 +146,8 @@
       <find>twinkleSound</find>
       <find>update</find>
       <find>ball2</find>
+      <find>AM</find>
+      <find>shapeN</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -256,7 +263,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558073412441" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558074276215" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -366,10 +373,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
-    <editor active="true" />
+    <frame x="1280" y="0" width="1280" height="1440" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.25596184" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49771166" visible="true" weight="0.52786887" />
       <window_info id="Structure" order="1" sideWeight="0.50228834" side_tool="true" weight="0.28032786" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -378,14 +384,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65081966" visible="true" weight="0.23791541" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65081966" visible="true" weight="0.24082568" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49918032" weight="0.3975535" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32858837" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.34918034" side_tool="true" weight="0.23623854" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32740214" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.34163702" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49836066" weight="0.3409786" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4967213" weight="0.31079477" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -734,29 +740,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGameEngine/PlayerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5508">
-          <caret line="354" column="37" lean-forward="true" selection-start-line="354" selection-start-column="37" selection-end-line="354" selection-end-column="37" />
+        <state relative-caret-position="315">
+          <caret line="141" column="46" lean-forward="true" selection-start-line="141" selection-start-column="38" selection-end-line="141" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/networking/NPCcontroller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+        <state relative-caret-position="-688">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myGame/MyGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="1720" column="69" selection-start-line="1720" selection-start-column="69" selection-end-line="1720" selection-end-column="69" />
+        <state relative-caret-position="304">
+          <caret line="530" selection-start-line="530" selection-end-line="530" />
           <folding>
             <element signature="e#3854#3867#0" expanded="true" />
             <element signature="e#3934#3943#0" expanded="true" />
-            <element signature="e#30608#30609#0" expanded="true" />
-            <element signature="e#30721#30722#0" expanded="true" />
-            <element signature="e#30793#30794#0" expanded="true" />
-            <element signature="e#35276#35277#0" expanded="true" />
+            <element signature="e#30764#30765#0" expanded="true" />
+            <element signature="e#30877#30878#0" expanded="true" />
+            <element signature="e#30949#30950#0" expanded="true" />
+            <element signature="e#35432#35433#0" expanded="true" />
             <element signature="e#75753#75754#0" expanded="true" />
             <element signature="e#75785#75786#0" expanded="true" />
             <element signature="e#78223#78224#0" expanded="true" />
